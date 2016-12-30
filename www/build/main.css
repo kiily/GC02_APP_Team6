@@ -1,4 +1,10 @@
 @charset "UTF-8";
+.background {
+  background-image: url("/assets/img/doc-x1280-2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /*!
   Ionicons, v3.0.0-alpha.3
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .background {
-  background-image: url("/assets/img/doc-x1280-2.jpg");
+  background-image: url("../assets/images/doc-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }

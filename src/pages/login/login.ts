@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { SignupPage } from '../signup/signup';
+
 /*
   Generated class for the Login page.
 
@@ -23,6 +25,10 @@ export class LoginPage {
 
   signInBtnTouched(){
     this.navCtrl.setRoot(HomePage);
+  }
+
+  createAccountBtnTouched(){
+    this.navCtrl.setRoot(SignupPage);
   }
 
 }

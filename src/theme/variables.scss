@@ -18,6 +18,27 @@ $font-path: "../assets/fonts";
     background-size:cover;
 }
 
+.title-colour-test{
+  color: #FFFFFF;
+}
+
+.signup-page {
+
+  .slide-zoom {
+    height: 100%;
+  }
+
+  .font-size {
+    font-size: 11px;
+  }
+
+}
+
+$control-height: 0px;
+.padding-top-brian {
+  padding-top: $control-height+150;
+}
+
 
 // Named Color Variables
 // --------------------------------------------------

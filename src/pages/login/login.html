@@ -6,12 +6,13 @@
 </ion-header> -->
 
 <ion-content text-center padding class="background">
-  <p></p>
-  <h2>Welcome to Blood Test App!</h2>
+
+  <h2 class="title-colour-test">Welcome to Blood Test App!</h2>
 
   <p></p>
-  <p></p>
-  <ion-list no-lines>
+  <!-- <br><br><br><br><br><br><br><br> -->
+
+  <ion-list no-lines class="padding-top-brian">
   <ion-item>
     <ion-label>
       <ion-icon name="mail"></ion-icon>
@@ -25,12 +26,11 @@
       </ion-label>
     <ion-input type="password" placeholder="Password"></ion-input>
   </ion-item>
+
+  <!-- <button ion-button full [navPush]="HomePage">Sign In</button> -->
+  <button ion-button full (click)='signInBtnTouched();' ion->Sign In</button>
+  <button ion-button full (click)='createAccountBtnTouched();' ion->Create New Account</button>
   </ion-list>
-  <p></p>
-  <div padding>
-    <button ion-button full [navPush]="aboutPage">Sign In</button>
-    <!-- <button ion-button [color]='light' (click)='signInBtnTouched();' ion->Sign In</button> -->
-    <button ion-button full [navPush]="aboutPage">Create New Account</button>
-  </div>
+
 
 </ion-content>

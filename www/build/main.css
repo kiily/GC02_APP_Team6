@@ -5,6 +5,22 @@
   background-size: cover;
 }
 
+.title-colour-test {
+  color: #FFFFFF;
+}
+
+.signup-page .slide-zoom {
+  height: 100%;
+}
+
+.signup-page .font-size {
+  font-size: 11px;
+}
+
+.padding-top-brian {
+  padding-top: 150px;
+}
+
 /*!
   Ionicons, v3.0.0-alpha.3
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

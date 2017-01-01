@@ -9,8 +9,20 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
 
+  items = [
+  'TSH',
+  'HgA1C',
+  'Haemoglobin',
+  'Cholesterol',
+  'LFTs (albumin)'
+];
+
   constructor(public navCtrl: NavController) {
 
+  }
+
+  itemSelected(item: string) {
+    console.log("Selected Item", item);
   }
 
   cancelNewUser(){

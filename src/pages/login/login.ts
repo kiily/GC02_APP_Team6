@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 import { SignupPage } from '../signup/signup';
@@ -31,7 +31,7 @@ export class LoginPage {
   
   
   constructor(public navCtrl: NavController, public af : AngularFire, public formBuilder:FormBuilder,
-  public alertCtrl : AlertController) {
+  public alertCtrl : AlertController, public loadingCtrl : LoadingController) {
 
 //the validator ensures this doesn't work if no value is entered
     this.loginForm = formBuilder.group({

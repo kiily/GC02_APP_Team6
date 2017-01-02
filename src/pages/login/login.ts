@@ -42,6 +42,24 @@ export class LoginPage {
     });
 
   }
+  
+    signUpBtn(){
+    //this.navCtrl.setRoot(SignupPage);
+    this.navCtrl.push(SignupPage);
+  }
+
+  // loading animation
+  presentLoadingDefault() {
+  let loading = this.loadingCtrl.create({
+    content: 'Signing in...'
+  });
+
+  loading.present();
+
+  setTimeout(() => {
+    loading.dismiss();
+  }, 800);
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -70,6 +88,8 @@ export class LoginPage {
 
 //pressing the sign-up button
   login(){
+    
+    this.presentLoadingDefault();
      
     let email = this.loginForm.controls.email.value;
     let password = this.loginForm.controls.password.value;
@@ -87,7 +107,9 @@ export class LoginPage {
     })//redirect to page inside the promise
     .then(authState =>  {
     console.log("LOGIN-THEN", authState);
-    this.navCtrl.setRoot(HomePage)
+      
+    // Brian: This was changed to push so the sign out button could pop back to login - thoughts?
+    this.navCtrl.push(HomePage);
     })
     .catch(error => {
     console.log("LOGIN-ERROR", error);
@@ -133,7 +155,7 @@ export class LoginPage {
 
 //for email : password auth
   register() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push("SignupPage");
   //   this.af.auth.createUser({
   //     email: "miguelmarin95@hotmail.com",
   //     //by default firebase makes passwords be at least 6 characters

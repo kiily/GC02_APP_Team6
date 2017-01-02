@@ -13,16 +13,33 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 .background-photo{
-    background-image: url('../assets/images/doc-background.jpg');
+    background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url('../assets/images/doc-background.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
 
 .toolbar-background {
-  background-color: #387ef5;
+  background-color: #0099FF;
 }
 .ion-content-test {
-  background-color: #387ef5;
+  background-image:
+  linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ),
+  url('../assets/images/doc-background.jpg');
+  background-repeat: no-repeat;
+  background-size:cover;
+
+  .swiper-pagination-bullet
+  {
+    border: 2px solid white;
+  }
 }
 
 .title-colour-test{
@@ -30,6 +47,19 @@ $font-path: "../assets/fonts";
 }
 
 .signup-page {
+  background-image:
+  linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ),
+  url('../assets/images/doc-background.jpg');
+  background-repeat: no-repeat;
+  background-size:cover;
+
+  .swiper-pagination-bullet
+  {
+    border: 2px solid white;
+  }
 
   .slide-zoom {
     height: 100%;
@@ -70,7 +100,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  nhs:        #0099FF,
 );
 
 
@@ -118,3 +149,4 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+

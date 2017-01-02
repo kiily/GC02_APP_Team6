@@ -18,6 +18,8 @@ export class TestHistoryPage {
 
   currentUID;
 
+  loadProgress : number = 50;
+
   data: Array<{testType: string, date: string, status :string, details: string, icon: string, showDetails: boolean}> = [];
 
   //tests : FirebaseListObservable<any[]>;
@@ -47,7 +49,10 @@ export class TestHistoryPage {
         //this.tests = this.af.database.object('/users/'+uid+'/testHistory');
       });
 
-      this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory').map(tests =>{
+console.log('currentUID: '+this.currentUID);
+
+      this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory')
+    .map(tests =>{
        console.log("AFTER MAP", tests);
 
        for(let test of tests){
@@ -62,13 +67,11 @@ export class TestHistoryPage {
         });
       
        }
+
       return tests;
       });
      
-
-     
-      
- 
+    
     
         
   }
@@ -82,6 +85,16 @@ export class TestHistoryPage {
         data.showDetails = true;
         data.icon = 'remove';
     }
+
+     //allows to make the progress bar
+    //  setInterval(() => {
+
+    //    if(this.loadProgress <100){
+    //      this.loadProgress++;
+    //    }
+
+
+    //  }, 50);
 
 
   }

@@ -12,19 +12,22 @@
 
 </ion-header>
 
+<!--Asynchronous pipe allows the whole page to be rendered-->
+<p *ngFor="let test of tests | async"></p>
 
 <ion-content padding>
  <ion-list>
-    <div *ngFor="let d of data">
+      <div *ngFor="let d of data">
+        
     <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="primary" item-left [name]="d.icon"></ion-icon>
-      {{d.testType}}   {{d.date}}
-      <div class="accordion" *ngIf="d.showDetails">{{d.details}}</div>
+      {{d.testType}}    {{d.date}}
+      <div class="accordion" *ngIf="d.showDetails">
+        <progress-bar [progress]="loadProgress"></progress-bar>
+      </div>
     </ion-item>
+      
     </div>
  </ion-list>
 
 
-<ul>
-  <li *ngFor="let test of tests | async">{{test.date}}</li>
-</ul>
 </ion-content>

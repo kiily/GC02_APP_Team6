@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+
+import { SignupPage } from '../signup/signup';
+
 import { AngularFire, AuthMethods, AuthProviders, FirebaseListObservable} from 'angularfire2';
 import { FormBuilder, Validators, } from '@angular/forms';
+
 
 
 
@@ -123,6 +127,7 @@ export class LoginPage {
   
     
   }
+
 
 
 

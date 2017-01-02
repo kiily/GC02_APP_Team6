@@ -12,10 +12,48 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-.background{
+.background-photo{
     background-image: url('../assets/images/doc-background.jpg');
     background-repeat: no-repeat;
     background-size:cover;
+}
+
+.toolbar-background {
+  background-color: #387ef5;
+}
+.ion-content-test {
+  background-color: #387ef5;
+}
+
+.title-colour-test{
+  color: #FFFFFF;
+}
+
+.signup-page {
+
+  .slide-zoom {
+    height: 100%;
+  }
+
+  .font-size {
+    font-size: 11px;
+  }
+}
+
+.avatar-size-center  {
+    width: 100% !important;
+    height : 100% !important;
+    max-width: 200px !important;  //any size
+    max-height: 200px !important; //any size
+
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+$control-height: 0px;
+.padding-top-brian {
+  padding-top: $control-height+150;
 }
 
 

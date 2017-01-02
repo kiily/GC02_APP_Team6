@@ -133,44 +133,48 @@ export class LoginPage {
 
 //for email : password auth
   register() {
-    this.af.auth.createUser({
-      email: "miguelmarin95@hotmail.com",
-      //by default firebase makes passwords be at least 6 characters
-      //we should make an alert to show this
-      password: "password"
+    this.navCtrl.push("SignupPage");
+  //   this.af.auth.createUser({
+  //     email: "miguelmarin95@hotmail.com",
+  //     //by default firebase makes passwords be at least 6 characters
+  //     //we should make an alert to show this
+  //     password: "password"
 
       
       
-      //resolve promise and catch errors in registration, if any
-    }).then(authState => {
-      //send email verification
-      //authState.auth.sendEmailVerification();
+  //     //resolve promise and catch errors in registration, if any
+  //   }).then(authState => {
+  //     //send email verification
+  //     //authState.auth.sendEmailVerification();
       
-      let uid = authState.uid;
+  //     let uid = authState.uid;
       
-      console.log(uid);
+  //     console.log(uid);
 
-      this.users = this.af.database.list('/users/'+uid);
+  //     this.users = this.af.database.list('/users/'+uid);
       
-      this.af.database.object('/users/'+uid).update({
+  //     this.af.database.object('/users/'+uid).update({
         
-      firstname: "Miguel",
-      lastname: "Marin",
-      email: "miguelmarin95@hotmail.com",
-      numberGP: 7889
+  //     firstname: "Miguel",
+  //     lastname: "Marin",
+  //     email: "miguelmarin95@hotmail.com",
+  //     numberGP: 7889
 
-      });
+  //     });
           
       
-    })
-    .catch(error => {
+  //   })
+  //   .catch(error => {
     
     
-   console.log("REGISTER ERROR", error);
-    });
+  //  console.log("REGISTER ERROR", error);
+  //   });
 
 
   }
+
+
+
 
 //prompts the user for their email if they want to reset the password
 //this method could probably go into a Firebase provider

@@ -133,7 +133,7 @@ export class LoginPage {
 
 //for email : password auth
   register() {
-    this.navCtrl.push("SignupPage");
+    this.navCtrl.push(SignupPage);
   //   this.af.auth.createUser({
   //     email: "miguelmarin95@hotmail.com",
   //     //by default firebase makes passwords be at least 6 characters

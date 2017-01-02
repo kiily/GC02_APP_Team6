@@ -18,20 +18,23 @@ export class TestHistoryPage {
 
   currentUID;
 
-  data: Array<{title: string, details: string, icon: string, showDetails: boolean}> = [];
+  data: Array<{testType: string, date: string, status :string, details: string, icon: string, showDetails: boolean}> = [];
 
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public af : AngularFire) {
-     for(let i = 0; i < 3; i++ ){
-      this.data.push({
-          title: 'Title '+i,
-          details: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-          icon: "add",
-          showDetails: false
-        });
-    }
+    //  for(let i = 0; i < 3; i++ ){
+    //   this.data.push({
+    //       testType: 'Title '+i,
+    //       date: '222',
+    //       status: 'pending',
+    //       details: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    //       icon: "add",
+    //       showDetails: false
+    //     });
+    // }
   }
 
   ionViewDidLoad() {
@@ -44,8 +47,27 @@ export class TestHistoryPage {
         //this.tests = this.af.database.object('/users/'+uid+'/testHistory');
       });
 
-      this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory');
-      console.log("BEFORE MAP", this.tests);
+      this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory').map(tests =>{
+       console.log("AFTER MAP", tests);
+
+       for(let test of tests){
+
+        this.data.push({
+          testType: test.type,
+          date: test.date,
+          status: test.status,
+          details: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          icon: "add",
+          showDetails: false
+        });
+      
+       }
+      return tests;
+      });
+     
+
+     
+      
  
     
         

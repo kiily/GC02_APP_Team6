@@ -17,10 +17,14 @@
  <ion-list>
     <div *ngFor="let d of data">
     <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="primary" item-left [name]="d.icon"></ion-icon>
-      {{d.title}}
+      {{d.testType}}   {{d.date}}
       <div class="accordion" *ngIf="d.showDetails">{{d.details}}</div>
     </ion-item>
     </div>
-  </ion-list>
+ </ion-list>
 
+
+<ul>
+  <li *ngFor="let test of tests | async">{{test.date}}</li>
+</ul>
 </ion-content>

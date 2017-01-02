@@ -29,6 +29,10 @@ export class HomePage {
     this.navCtrl.setRoot(LoginPage);
   }
 
+signOutBtn(){
+    this.navCtrl.popToRoot();
+  }
+
 goToTestHistory(){
   this.navCtrl.push(TestHistoryPage);
 }

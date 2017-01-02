@@ -1,11 +1,10 @@
 <ion-content class = "signup-page">
 <ion-slides #swipes [options]="mySlideOptions">
-    <ion-slide>
+    <ion-slide color="nhs">
 
-      <button ion-button [color]='light' (click)='cancelNewUser();' ion->Cancel</button>
       <h1>Slide 1</h1>
 
-      <ion-list>
+      <ion-list padding>
         <ion-item>
           <ion-label fixed>First</ion-label>
           <ion-input type="text" value=""></ion-input>
@@ -37,6 +36,8 @@
 
       </ion-list>
 
+      <button ion-button color="nhs" (click)='cancelNewUser();' ion->Cancel</button>
+
     </ion-slide>
     <ion-slide>
       <h1>Slide 2</h1>
@@ -57,10 +58,13 @@
           <ion-input type="password"></ion-input>
         </ion-item>
 
+        <button ion-button full color="nhs" (click)="signUpBtn()">Sign Up</button>
+
       </ion-list>
     </ion-slide>
-    <ion-slide>
+
+    <!-- <ion-slide>
       <h1>Slide 3</h1>
-    </ion-slide>
+    </ion-slide> -->
 </ion-slides>
 </ion-content>

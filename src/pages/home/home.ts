@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -8,8 +9,24 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  items = [
+  'TSH',
+  'HgA1C',
+  'Haemoglobin',
+  'Cholesterol',
+  'LFTs (albumin)'
+];
+
   constructor(public navCtrl: NavController) {
-    
+
+  }
+
+  itemSelected(item: string) {
+    console.log("Selected Item", item);
+  }
+
+  cancelNewUser(){
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

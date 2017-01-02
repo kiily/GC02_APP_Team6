@@ -1,14 +1,24 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
+    <ion-title text-center class="toolbar-background">
+      <p class="title-colour-test">Home</p>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <button ion-button [color]='light' (click)='cancelNewUser();' ion->Change to SignOut</button>
+
+  <ion-item>
+    <ion-avatar>
+      <img class="avatar-size-center" src="assets/images/default-user-grey.png">
+    </ion-avatar>
+  </ion-item>
+
+  <ion-list>
+    <button ion-item color="primary" *ngFor="let item of items" (click)="itemSelected(item)">
+      <ion-icon name="flask"></ion-icon>
+    {{ item }}
+    </button>
+  </ion-list>
 </ion-content>

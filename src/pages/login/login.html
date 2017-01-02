@@ -5,17 +5,19 @@
   </ion-navbar>
 </ion-header> -->
 
-<ion-content text-center padding class="background">
-  <p></p>
-  <h2>Welcome to Blood Test App!</h2>
+<ion-content text-center padding class="background-photo">
+
+  <h2 class="title-colour-test">Welcome to Blood Test App!</h2>
 
   <p></p>
+
   <p></p>
 
 
  <!-- <ion-list no-lines> -->
 
   <form [formGroup]="loginForm" (submit)="login()">
+
   <ion-item>
     <ion-label>
       <ion-icon name="mail"></ion-icon>
@@ -30,10 +32,8 @@
     <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
   </ion-item>
 
- 
 
   <!-- </ion-list> -->
-
 
 
   <p></p>
@@ -49,9 +49,5 @@
     <button ion-button full (click)="register()">Create New Account</button>
 
   </div>
-  
-
-
-
 
 </ion-content>

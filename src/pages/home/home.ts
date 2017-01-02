@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import {TestHistoryPage} from "../test-history/test-history";
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 
@@ -28,5 +28,9 @@ export class HomePage {
   cancelNewUser(){
     this.navCtrl.setRoot(LoginPage);
   }
+
+goToTestHistory(){
+  this.navCtrl.push(TestHistoryPage);
+}
 
 }

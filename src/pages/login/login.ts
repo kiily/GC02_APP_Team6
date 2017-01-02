@@ -45,9 +45,19 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-
-    //creates users node in database
     this.users = this.af.database.list('/users');
+
+    // this.af.auth.subscribe(authState => {
+    //     if(!authState){
+    //       console.log("USER NO LOGGED IN")
+    //     }else{
+
+    //       let uid = authState.uid;
+    //        //creates users node in database
+    //     this.users = this.af.database.list('/users/'+uid);
+    //     }
+    // });
+  
     // //subscribe returns an obe=servable
     // this.af.auth.subscribe(authState => {
       
@@ -140,17 +150,17 @@ export class LoginPage {
       
       console.log(uid);
 
-     
-     this.users.push({
-
-      userId: uid,
+      this.users = this.af.database.list('/users/'+uid);
+      
+      this.af.database.object('/users/'+uid).update({
+        
       firstname: "Miguel",
       lastname: "Marin",
       email: "miguelmarin95@hotmail.com",
       numberGP: 7889
 
-    });
-      
+      });
+          
       
     })
     .catch(error => {

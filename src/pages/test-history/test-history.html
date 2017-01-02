@@ -7,12 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>TestHistory</ion-title>
+    <ion-title>Test History</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+ <ion-list>
+    <div *ngFor="let d of data">
+    <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="primary" item-left [name]="d.icon"></ion-icon>
+      {{d.title}}
+      <div class="accordion" *ngIf="d.showDetails">{{d.details}}</div>
+    </ion-item>
+    </div>
+  </ion-list>
 
 </ion-content>

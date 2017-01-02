@@ -25,9 +25,7 @@ export class HomePage {
     console.log("Selected Item", item);
   }
 
-  cancelNewUser(){
-    this.navCtrl.setRoot(LoginPage);
-  }
+  
 
 signOutBtn(){
     this.navCtrl.popToRoot();

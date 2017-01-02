@@ -153,47 +153,10 @@ export class LoginPage {
 
 
 
-//for email : password auth
+//change to sign-up page
   register() {
     this.navCtrl.push(SignupPage);
-  //   this.af.auth.createUser({
-  //     email: "miguelmarin95@hotmail.com",
-  //     //by default firebase makes passwords be at least 6 characters
-  //     //we should make an alert to show this
-  //     password: "password"
-
-      
-      
-  //     //resolve promise and catch errors in registration, if any
-  //   }).then(authState => {
-  //     //send email verification
-  //     //authState.auth.sendEmailVerification();
-      
-  //     let uid = authState.uid;
-      
-  //     console.log(uid);
-
-  //     this.users = this.af.database.list('/users/'+uid);
-      
-  //     this.af.database.object('/users/'+uid).update({
-        
-  //     firstname: "Miguel",
-  //     lastname: "Marin",
-  //     email: "miguelmarin95@hotmail.com",
-  //     numberGP: 7889
-
-  //     });
-          
-      
-  //   })
-  //   .catch(error => {
-    
-    
-  //  console.log("REGISTER ERROR", error);
-  //   });
-
-
-  }
+   }
 
 
 

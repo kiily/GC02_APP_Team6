@@ -5,32 +5,49 @@
   </ion-navbar>
 </ion-header> -->
 
-<ion-content text-center padding class="background">
-  <p></p>
-  <h2>Welcome to Blood Test App!</h2>
+<ion-content text-center padding class="background-photo">
+
+  <h2 class="title-colour-test">Welcome to Blood Test App!</h2>
 
   <p></p>
+
   <p></p>
-  <ion-list no-lines>
+
+
+ <!-- <ion-list no-lines> -->
+
+  <form [formGroup]="loginForm" (submit)="login()">
+
   <ion-item>
     <ion-label>
       <ion-icon name="mail"></ion-icon>
       </ion-label>
-    <ion-input type="text" placeholder="Email"></ion-input>
+    <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>
       <ion-icon name="lock"></ion-icon>
       </ion-label>
-    <ion-input type="password" placeholder="Password"></ion-input>
+    <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
   </ion-item>
-  </ion-list>
+
+
+  <!-- </ion-list> -->
+
+
   <p></p>
   <div padding>
-    <button ion-button full [navPush]="aboutPage">Sign In</button>
-    <!-- <button ion-button [color]='light' (click)='signInBtnTouched();' ion->Sign In</button> -->
-    <button ion-button full [navPush]="aboutPage">Create New Account</button>
+    <!--<button ion-button full [navPush]="aboutPage">Sign In</button>-->
+    <button ion-button full type="submit" [color]='light' [disabled]="!loginForm.valid">Sign In</button>
+  </div>
+   </form>
+   
+   <div padding>
+    <!--<button ion-button full [navPush]="aboutPage">Create New Account</button>
+    I commented the above out temporarily so that I could get Auth to work-->
+    <button ion-button full (click)="register()">Create New Account</button>
+
   </div>
 
 </ion-content>

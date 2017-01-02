@@ -1,18 +1,76 @@
-<!--
-  Generated template for the Signup page.
+<ion-content class = "signup-page">
+<ion-slides #swipes [options]="mySlideOptions">
+    <ion-slide color="nhs">
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+      <h1 color="light">Personal</h1>
 
-  <ion-navbar>
-    <ion-title>Signup</ion-title>
-  </ion-navbar>
+      <ion-list inset>
+        <ion-item>
+          <ion-label>First:</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
 
-</ion-header>
+        <ion-item>
+          <ion-label>Last:</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
 
+        <ion-item>
+              <ion-label>Gender:</ion-label>
+              <ion-select [(ngModel)]="gender">
+                <ion-option value="f">Female</ion-option>
+                <ion-option value="m">Male</ion-option>
+              </ion-select>
+        </ion-item>
 
-<ion-content padding>
+        <ion-item>
+          <ion-label>D.O.B:</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate">
+          </ion-datetime>
+        </ion-item>
 
+        <!-- <ion-item>
+          <ion-label fixed>GP Number</ion-label>
+          <ion-input type="text" placeholder="Optional"></ion-input>
+        </ion-item> -->
+
+      </ion-list>
+
+      <!-- align to the bottom of the page -->
+    <div style="position: absolute; bottom: 40px; width: 100%">
+        <div style="text-align: center">
+          <button ion-button clear color="light" (click)='cancelNewUser();' ion->Cancel</button>
+        </div>
+    </div>
+
+    </ion-slide>
+    <ion-slide>
+      <h1 color="light">Login Details</h1>
+      <ion-list inset>
+        <ion-item>
+          <ion-label>
+            Email:</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Password:</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Confirm:</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <!-- THIS SIGN UP BUTTON IS FOR YOU TO BUILD INTO FIREBASE -->
+        <button ion-button full color="nhs" (click)="signUpBtn()">Sign Up</button>
+
+      </ion-list>
+    </ion-slide>
+
+    <!-- <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide> -->
+</ion-slides>
 </ion-content>

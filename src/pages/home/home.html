@@ -1,15 +1,19 @@
 <ion-header>
-  <ion-navbar>
-
-    <ion-title>Ionic Blank</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="goToTestHistory()">
-        <ion-icon name="flask"></ion-icon>Test History</button>
-    </ion-buttons>
+<ion-navbar hideBackButton="true">
+    <button ion-button color="light" menuToggle (click)="signOutBtn()">
+      Sign Out
+      <!-- <ion-icon name="log-out"></ion-icon> -->
+    </button>
 
     <ion-title text-center class="toolbar-background">
       <p class="title-colour-test">Home</p>
     </ion-title>
+
+    <ion-buttons end>
+      <button ion-button color="light" (click)="goToTestHistory()">
+        <ion-icon name="flask-outline"></ion-icon>
+      </button>
+    </ion-buttons>
 
   </ion-navbar>
 </ion-header>

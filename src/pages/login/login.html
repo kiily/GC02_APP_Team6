@@ -10,27 +10,44 @@
   <h2 class="title-colour-test">Welcome to Blood Test App!</h2>
 
   <p></p>
-  <!-- <br><br><br><br><br><br><br><br> -->
 
-  <ion-list no-lines class="padding-top-brian">
+  <p></p>
+
+
+ <!-- <ion-list no-lines> -->
+
+  <form [formGroup]="loginForm" (submit)="login()">
+
   <ion-item>
     <ion-label>
       <ion-icon name="mail"></ion-icon>
       </ion-label>
-    <ion-input type="text" placeholder="Email"></ion-input>
+    <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>
       <ion-icon name="lock"></ion-icon>
       </ion-label>
-    <ion-input type="password" placeholder="Password"></ion-input>
+    <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
   </ion-item>
 
-  <!-- <button ion-button full [navPush]="HomePage">Sign In</button> -->
-  <button ion-button full (click)='signInBtnTouched();' ion->Sign In</button>
-  <button ion-button full (click)='createAccountBtnTouched();' ion->Create New Account</button>
-  </ion-list>
 
+  <!-- </ion-list> -->
+
+
+  <p></p>
+  <div padding>
+    <!--<button ion-button full [navPush]="aboutPage">Sign In</button>-->
+    <button ion-button full type="submit" [color]='light' [disabled]="!loginForm.valid">Sign In</button>
+  </div>
+   </form>
+   
+   <div padding>
+    <!--<button ion-button full [navPush]="aboutPage">Create New Account</button>
+    I commented the above out temporarily so that I could get Auth to work-->
+    <button ion-button full (click)="register()">Create New Account</button>
+
+  </div>
 
 </ion-content>

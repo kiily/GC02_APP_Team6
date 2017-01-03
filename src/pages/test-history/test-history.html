@@ -23,6 +23,9 @@
       {{d.testType}}    {{d.date}}
       <div class="accordion" *ngIf="d.showDetails">
         <progress-bar [progress]="loadProgress"></progress-bar>
+        <div>
+          <button ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
+        </div>
       </div>
     </ion-item>
       

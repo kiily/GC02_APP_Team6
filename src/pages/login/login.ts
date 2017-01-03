@@ -107,7 +107,8 @@ export class LoginPage {
     })//redirect to page inside the promise
     .then(authState =>  {
     console.log("LOGIN-THEN", authState);
-      
+    
+    this.loginForm.reset();
     // Brian: This was changed to push so the sign out button could pop back to login - thoughts?
     this.navCtrl.push(HomePage);
     })
@@ -156,6 +157,7 @@ export class LoginPage {
 //change to sign-up page
   register() {
     this.navCtrl.push(SignupPage);
+    
    }
 
 

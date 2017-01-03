@@ -11,7 +11,7 @@
 
     <ion-buttons end>
       <button ion-button color="light" (click)="goToTestHistory()">
-        <ion-icon name="flask"></ion-icon>
+        <ion-icon name="flask"></ion-icon>History
       </button>
     </ion-buttons>
 
@@ -27,10 +27,14 @@
     </ion-avatar>
   </ion-item>
 
+<div>
+  <p>Select a blood test from the options below:</p>
+</div>
+
   <ion-list>
-    <button ion-item color="primary" *ngFor="let item of items" (click)="itemSelected(item)">
+    <button ion-item color="primary" *ngFor="let test of tests | async" (click)="registerTest(test)">
       <ion-icon name="flask"></ion-icon>
-    {{ item }}
+      {{test.$key}}
     </button>
   </ion-list>
 </ion-content>

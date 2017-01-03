@@ -3,7 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { LoginPage } from '../login/login';
-import { FormBuilder, Validators, } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 /*
   Generated class for the Signup page.
@@ -83,6 +83,10 @@ users: FirebaseListObservable<any []>;
       this.presentSignUpAlert();
       let uid = authState.uid;
       
+
+      //this seems a bit clumsy inside the auth state part
+      //consider moving it outside and creating a class variables
+      //for current uid
       console.log(uid);
 
       this.users = this.af.database.list('/users/'+uid);
@@ -94,8 +98,8 @@ users: FirebaseListObservable<any []>;
       let numberGP = this.signUpForm.controls.numberGP.value;
 
       console.log(firstname);
-      console.log(email)
-;
+      console.log(email);
+
       this.af.database.object('/users/'+uid).update({
         
       firstname: firstname,

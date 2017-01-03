@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {AngularFire } from 'angularfire2';
 
 /*
   Generated class for the Info page.
@@ -13,10 +14,33 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class InfoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+
+testType;
+
+test; 
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire) {
+    this.testType = this.navParams.get("testType");
+
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InfoPage');
-  }
+    console.log("info test type", this.testType);
+
+   this.test = this.af.database.object("/bloodTests/"+this.testType);
+   // console.log("yep logging stuff",this.tests.$value);
+//    this.testExists.subscribe(x => {
+// //if x exists and x.$value is truthy
+//      if(x && x.$value){
+//        console.log("EXISTS",x);
+
+     }
+     
+
+
+//idea did not work
 
 }

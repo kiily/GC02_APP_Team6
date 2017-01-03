@@ -14,5 +14,17 @@
 
 
 <ion-content padding>
+  
+<div *ngIf="testType === 'TSH'">
+  <!--<div *ngIf="testType == TSH">-->
+    
+    <p>This should only appear if the test is TSH</p>
+
+  <h2>Hi PatientName!!</h2>
+
+{{ (test | async)?.description}}
+
+  
+</div>
 
 </ion-content>

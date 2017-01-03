@@ -18,12 +18,12 @@
       
         <ion-item>
          <ion-label>Firstname*:</ion-label>
-          <ion-input formControlName="firstname" type="text"></ion-input>
+          <ion-input formControlName="firstname" type="text" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Lastname*:</ion-label>
-          <ion-input formControlName ="lastname" type="text"></ion-input>
+          <ion-input formControlName ="lastname" type="text" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
@@ -42,7 +42,7 @@
 
         <ion-item>
           <ion-label fixed>GP Number</ion-label>
-          <ion-input type="text" formControlName="numberGP" value="+44 "></ion-input>
+          <ion-input type="tel" formControlName="numberGP" value="+44 "></ion-input>
         </ion-item>
 
       </form>
@@ -51,26 +51,26 @@
     </ion-slide>
     <ion-slide>
 
-<form [formGroup]="signUpForm" (submit)="registerNewUser()">
+<form [formGroup]="signUpForm">
       <h1 color="light">Login Details</h1>
       <ion-list inset>
         <ion-item>
           <ion-label>Email*:</ion-label>
-          <ion-input formControlName="email" type="text" value=""></ion-input>
+          <ion-input formControlName="email" type="text" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Password*:</ion-label>
-          <ion-input formControlName="password" type="password"></ion-input>
+          <ion-input formControlName="password" type="password" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Confirm*:</ion-label>
-          <ion-input formControlName="passwordRepeat"  type="password"></ion-input>
+          <ion-input formControlName="passwordRepeat"  type="password" clearInput></ion-input>
         </ion-item>
 
         <!-- THIS SIGN UP BUTTON IS FOR YOU TO BUILD INTO FIREBASE -->
-        <button ion-button full type="submit" color="nhs" [disabled]="!signUpForm.valid">Sign Up</button>
+        <button ion-button full (click)="registerNewUser()" color="nhs" [disabled]="!signUpForm.valid">Sign Up</button>
 
       </ion-list>
 

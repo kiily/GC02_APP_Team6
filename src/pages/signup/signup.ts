@@ -61,7 +61,7 @@ users: FirebaseListObservable<any []>;
 @ViewChild('swipes') slider: Slides;
 
   cancelNewUser(){
-    this.navCtrl.setRoot(LoginPage);
+    this.navCtrl.pop(LoginPage);
   }
 
   registerNewUser(){

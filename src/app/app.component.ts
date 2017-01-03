@@ -23,4 +23,5 @@ export class MyApp {
       Splashscreen.hide();
     });
   }
+
 }

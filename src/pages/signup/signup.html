@@ -17,17 +17,16 @@
 <form [formGroup]="signUpForm">
       
         <ion-item>
-         <ion-label>Firstname*:</ion-label>
-          <ion-input formControlName="firstname" type="text" clearInput></ion-input>
+
+        <ion-input formControlName="firstname" type="text" placeholder="Firstname" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Lastname*:</ion-label>
-          <ion-input formControlName ="lastname" type="text" clearInput></ion-input>
+          <ion-input formControlName ="lastname" type="text" placeholder="Lastname" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-              <ion-label>Gender*:</ion-label>
+              <ion-label color="grey">Gender*:</ion-label>
               <ion-select formControlName = "gender" [(ngModel)]="gender">
                 <ion-option value="f">Female</ion-option>
                 <ion-option value="m">Male</ion-option>
@@ -35,7 +34,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>D.O.B*:</ion-label>
+          <ion-label color="grey">D.O.B*:</ion-label>
           <ion-datetime formControlName ="dob" displayFormat="DD/MM/YYYY" [(ngModel)]="myDate">
           </ion-datetime>
         </ion-item>
@@ -55,18 +54,16 @@
       <h1 color="light">Login Details</h1>
       <ion-list inset>
         <ion-item>
-          <ion-label>Email*:</ion-label>
-          <ion-input formControlName="email" type="text" clearInput></ion-input>
+      
+          <ion-input formControlName="email" type="text" placeholder="Email:" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Password*:</ion-label>
-          <ion-input formControlName="password" type="password" clearInput></ion-input>
+          <ion-input formControlName="password" type="password" placeholder="Password:" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Confirm*:</ion-label>
-          <ion-input formControlName="passwordRepeat"  type="password" clearInput></ion-input>
+          <ion-input formControlName="passwordRepeat"  type="password" placeholder="Confirm Password:" clearInput></ion-input>
         </ion-item>
 
         <!-- THIS SIGN UP BUTTON IS FOR YOU TO BUILD INTO FIREBASE -->

@@ -37,16 +37,17 @@
 
 
   <p></p>
-  <div padding>
+  <div>
     <!--<button ion-button full [navPush]="aboutPage">Sign In</button>-->
-    <button ion-button full type="submit" [color]='light' [disabled]="!loginForm.valid">Sign In</button>
+    <button ion-button full color="nhs" type="submit" [disabled]="!loginForm.valid">Log In</button>
   </div>
    </form>
-   
-   <div padding>
-    <!--<button ion-button full [navPush]="aboutPage">Create New Account</button>
+
+   <div>
+    <!-- <button ion-button full [navPush]="SignupPage">Create New Account</button>
     I commented the above out temporarily so that I could get Auth to work-->
-    <button ion-button full (click)="register()">Create New Account</button>
+    <!-- <button ion-button full (click)="register()">Create New Account</button> -->
+    <button ion-button full color="nhs" (click)="register()">Sign Up</button>
 
   </div>
 

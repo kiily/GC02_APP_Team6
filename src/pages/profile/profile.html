@@ -5,14 +5,57 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+  <ion-navbar hideBackButton="true">
+    <button ion-button color="light" menuToggle (click)="backButton()">
+      <ion-icon name="arrow-back"></ion-icon>
+      Prev
+    </button>
+    <ion-title text-center class="toolbar-background">
+      <p class="title-colour-test">My Profile</p>
+    </ion-title>
 
-  <ion-navbar>
-    <ion-title>Profile</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-list inset>
+
+      <ion-row height-25>
+       <ion-col width-33>
+         <button class = "title-colour-test" (click)="openGallery();">edit
+           </button>
+             <img [src]="photoUploaded" style="width : 100% ; height : 100%" (click)="test();">
+       </ion-col>
+       <ion-col width-67>
+         <ion-item>
+           <ion-input type="text" placeholder="Miguel" value=""></ion-input>
+         </ion-item>
+
+         <ion-item>
+           <!-- <ion-label>Last:</ion-label> -->
+           <ion-input type="text" placeholder="Marin" value=""></ion-input>
+         </ion-item>
+      </ion-col>
+   </ion-row>
+
+   <ion-item>
+     <ion-input type="text" placeholder="miguelmarin95@hotmail.com" value=""></ion-input>
+   </ion-item>
+
+    <ion-item>
+      <ion-input type="password" placeholder="********" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="password" placeholder="New Password" value=""></ion-input>
+    </ion-item>
+
+    <!-- Appears when a change occurs. Button will save to the database -->
+    <button ion-button full color="nhs">Save Changes</button>
+
+
+    </ion-list>
 
 </ion-content>

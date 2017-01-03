@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/map";
 import { InfoPage } from '../info/info';
 
+import { HomePage } from '../home/home';
+
 /*
   Generated class for the TestHistory page.
 
@@ -28,6 +30,7 @@ export class TestHistoryPage {
 
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
+
   
   
   testKeyToDelete;
@@ -35,6 +38,10 @@ export class TestHistoryPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public af : AngularFire,
   public loadingCtrl : LoadingController) {
   
+  }
+
+  backButton() {
+  this.navCtrl.pop(HomePage);
   }
 
   ionViewDidLoad() {
@@ -68,13 +75,15 @@ displayTests(){
           icon: "add",
           showDetails: false
         });
-      
+
        }
 
       return tests;
       });
 
+
 }
+   
    toggleDetails(data) {
      this.testType = data.testType;
      //this.testDateToDelete = data.date;

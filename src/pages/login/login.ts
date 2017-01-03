@@ -24,12 +24,12 @@ export class LoginPage {
 
   loginForm;
   //in case of invalid credentials.
-  error; 
-  
+  error;
+
   users: FirebaseListObservable<any []>;
   recoveryEmail;
-  
-  
+
+
   constructor(public navCtrl: NavController, public af : AngularFire, public formBuilder:FormBuilder,
   public alertCtrl : AlertController, public loadingCtrl : LoadingController) {
 
@@ -38,11 +38,11 @@ export class LoginPage {
       email: ["", Validators.required],
       password: ["", Validators.required]
 
-      
+
     });
 
   }
-  
+
     signUpBtn(){
     //this.navCtrl.setRoot(SignupPage);
     this.navCtrl.push(SignupPage);
@@ -75,22 +75,22 @@ export class LoginPage {
     //     this.users = this.af.database.list('/users/'+uid);
     //     }
     // });
-  
+
     // //subscribe returns an obe=servable
     // this.af.auth.subscribe(authState => {
-      
-      
+
+
     //   //authState.uid
-      
+
     // });
   }
 
 
 //pressing the sign-up button
   login(){
-    
+
     this.presentLoadingDefault();
-     
+
     let email = this.loginForm.controls.email.value;
     let password = this.loginForm.controls.password.value;
     console.log(email);
@@ -103,11 +103,11 @@ export class LoginPage {
     },{
       method: AuthMethods.Password,
       provider: AuthProviders.Password
-         
+
     })//redirect to page inside the promise
     .then(authState =>  {
     console.log("LOGIN-THEN", authState);
-      
+
     // Brian: This was changed to push so the sign out button could pop back to login - thoughts?
     this.navCtrl.push(HomePage);
     })
@@ -130,10 +130,10 @@ export class LoginPage {
         },
         {
           //did not implement recovery yet
-         text: "Forgot password?", 
+         text: "Forgot password?",
          handler: data => {
            console.log("Forgot password clicked");
-           
+
           this.passwordRecoveryPrompt();
 
 
@@ -142,16 +142,18 @@ export class LoginPage {
       ]
     });
     alert.present();
-  
+
 });
 
 
-  
-    
+
+
   }
 
 
-
+  createNewAccount(){
+      this.navCtrl.setRoot(SignupPage);
+    }
 
 //for email : password auth
   register() {
@@ -162,33 +164,33 @@ export class LoginPage {
   //     //we should make an alert to show this
   //     password: "password"
 
-      
-      
+
+
   //     //resolve promise and catch errors in registration, if any
   //   }).then(authState => {
   //     //send email verification
   //     //authState.auth.sendEmailVerification();
-      
+
   //     let uid = authState.uid;
-      
+
   //     console.log(uid);
 
   //     this.users = this.af.database.list('/users/'+uid);
-      
+
   //     this.af.database.object('/users/'+uid).update({
-        
+
   //     firstname: "Miguel",
   //     lastname: "Marin",
   //     email: "miguelmarin95@hotmail.com",
   //     numberGP: 7889
 
   //     });
-          
-      
+
+
   //   })
   //   .catch(error => {
-    
-    
+
+
   //  console.log("REGISTER ERROR", error);
   //   });
 
@@ -226,7 +228,7 @@ passwordRecoveryPrompt() {
             console.log('Confirm clicked');
             console.log("prompt method: "+this.recoveryEmail);
 
-           
+
            //did not manage to do this
           //   var auth = firebase.auth();
           //   auth.sendPasswordResetEmail(this.recoveryEmail).then(() => {
@@ -235,23 +237,18 @@ passwordRecoveryPrompt() {
           // }).catch(() => {
           //     console.log("an error happened")
           // });
-            
-            
+
+
           }
         }
       ]
     });
     prompt.present();
-    
-    
+
+
   }
 
 
-  
+
 
 }
-
-
-
-
-

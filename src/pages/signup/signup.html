@@ -6,25 +6,24 @@
 
       <ion-list inset>
         <ion-item>
-          <ion-label>First:</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input type="text" placeholder="First" value=""></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Last:</ion-label>
-          <ion-input type="text"></ion-input>
+          <!-- <ion-label>Last:</ion-label> -->
+          <ion-input type="text" placeholder="Last" value=""></ion-input>
         </ion-item>
 
         <ion-item>
-              <ion-label>Gender:</ion-label>
+              <ion-label color="grey">Gender</ion-label>
               <ion-select [(ngModel)]="gender">
-                <ion-option value="f">Female</ion-option>
+                <ion-option color="danger" value="f">Female</ion-option>
                 <ion-option value="m">Male</ion-option>
               </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label>D.O.B:</ion-label>
+          <ion-label color="grey">D.O.B</ion-label>
           <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate">
           </ion-datetime>
         </ion-item>
@@ -48,19 +47,15 @@
       <h1 color="light">Login Details</h1>
       <ion-list inset>
         <ion-item>
-          <ion-label>
-            Email:</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input type="text" placeholder="Email:" value=""></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Password:</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input type="password" placeholder="Password:" value=""></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Confirm:</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input type="password" placeholder="Confirm Password:" value=""></ion-input>
         </ion-item>
 
         <!-- THIS SIGN UP BUTTON IS FOR YOU TO BUILD INTO FIREBASE -->

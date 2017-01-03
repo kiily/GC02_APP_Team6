@@ -15,10 +15,12 @@
 
 <ion-content padding>
   
-<div *ngIf="testType === 'TSH'">
-  <!--<div *ngIf="testType == TSH">-->
+  <!--note to self: might not need the if if we can change the video from the database
+<div *ngIf="testType === 'TSH'">-->
+  <div>
+
     
-    <p>This should only appear if the test is TSH</p>
+    <p>This should render the specific description for each test</p>
 
   <h2>Hi PatientName!!</h2>
 

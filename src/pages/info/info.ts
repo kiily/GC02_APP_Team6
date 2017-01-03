@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {AngularFire } from 'angularfire2';
-
+import { AngularFire } from 'angularfire2';
+import { DomSanitizer} from '@angular/platform-browser';
 /*
   Generated class for the Info page.
 
@@ -19,8 +19,15 @@ testType;
 
 test; 
 
+//object from database
+videoURLObject;
+//link from database
+videoURL :string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire) {
+sanitizedVideoURL;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire,
+  public sanitizer : DomSanitizer) {
     this.testType = this.navParams.get("testType");
 
   }
@@ -36,11 +43,19 @@ test;
 // //if x exists and x.$value is truthy
 //      if(x && x.$value){
 //        console.log("EXISTS",x);
+    this.videoURLObject =this.af.database.object("/bloodTests/"+this.testType+'/video');
+    console.log(this.videoURLObject);
+    this.videoURLObject.subscribe( x => {
+    console.log(x);
+    //extracting the link from the database
+    this.videoURL = x.$value;
+    // this.sanitizedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoURL);
+    // console.log(this.sanitizedVideoURL);
+    
+});
 
      }
      
 
-
-//idea did not work
 
 }

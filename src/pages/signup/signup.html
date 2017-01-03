@@ -1,39 +1,10 @@
 <ion-content class = "signup-page">
+
+  
 <ion-slides #swipes [options]="mySlideOptions">
     <ion-slide color="nhs">
 
-      <h1 color="light">Personal</h1>
-
-      <ion-list inset>
-        <ion-item>
-          <ion-input type="text" placeholder="First" value=""></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <!-- <ion-label>Last:</ion-label> -->
-          <ion-input type="text" placeholder="Last" value=""></ion-input>
-        </ion-item>
-
-        <ion-item>
-              <ion-label color="grey">Gender</ion-label>
-              <ion-select [(ngModel)]="gender">
-                <ion-option color="danger" value="f">Female</ion-option>
-                <ion-option value="m">Male</ion-option>
-              </ion-select>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="grey">D.O.B</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate">
-          </ion-datetime>
-        </ion-item>
-
-        <!-- <ion-item>
-          <ion-label fixed>GP Number</ion-label>
-          <ion-input type="text" placeholder="Optional"></ion-input>
-        </ion-item> -->
-
-      </ion-list>
+      <h1 color="light">Personal Details</h1>
 
       <!-- align to the bottom of the page -->
     <div style="position: absolute; bottom: 40px; width: 100%">
@@ -42,30 +13,69 @@
         </div>
     </div>
 
+
+<form [formGroup]="signUpForm">
+      
+        <ion-item>
+
+        <ion-input formControlName="firstname" type="text" placeholder="Firstname" clearInput></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName ="lastname" type="text" placeholder="Lastname" clearInput></ion-input>
+        </ion-item>
+
+        <ion-item>
+              <ion-label color="grey">Gender*:</ion-label>
+              <ion-select formControlName = "gender" [(ngModel)]="gender">
+                <ion-option value="f">Female</ion-option>
+                <ion-option value="m">Male</ion-option>
+              </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="grey">D.O.B*:</ion-label>
+          <ion-datetime formControlName ="dob" displayFormat="DD/MM/YYYY" [(ngModel)]="myDate">
+          </ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>GP Number</ion-label>
+          <ion-input type="tel" formControlName="numberGP" value="+44 "></ion-input>
+        </ion-item>
+
+      </form>
+
+
     </ion-slide>
     <ion-slide>
+
+<form [formGroup]="signUpForm">
       <h1 color="light">Login Details</h1>
       <ion-list inset>
         <ion-item>
-          <ion-input type="text" placeholder="Email:" value=""></ion-input>
+      
+          <ion-input formControlName="email" type="text" placeholder="Email:" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input type="password" placeholder="Password:" value=""></ion-input>
+          <ion-input formControlName="password" type="password" placeholder="Password:" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input type="password" placeholder="Confirm Password:" value=""></ion-input>
+          <ion-input formControlName="passwordRepeat"  type="password" placeholder="Confirm Password:" clearInput></ion-input>
         </ion-item>
 
         <!-- THIS SIGN UP BUTTON IS FOR YOU TO BUILD INTO FIREBASE -->
-        <button ion-button full color="nhs" (click)="signUpBtn()">Sign Up</button>
+        <button ion-button full (click)="registerNewUser()" color="nhs" [disabled]="!signUpForm.valid">Sign Up</button>
 
       </ion-list>
-    </ion-slide>
 
-    <!-- <ion-slide>
-      <h1>Slide 3</h1>
-    </ion-slide> -->
+    </form>
+</ion-slide>
+
+
 </ion-slides>
+
+  
 </ion-content>

@@ -6,6 +6,7 @@
 -->
 <ion-header>
 
+
   <ion-navbar hideBackButton="true">
     <button ion-button color="light" menuToggle (click)="backButton()">
       <ion-icon name="arrow-back"></ion-icon>
@@ -29,6 +30,11 @@
       {{d.testType}}    {{d.date}}
       <div class="accordion" *ngIf="d.showDetails">
         <progress-bar [progress]="loadProgress"></progress-bar>
+        <div>
+          <button ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
+          <!--HOPE YOU CAN FIX THIS DESIGN; MY BUTTON IS HERE FOR THE SAKE OF TESTING IF ITEMS ARE CORRECTLY DELETED-->
+          <button ion-button color="danger" (click)="deleteTest()">Delete Test</button>
+        </div>
       </div>
     </ion-item>
 

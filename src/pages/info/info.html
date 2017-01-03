@@ -14,6 +14,20 @@
 
 
 <ion-content padding>
+  
+  <!--note to self: might not need the if if we can change the video from the database
+<div *ngIf="testType === 'TSH'">-->
+  <div>
+
+    
+    <p>This should render the specific description for each test</p>
+
+  <h2>Hi PatientName!!</h2>
+
+{{ (test | async)?.description}}
+
+  
+</div>
 
   <div class="card">
             <ion-item>

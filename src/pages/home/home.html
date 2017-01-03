@@ -2,7 +2,7 @@
 <ion-navbar hideBackButton="true">
     <button ion-button color="light" menuToggle (click)="signOutBtn()">
       Sign Out
-      <!-- <ion-icon name="log-out"></ion-icon> -->
+           <!-- <ion-icon name="log-out"></ion-icon> -->
     </button>
 
     <ion-title text-center class="toolbar-background">
@@ -17,12 +17,20 @@
 
     <ion-buttons end>
       <button ion-button color="light" (click)="goToTestHistory()">
+
+        <ion-icon name="flask"></ion-icon>History
+
         History
+
       </button>
     </ion-buttons> -->
 
   </ion-navbar>
 </ion-header>
+
+
+
+  
 
 <!-- <ion-fab right edge>
   <button ion-fab mini><ion-icon name="add"></ion-icon></button>
@@ -42,6 +50,7 @@
   </ion-fab-list>
 </ion-fab>
 
+
 <ion-content padding>
   <ion-item>
     <ion-avatar>
@@ -49,10 +58,17 @@
     </ion-avatar>
   </ion-item>
 
+<div>
+  <p>Select a blood test from the options below:</p>
+</div>
+
   <ion-list>
-    <button ion-item color="nhs" *ngFor="let item of items" (click)="showPrompt();">
+
+    <button ion-item color="primary" *ngFor="let test of tests | async" (click)="registerTest(test)">
+
+   <!-- <button ion-item color="nhs" *ngFor="let item of items" (click)="showPrompt();">-->
       <ion-icon name="flask"></ion-icon>
-    {{ item }}
+      {{test.$key}}
     </button>
   </ion-list>
 </ion-content>

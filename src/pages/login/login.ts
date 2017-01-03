@@ -108,6 +108,11 @@ export class LoginPage {
     .then(authState =>  {
     console.log("LOGIN-THEN", authState);
 
+    
+    this.loginForm.reset();
+
+
+
     // Brian: This was changed to push so the sign out button could pop back to login - thoughts?
     this.navCtrl.push(HomePage);
     })
@@ -155,9 +160,13 @@ export class LoginPage {
       this.navCtrl.setRoot(SignupPage);
     }
 
-//for email : password auth
+//change to sign-up page
   register() {
     this.navCtrl.push(SignupPage);
+
+    
+   
+
   //   this.af.auth.createUser({
   //     email: "miguelmarin95@hotmail.com",
   //     //by default firebase makes passwords be at least 6 characters
@@ -196,6 +205,7 @@ export class LoginPage {
 
 
   }
+
 
 
 

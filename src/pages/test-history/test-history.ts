@@ -4,6 +4,8 @@ import {AngularFire,FirebaseListObservable} from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/map";
 
+import { HomePage } from '../home/home';
+
 /*
   Generated class for the TestHistory page.
 
@@ -24,7 +26,7 @@ export class TestHistoryPage {
 
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
-  
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public af : AngularFire) {
     //  for(let i = 0; i < 3; i++ ){
@@ -37,6 +39,10 @@ export class TestHistoryPage {
     //       showDetails: false
     //     });
     // }
+  }
+
+  backButton() {
+  this.navCtrl.pop(HomePage);
   }
 
   ionViewDidLoad() {
@@ -65,15 +71,15 @@ console.log('currentUID: '+this.currentUID);
           icon: "add",
           showDetails: false
         });
-      
+
        }
 
       return tests;
       });
-     
-    
-    
-        
+
+
+
+
   }
 
 

@@ -6,8 +6,14 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Test History</ion-title>
+  <ion-navbar hideBackButton="true">
+    <button ion-button color="light" menuToggle (click)="backButton()">
+      <ion-icon name="arrow-back"></ion-icon>
+      Prev
+    </button>
+    <ion-title class="toolbar-background">
+      <p text-center class="title-colour-test">Test History</p>
+      </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,14 +24,14 @@
 <ion-content padding>
  <ion-list>
       <div *ngFor="let d of data">
-        
-    <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="primary" item-left [name]="d.icon"></ion-icon>
+
+    <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="nhs" item-left [name]="d.icon"></ion-icon>
       {{d.testType}}    {{d.date}}
       <div class="accordion" *ngIf="d.showDetails">
         <progress-bar [progress]="loadProgress"></progress-bar>
       </div>
     </ion-item>
-      
+
     </div>
  </ion-list>
 

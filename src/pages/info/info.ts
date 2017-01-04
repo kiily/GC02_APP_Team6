@@ -23,6 +23,7 @@ test;
 videoURLObject;
 //link from database
 videoURL :string;
+description: string;
 
 
 
@@ -51,6 +52,11 @@ videoURL :string;
     this.videoURL = x.$value;
     console.log(this.videoURL);
 
+//getting description from the database
+    this.af.database.object("/bloodTests/"+this.testType+'/description').subscribe(description => {
+      console.log(description);
+      this.description = description.$value;
+    });
     //NOW SANITIZING WITH A PIPE
     // this.sanitizedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoURL);
     // console.log(this.sanitizedVideoURL);
@@ -58,6 +64,11 @@ videoURL :string;
 });
 
      }
+
+
+sendEmail(){
+
+}
      
 
 

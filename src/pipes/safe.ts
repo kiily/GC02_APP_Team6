@@ -13,7 +13,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 //pipe to sanitize URLs
 @Injectable()
-export class Safe {
+export class SafePipe {
 
 constructor(public sanitizer : DomSanitizer) {
   }

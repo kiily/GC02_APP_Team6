@@ -9,7 +9,7 @@ import { ResultsPage } from '../pages/results/results';
 import { SignupPage } from '../pages/signup/signup';
 import { TestHistoryPage } from '../pages/test-history/test-history';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
-
+import { SafePipe} from '../pipes/safe'
 //import AF2 module
 import {AngularFireModule} from 'angularfire2';
 
@@ -35,7 +35,8 @@ export const firebaseConfig = {
     ResultsPage,
     SignupPage,
     TestHistoryPage,
-    ProgressBarComponent
+    ProgressBarComponent,
+    SafePipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),

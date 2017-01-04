@@ -24,7 +24,7 @@ videoURLObject;
 //link from database
 videoURL :string;
 
-sanitizedVideoURL;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire,
   public sanitizer : DomSanitizer) {
@@ -49,6 +49,9 @@ sanitizedVideoURL;
     console.log(x);
     //extracting the link from the database
     this.videoURL = x.$value;
+    console.log(this.videoURL);
+
+    //NOW SANITIZING WITH A PIPE
     // this.sanitizedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoURL);
     // console.log(this.sanitizedVideoURL);
     

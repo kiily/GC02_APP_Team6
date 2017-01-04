@@ -60,6 +60,7 @@ displayTests(){
 
   console.log('currentUID: '+this.currentUID);
 
+
       this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory')
     .map(tests =>{
        console.log("AFTER MAP", tests);

@@ -37,7 +37,7 @@ testToAdd: FirebaseListObservable<any[]>;
 
   constructor(public navCtrl: NavController, public af:AngularFire, public alertCtrl:AlertController,
   public actionsheetCtrl: ActionSheetController, public platform: Platform) {
-    
+
   }
 
 
@@ -49,11 +49,11 @@ testToAdd: FirebaseListObservable<any[]>;
 
     this.userPhoto =  "assets/images/default-user-grey.png";
     console.log(this.userPhoto);
-      
+
    }
 
 
-//method registers a test under a given user 
+//method registers a test under a given user
  registerTest(test){
     this.af.auth.subscribe(authState => {
       this.currentUID = authState.uid;
@@ -61,7 +61,7 @@ testToAdd: FirebaseListObservable<any[]>;
         //this.tests = this.af.database.object('/users/'+uid+'/testHistory');
       });
 
-   
+
 
     this.testToAdd = this.af.database.list('/users/'+this.currentUID+'/testHistory');
     console.log("adding the test");
@@ -74,17 +74,18 @@ testToAdd: FirebaseListObservable<any[]>;
 
     });
     console.log("TEST ADDED");
-    this.presentTestAddedAlert();
-    
+    //TODO: un comment
+    //this.presentTestAddedAlert();
+
     //alternative is to put this in the alert method
     //and pass the test parameter
      this.navCtrl.push(InfoPage, {
        testType: test.$key
-       
+
     });
     }
 
- 
+
 
 //method is now deprecated
   testSelected(test) {
@@ -245,7 +246,7 @@ confirmBtnTouched(){
 
 
 presentTestAddedAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -257,16 +258,14 @@ presentTestAddedAlert(){
           //checking if it works
           handler: data => {
             console.log('OK clicked');
-           
+
           }
         }
       ]
     });
     alert.present();
-  
+
 
 
 }
 }
-
-

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {AngularFire } from 'angularfire2';
 
+import { HomePage } from '../home/home';
+
 /*
   Generated class for the Info page.
 
@@ -17,7 +19,7 @@ export class InfoPage {
 
 testType;
 
-test; 
+test;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire) {
@@ -38,8 +40,10 @@ test;
 //        console.log("EXISTS",x);
 
      }
-     
 
+     backButton() {
+          this.navCtrl.pop(HomePage);
+          }
 
 //idea did not work
 

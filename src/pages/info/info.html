@@ -6,36 +6,48 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Info</ion-title>
+  <ion-navbar hideBackButton=true>
+    <button ion-button color="light" menuToggle (click)="backButton()">
+      <ion-icon name="arrow-back"></ion-icon>
+
+    </button>
+    <ion-title text-center class="toolbar-background">
+      <p class="title-colour-test">Information</p>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  
+<ion-content class="stable">
+
   <!--note to self: might not need the if if we can change the video from the database
 <div *ngIf="testType === 'TSH'">-->
-  <div>
 
-    
-    <p>This should render the specific description for each test</p>
+<ion-card>
 
-  <h2>Hi PatientName!!</h2>
+  <ion-card-content>
+    <ion-card-title>
+      Hi, Mr. Smith!
+      </ion-card-title>
+    <p>
+      The most popular industrial group ever, and largely
+      responsible for bringing the music to a mass audience.
 
-{{ (test | async)?.description}}
+      {{ (test | async)?.description}}
+    </p>
 
-  
-</div>
+    <ion-item>
+        <div class="video-container">
+            <!-- <iframe src="YOUTUBE" frameborder="0" width="560" height="315"></iframe> -->
+            <iframe src="//player.vimeo.com/video/193456223" width=width height=height frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+    </ion-item>
+    <p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p>
+    <p padding-top>Sincerely,</p>
+    <p text-right>Dobby</p>
 
-  <div class="card">
-            <ion-item>
-                <div class="video-container">
-                    <!-- <iframe src="http://vimeo.com/moogaloop.swf?clip_id=5367093&server=vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=00adef&fullscreen=1" frameborder="0" width="560" height="315"></iframe> -->
-                    <iframe src="//player.vimeo.com/video/193456223" width="WIDTH" height="HEIGHT" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            </ion-item>
-</div>
+  </ion-card-content>
+</ion-card>
 
 </ion-content>

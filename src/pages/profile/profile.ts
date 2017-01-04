@@ -54,13 +54,17 @@ export class ProfilePage {
 
       });
 
-  
+     
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
     //call getCurrentUserInfo
     this.getCurrentUserInfo();
+
+if(this.photoUploaded == null){
+    this.photoUploaded = "assets/images/dobby.jpg";
+}
     
   }
 
@@ -72,23 +76,25 @@ export class ProfilePage {
     console.log("Hello");
   }
 
+
+//IDEA: create a photoURI field in the database.
   // http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
   private openGallery (): void {
     console.log('reached method');
-    this.photoUploaded = "assets/images/dobby.jpg";
-  // let cameraOptions = {
-  //   sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-  //   destinationType: Camera.DestinationType.FILE_URI,
-  //   quality: 100,
-  //   targetWidth: 1000,
-  //   targetHeight: 1000,
-  //   encodingType: Camera.EncodingType.JPEG,
-  //   correctOrientation: true
-  // }
-  //
-  // Camera.getPicture(cameraOptions)
-  //   .then(file_uri => this.photoUploaded = file_uri,
-  //   err => console.log(err));
+
+  let cameraOptions = {
+    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: Camera.DestinationType.FILE_URI,
+    quality: 100,
+    targetWidth: 1000,
+    targetHeight: 1000,
+    encodingType: Camera.EncodingType.JPEG,
+    correctOrientation: true
+  }
+  
+  Camera.getPicture(cameraOptions)
+    .then(file_uri => this.photoUploaded = file_uri,
+    err => console.log(err));
 }
 
 

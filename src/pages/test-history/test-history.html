@@ -23,14 +23,16 @@
 <p *ngFor="let test of tests | async"></p>
 
 <ion-content padding>
- <ion-list>
+ <ion-list class="accordionList">
       <div *ngFor="let d of data">
 
-    <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="nhs" item-left [name]="d.icon"></ion-icon>
-      {{d.testType}}    {{d.date}}
+    <ion-item padding>
+      <ion-icon color="nhs" item-left [name]="d.icon" (click)="toggleDetails(d)"></ion-icon>
+      {{d.testType}} Date:{{d.initialDate}}
       <div class="accordion" *ngIf="d.showDetails">
-        <progress-bar [progress]="loadProgress"></progress-bar>
+        <progress-bar [progress]="d.progress"></progress-bar>
         <div>
+          Expected delivery date: {{d.finalDate}}
           <button ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
           <!--HOPE YOU CAN FIX THIS DESIGN; MY BUTTON IS HERE FOR THE SAKE OF TESTING IF ITEMS ARE CORRECTLY DELETED-->
           <button ion-button color="danger" (click)="deleteTest()">Delete Test</button>

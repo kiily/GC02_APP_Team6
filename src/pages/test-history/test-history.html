@@ -21,24 +21,36 @@
 <!--Asynchronous pipe allows the whole page to be rendered-->
 <p *ngFor="let test of tests | async"></p>
 
-<ion-content padding>
- <ion-list>
-      <div *ngFor="let d of data">
+<ion-content class="background">
+  <ion-card>
+ <ion-list *ngFor="let d of data">
+   <ion-item-sliding>
 
-    <ion-item padding  (click)="toggleDetails(d)"><ion-icon color="nhs" item-left [name]="d.icon"></ion-icon>
-      {{d.testType}}    {{d.date}}
-      <div class="accordion" *ngIf="d.showDetails">
-        <progress-bar [progress]="loadProgress"></progress-bar>
-        <div>
-          <button ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
-          <!--HOPE YOU CAN FIX THIS DESIGN; MY BUTTON IS HERE FOR THE SAKE OF TESTING IF ITEMS ARE CORRECTLY DELETED-->
-          <button ion-button color="danger" (click)="deleteTest()">Delete Test</button>
-        </div>
-      </div>
+    <!-- <div *ngFor="let d of data"> -->
+      <ion-item class="list-style" (click)="toggleDetails(d)">
+      <!-- <ion-icon color="nhs" item-left [name]="d.icon"></ion-icon> -->
+      {{d.testType}} <br> {{d.date}}
+      <!-- <div class="accordion" *ngIf="d.showDetails"> -->
+        <progress-bar [progress]="loadProgress" color="danger"></progress-bar>
+
+        <!-- <div>
+          <button full ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
+          <button full ion-button color="danger" (click)="deleteTest()">Delete Test</button>
+        </div> -->
+      <!-- </div> -->
     </ion-item>
+    <!-- </div> THIS IS FOR ngFor-->
 
-    </div>
+    <ion-item-options side="right">
+      <button ion-button color="danger">
+        <ion-icon name="text"></ion-icon>
+        Delete
+      </button>
+    </ion-item-options>
+    <!-- </div> -->
+  </ion-item-sliding>
  </ion-list>
+ </ion-card>
 
 
 </ion-content>

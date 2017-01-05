@@ -1,8 +1,52 @@
 page-login {
-  .test{
-    background: transparent;
+
+  .loginPos {
+    position: fixed;
+    bottom: 20%;
+    right: 5%;
+    left: 5%;
   }
+
+  .signUpPos{
+    position: fixed;
+    right: 5%;
+    left: 5%;
+    bottom: 3%;
+  }
+
+  .title{
+    font-size: 50px;
+    //font-weight: lighter;
+    color: #fff;
+    text-shadow: 0 0.5px 0 black;
+
+    // background-color: black;
+    // opacity: 0.6;
+    // color: #fff;
+    // display: block;
+    // padding: 0.5rem;
+    //
+    // -webkit-box-decoration-break: clone;
+    // box-decoration-break: clone;
+  }
+
   .test2{
+    color: #000;
+    font-size: 12px;
+    //font-weight: lighter;
+    background-color: white;
+    opacity: 0.95;
+  }
+
+  .button{
     font-size: 14px;
   }
+  .signupSpecial{
+    font-size: 12px;
+  }
+
+  .icon{
+    color: #000;
+  }
+
 }

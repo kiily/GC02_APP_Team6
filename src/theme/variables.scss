@@ -19,13 +19,13 @@ $background-color: #FFF;
 
 .background-photo{
     background-image:
-    linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
+    // linear-gradient(
+    //   rgba(0, 0, 0, 0.6),
+    //   rgba(0, 0, 0, 0.6)
+    // ),
     url('../assets/images/doc-background.jpg');
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
 }
 
 .toolbar-background {
@@ -52,14 +52,16 @@ $background-color: #FFF;
 
 .title-colour-test{
   color: #FFFFFF;
+  font-size: 12px;
+  //font-weight: lighter;
 }
 
 .signup-page {
   background-image:
-  linear-gradient(
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)
-  ),
+  // linear-gradient(
+  //   rgba(0, 0, 0, 0.5),
+  //   rgba(0, 0, 0, 0.5)
+  // ),
   url('../assets/images/doc-background.jpg');
   background-repeat: no-repeat;
   background-size:cover;
@@ -67,6 +69,7 @@ $background-color: #FFF;
   .swiper-pagination-bullet
   {
     border: 2px solid white;
+    background-color: #fff;
   }
 
   .slide-zoom {
@@ -125,6 +128,7 @@ $colors: (
   dark:       #222,
   nhs:        #0099FF,
   grey:       #999999,
+  darkgrey:   #A9A9A9,
 );
 
 

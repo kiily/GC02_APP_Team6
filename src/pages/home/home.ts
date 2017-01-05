@@ -47,7 +47,7 @@ testToAdd: FirebaseListObservable<any[]>;
     console.log('ionViewDidLoad HomePage');
     this.tests = this.af.database.list("bloodTests");
 
-    this.userPhoto =  "assets/images/default-user-grey.png";
+    this.userPhoto =  "assets/images/dobby.jpg";
     console.log(this.userPhoto);
 
    }

@@ -24,7 +24,7 @@ users: FirebaseListObservable<any []>;
   signUpForm;
   mySlideOptions;
 
-  gender: string = "f";
+  gender: string;
   test: string = "hello";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -48,7 +48,7 @@ users: FirebaseListObservable<any []>;
 
       });
 
-    
+
 
   }
 
@@ -82,7 +82,7 @@ users: FirebaseListObservable<any []>;
       authState.auth.sendEmailVerification();
       this.presentSignUpAlert();
       let uid = authState.uid;
-      
+
 
       //this seems a bit clumsy inside the auth state part
       //consider moving it outside and creating a class variables
@@ -90,7 +90,7 @@ users: FirebaseListObservable<any []>;
       console.log(uid);
 
       this.users = this.af.database.list('/users/'+uid);
-      
+
       let firstname = this.signUpForm.controls.firstname.value;
       let lastname = this.signUpForm.controls.lastname.value;
       let gender = this.signUpForm.controls.gender.value;
@@ -101,7 +101,7 @@ users: FirebaseListObservable<any []>;
       console.log(email);
 
       this.af.database.object('/users/'+uid).update({
-        
+
       firstname: firstname,
       lastname: lastname,
       gender: gender,
@@ -110,17 +110,17 @@ users: FirebaseListObservable<any []>;
       numberGP: numberGP,
       //for email preferences
       preferences: false
-     
-     
+
+
       });
-      
+
 
       this.navCtrl.setRoot(LoginPage);
-      
+
     })
     .catch(error => {
-    
-    
+
+
    console.log("REGISTER ERROR", error);
     });
 
@@ -134,7 +134,7 @@ users: FirebaseListObservable<any []>;
 
 
 presentSignUpAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -151,13 +151,13 @@ presentSignUpAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }
 
 presentPasswordAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -174,7 +174,7 @@ presentPasswordAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }

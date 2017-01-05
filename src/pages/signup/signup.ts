@@ -109,7 +109,7 @@ users: FirebaseListObservable<any []>;
       email: email,
       numberGP: numberGP,
       //for email preferences
-      preferences: false
+      //preferences: false
      
      
       });

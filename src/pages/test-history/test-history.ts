@@ -4,8 +4,8 @@ import {AngularFire,FirebaseListObservable} from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/map";
 import { InfoPage } from '../info/info';
-
 import { HomePage } from '../home/home';
+import * as moment from 'moment';
 
 /*
   Generated class for the TestHistory page.
@@ -21,12 +21,10 @@ export class TestHistoryPage {
 
   currentUID;
 
-  loadProgress : number = 50;
-
 
   testType;
-//status might not be needed; this array helps us build the accordion
-  data: Array<{testType: string, date: string, testKey: string, status :string, details: string, icon: string, showDetails: boolean}> = [];
+// this array helps us build the accordion
+  data: Array<{testType: string, testKey: string, initialDate :string,finalDate : string, progress :number,  icon: string, showDetails: boolean}> = [];
 
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
@@ -60,24 +58,36 @@ displayTests(){
 
   console.log('currentUID: '+this.currentUID);
 
+
       this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory')
     .map(tests =>{
        console.log("AFTER MAP", tests);
        
        for(let test of tests){
 
+         let progress = this.calculatePercentage(test);
+
         this.data.push({
           testType: test.type,
-          date: test.date,
-          status: test.status,
           testKey: test.$key,
-          details: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          initialDate: test.initialDate,
+          finalDate: test.finalDate,
+          progress : progress,
           icon: "add",
           showDetails: false
         });
-
+         
+        console.log(this.data);
+      
        }
 
+       //temporarily for tests to display by date
+       this.data.reverse();
+      
+       
+
+       //need to change the position of this//progress needs to be lcoal and specific
+       
       return tests;
       });
 
@@ -100,15 +110,8 @@ displayTests(){
         data.icon = 'remove';
     }
 
-     //allows to make the progress bar
-    //  setInterval(() => {
 
-    //    if(this.loadProgress <100){
-    //      this.loadProgress++;
-    //    }
-
-
-    //  }, 50);
+   
 
 
   }
@@ -121,9 +124,39 @@ displayTests(){
   
 }
 
-calculatePercentage(){
+calculatePercentage(test) :number{
+  
+  console.log(test.initialDate);
+  console.log(test.finalDate);
 
+   let initial = moment(test.initialDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
+   console.log(initial);
+   let final = moment(test.finalDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
+   console.log(final);
+
+   let initialDate = new Date(initial)
+   let initialDateMs = initialDate.getTime();
+   console.log("initial:"+initialDate+' in ms:'+initialDateMs)
+   let finalDate = new Date(final);
+   let finalDateMs = new Date(final).getTime();
+   console.log("final:"+finalDate+' in ms:'+finalDateMs)
+   let currentDate = new Date();
+   console.log(currentDate);
+   let currentDateMs = new Date().getTime();
+   console.log(currentDateMs);
+
+   let timeElapsedMs = (currentDateMs - initialDateMs);
+   console.log(timeElapsedMs);
+   //let deliveryTimeMs = data.deliveryTime *24*3600*1000;
+   
+   //(timeElapsed/deliveryTime)*100
+   let progress = (timeElapsedMs/(finalDateMs-initialDateMs) * 100);
+   console.log(progress);
+   return Math.round(progress);
+    //  allows to make the progress bar
+    
 }
+
 
 
 //deletes the object from both the database and the data array
@@ -154,6 +187,7 @@ deleteTest(){
 
 
   }
+  
 
 
   // loading animation
@@ -168,6 +202,28 @@ deleteTest(){
     loading.dismiss();
   }, 500);
 }
+
+displayProgress(loadProgressArray : Array<number>){
+  
+
+// for (let progressInterval of progressIntervalArray){
+// for(let i= 0; i<loadProgressArray.length ; i++){
+
+//  setInterval(() => {
+//        if(loadProgressArray[i] <100){
+//          loadProgressArray[i]++;
+         
+//        }
+
+
+//      }, progressInterval);
+
+//    }
+
+//    }
+
+}
+
 
 
 }

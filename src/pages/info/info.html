@@ -25,7 +25,7 @@
 
   <h2>Hi PatientName!!</h2>
 
-{{ (test | async)?.description}}
+{{description}}
 
   
 </div>
@@ -33,8 +33,7 @@
   <div class="card">
             <ion-item>
                 <div class="video-container">
-                    <!-- <iframe src="http://vimeo.com/moogaloop.swf?clip_id=5367093&server=vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=00adef&fullscreen=1" frameborder="0" width="560" height="315"></iframe> -->
-                   <!-- <iframe src="//player.vimeo.com/video/193456223" width="WIDTH" height="HEIGHT" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+                    <!-- <iframe src="//player.vimeo.com/video/193456223" width="WIDTH" height="HEIGHT" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
                    <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0"></iframe>
                 </div>
             </ion-item>

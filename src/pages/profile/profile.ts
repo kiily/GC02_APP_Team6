@@ -148,59 +148,6 @@ getCurrentUserInfo(){
   });
 
 }
-// getCurrentUserInfo(){
-
-//    //getting the currently logged in user
-//     this.af.auth.subscribe(authState => {
-//       this.currentUID = authState.uid;
-     
-//      console.log("this shouldbe printed");
-
-//       // this.currentUser = this.af.database.list('/users/'+currentUID).map(users => {
-//       //   console.log(users);
-//       //   return users;
-//       //   });
-//       // // .map(users => {
-
-//       // //     console.log("map", users);
-
-
-//       // //     for(let user in users){
-//       // //     // this.firstName = user.firstname;
-         
-//       // //     }
-//       // //     return users;
-//       // // });
-//       });
-
-
-// //map method not working so currently works with more expensive operation
-//    this.firstNameObject =this.af.database.object("/users/"+this.currentUID+'/firstname');
-//     this.firstNameObject.subscribe( x => 
-//     this.firstName = x.$value
-//     );
-
-//       this.lastNameObject =this.af.database.object("/users/"+this.currentUID+'/lastname');
-//     this.lastNameObject.subscribe( x => 
-//     this.lastName = x.$value
-//     );
-
-//       this.emailObject =this.af.database.object("/users/"+this.currentUID+'/email').subscribe( x => {
-//     this.email = x.$value;
-//     console.log(x)
-//     console.log("email",this.email);
-// });
-
-//      this.af.database.object("/users/"+this.currentUID+'/numberGP').subscribe( x => 
-//     this.numberGP = x.$value
-//     );
-      
-      
-      
-    
-     
-// }
-
 
 
 //to notify that new password does not match

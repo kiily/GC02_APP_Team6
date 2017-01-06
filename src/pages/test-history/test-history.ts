@@ -138,11 +138,11 @@ calculatePercentage(test) :number{
    let testDateMs = testDate.getTime();
    //console.log("initial:"+initialDate+' in ms:'+initialDateMs)
    let resultDeliveryDate : Date = new Date(final);
-   let resultDeliveryDateMs = new Date(final).getTime();
+   let resultDeliveryDateMs = resultDeliveryDate.getTime();
    //console.log("final:"+finalDate+' in ms:'+finalDateMs)
    let currentDate : Date = new Date();
    //console.log(currentDate);
-   let currentDateMs = new Date().getTime();
+   let currentDateMs = currentDate.getTime();
   // console.log(currentDateMs);
 
    let timeElapsedMs = (currentDateMs - testDateMs);

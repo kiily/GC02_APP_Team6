@@ -2,10 +2,19 @@ page-home {
 
   .button{
     background-color: #0099FF;
-    //opacity: 0.8;
     font-size: 14px;
     color: #FFF;
     line-height: 50px;
+  }
+
+  $list-border-color: red;
+
+  .item-divider-color{
+    list-border-color: #FFF;
+  }
+
+  .edit-profile{
+    font-size: 20px;
   }
 
   .card{
@@ -18,37 +27,33 @@ page-home {
 
   .test{
     background-color: #f4f4f4;
-    // background-image:
-    // // linear-gradient(
-    // //   rgba(0, 0, 0, 0.5),
-    // //   rgba(0, 0, 0, 0.5)
-    // // ),
-    // url('../assets/images/doc-background.jpg');
-    // background-repeat: no-repeat;
-    // background-size:cover;
   }
 
   .test2{
-    //background-color: black;
-    //opacity: .95;
     background-image:
     linear-gradient(
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.2)
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
     ),
     url('../assets/images/doc-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    //filter: blur(1px);
 
   }
 .test3{
   font-size: 14px;
 }
-  .test4{
+.user-name{
     color: white;
     font-size: 25px;
     font-weight: bold;
+  }
+
+  .position{
+    background-color: transparent;
+    position:absolute;
+    top:0;
+    right:0;
   }
 
 }

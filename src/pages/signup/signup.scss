@@ -11,7 +11,6 @@ page-signup {
   .item{
     color: #000;
     font-size: 14px;
-    //font-weight: lighter;
     background-color: white;
     opacity: 0.95;
   }
@@ -20,11 +19,20 @@ page-signup {
   .swiper-pagination-bullet
   {
     border: 2px solid white;
+    background-color: #fff;
   }
 
 .list-custom{
   position: absolute;
   top: 40px;
+}
+
+.cancel{
+  position: relative;
+  bottom: -10px;
+  left: 0px;
+  width: 100%;
+
 }
 
 }

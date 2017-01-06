@@ -6,14 +6,6 @@
 
       <!-- <p class="title">Personal Details</p> -->
 
-      <!-- align cancel to the bottom of the page -->
-    <div style="position: absolute; bottom: 40px; width: 100%">
-        <div style="text-align: center">
-          <button ion-button clear color="light" (click)='cancelNewUser();' ion->Cancel</button>
-        </div>
-    </div>
-
-
 <ion-list inset>
   <ion-list-header>Details (1/2): Personal</ion-list-header>
 <form [formGroup]="signUpForm">
@@ -47,6 +39,9 @@
         </ion-item>
       </form>
     </ion-list>
+
+    <!-- align cancel to the bottom of the page -->
+    <button class="cancel" ion-button clear color="light" (click)='cancelNewUser();' ion->Cancel</button>
 
 
     </ion-slide>

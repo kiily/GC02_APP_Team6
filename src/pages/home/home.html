@@ -25,20 +25,6 @@
   </ion-navbar>
 </ion-header>
 
-
-
-
-
-<!-- <ion-fab right edge>
-  <button ion-fab mini><ion-icon name="add"></ion-icon></button>
-<ion-fab-list>
-  <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
-  <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-  <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
-  <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
-</ion-fab-list>
-</ion-fab> -->
-
 <!-- style="position: absolute; top: 35px; left: 260px; width: 100%" -->
 <ion-fab top right edge>
   <button ion-fab mini color="secondary"><ion-icon name="more"></ion-icon></button>
@@ -53,15 +39,18 @@
 <ion-card>
   <ion-item class="test2">
     <br>
-    <!-- <ion-icon color="light" name="person"></ion-icon> -->
-
-    <ion-avatar item-center>
-      <img [src]="userPhoto" class="avatar-size-center">
+    <ion-avatar>
+      <img item-center [src]="userPhoto" class="avatar-size-center">
     </ion-avatar>
     <!-- <p></p> -->
     <br>
     <!-- THIS WILL TAKE THE USER FULL NAME -->
-    <p text-center class="test4">Kevin Bryson<p>
+    <p text-center class="user-name">Kevin Bryson
+    </p>
+
+    <button ion-button class="position" color="light" clear (click)="goToProfile()">
+       edit profile &#160; <ion-icon name="brush"></ion-icon>
+    </button>
   </ion-item>
 <!-- </ion-card> -->
 
@@ -73,16 +62,16 @@
     <!-- <ion-card-title>
       Please choose your recent blood test
     </ion-card-title> -->
-  <ion-list>
+    </ion-card>
+  <ion-list class="item-divider-color">
     <!-- <ion-list-header class="test3">
       Please choose your recent blood test
     </ion-list-header> -->
-    <button text-left block class="button" ion-item *ngFor="let test of tests | async" (click)="registerTest(test)">
+    <button text-left block class="button" detail-none ion-item *ngFor="let test of tests | async" (click)="registerTest(test)">
 
    <!-- <button ion-item color="nhs" *ngFor="let item of items" (click)="showPrompt();">-->
       <ion-icon color="light" name="flask"></ion-icon>
       &#160;&#160;{{test.$key}}
     </button>
   </ion-list>
-</ion-card>
 </ion-content>

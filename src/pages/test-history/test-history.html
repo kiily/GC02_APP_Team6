@@ -62,7 +62,7 @@
     <!-- </div> THIS IS FOR ngFor-->
 
     <ion-item-options side="right">
-      <button ion-button color="nhs" (click)="goToInfoPage()">
+      <button ion-button color="nhs" (click)="goToInfoPage(d.testType)">
         <ion-icon name="information-circle"></ion-icon>
         Info</button>
       <button ion-button color="danger" (click)="deleteTestConfirmation(d.testKey, d.testType)">

@@ -23,7 +23,7 @@ export class TestHistoryPage {
   
 
 
-  testType;
+  
 // this array helps us build the accordion
   data: Array<{testType: string, testKey: string, testDate :string,
   resultDeliveryDate : string, progress :number, icon: string, showDetails: boolean}> = [];
@@ -105,7 +105,6 @@ displayTests(){
    toggleDetails(data) {
        
 
-     console.log("toggle",this.testType);
 
     if (data.showDetails) {
         data.showDetails = false;
@@ -118,9 +117,9 @@ displayTests(){
   }
 
 
-  goToInfoPage(){
+  goToInfoPage(testType){
     this.navCtrl.push(InfoPage, {
-      testType: this.testType
+      testType: testType
     });
 
 }

@@ -129,22 +129,22 @@ getCurrentUserInfo(){
 
   let firstName = this.authProvider.getUserFirstName(uid);
   firstName.subscribe(firstNameDB => {
-    this.firstName = firstNameDB.x.$value
+    this.firstName = firstNameDB.$value
   });
 
   let lastName = this.authProvider.getUserLastName(uid);
   lastName.subscribe(lastNameDB => {
-    this.lastName = lastNameDB.x.$value
+    this.lastName = lastNameDB.$value
   });
 
    let email = this.authProvider.getUserEmail(uid);
   email.subscribe(emailDB => {
-    this.email = emailDB.x.$value
+    this.email = emailDB.$value
   });
 
      let numberGP = this.authProvider.getUserGPNumber(uid);
   numberGP.subscribe(numberGPDB => {
-    this.numberGP = numberGPDB.x.$value
+    this.numberGP = numberGPDB.$value
   });
 
 }

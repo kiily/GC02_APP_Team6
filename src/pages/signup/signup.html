@@ -1,32 +1,26 @@
 <ion-content class = "signup-page">
 
-  
+
 <ion-slides #swipes [options]="mySlideOptions">
     <ion-slide color="nhs">
 
-      <h1 color="light">Personal Details</h1>
+      <!-- <p class="title">Personal Details</p> -->
 
-      <!-- align to the bottom of the page -->
-    <div style="position: absolute; bottom: 40px; width: 100%">
-        <div style="text-align: center">
-          <button ion-button clear color="light" (click)='cancelNewUser();' ion->Cancel</button>
-        </div>
-    </div>
-
-
+<ion-list inset>
+  <ion-list-header>Details (1/2): Personal</ion-list-header>
 <form [formGroup]="signUpForm">
-      
-        <ion-item>
 
-        <ion-input formControlName="firstname" type="text" placeholder="Firstname" clearInput></ion-input>
+        <ion-item class="test2">
+
+        <ion-input formControlName="firstname" type="text" placeholder="First name*" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input formControlName ="lastname" type="text" placeholder="Lastname" clearInput></ion-input>
+          <ion-input formControlName ="lastname" type="text" placeholder="Last name*" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-              <ion-label color="grey">Gender*:</ion-label>
+              <ion-label color="grey">Gender*</ion-label>
               <ion-select formControlName = "gender" [(ngModel)]="gender">
                 <ion-option value="f">Female</ion-option>
                 <ion-option value="m">Male</ion-option>
@@ -34,27 +28,32 @@
         </ion-item>
 
         <ion-item>
-          <ion-label color="grey">D.O.B*:</ion-label>
+          <ion-label color="grey">D.O.B*</ion-label>
           <ion-datetime formControlName ="dob" displayFormat="DD/MM/YYYY" [(ngModel)]="myDate">
           </ion-datetime>
         </ion-item>
 
         <ion-item>
-          <ion-label fixed>GP Number</ion-label>
-          <ion-input type="tel" formControlName="numberGP" value="+44 "></ion-input>
+          <ion-label color="grey">GP Number</ion-label>
+          <ion-input formControlName="numberGP" type="tel" value="+44 "></ion-input>
         </ion-item>
-
       </form>
+    </ion-list>
+
+    <!-- align cancel to the bottom of the page -->
+    <button class="cancel" ion-button clear color="light" (click)='cancelNewUser();' ion->Cancel</button>
 
 
     </ion-slide>
     <ion-slide>
 
 <form [formGroup]="signUpForm">
-      <h1 color="light">Login Details</h1>
+      <!-- <p class="title">Login Details</p> -->
+
       <ion-list inset>
+        <ion-list-header>Details (2/2): Login</ion-list-header>
         <ion-item>
-      
+
           <ion-input formControlName="email" type="text" placeholder="Email:" clearInput></ion-input>
         </ion-item>
 
@@ -77,5 +76,5 @@
 
 </ion-slides>
 
-  
+
 </ion-content>

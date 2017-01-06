@@ -10,7 +10,6 @@
   <ion-navbar hideBackButton="true">
     <button ion-button color="light" menuToggle (click)="backButton()">
       <ion-icon name="arrow-back"></ion-icon>
-      Prev
     </button>
     <ion-title class="toolbar-background">
       <p text-center class="title-colour-test">Test History</p>
@@ -22,27 +21,59 @@
 <!--Asynchronous pipe allows the whole page to be rendered-->
 <p *ngFor="let test of tests | async"></p>
 
-<ion-content padding>
- <ion-list class="accordionList">
-      <div *ngFor="let d of data">
+<ion-content class="background">
+  <ion-card>
+    <ion-list-header text-center>
+      Please slide for options
+    </ion-list-header>
+ <ion-list *ngFor="let d of data">
 
-    <ion-item padding>
-      <ion-icon color="nhs" item-left [name]="d.icon" (click)="toggleDetails(d)"></ion-icon>
-      <!--<h3 *ngIf="isDataEmpty">You currently have no tests stored in the app</h3>-->
-      {{d.testType}} - Date: {{d.testDate}}
-      <div class="accordion" *ngIf="d.showDetails">
-        <progress-bar [progress]="d.progress"></progress-bar>
-        <div>
-          Expected delivery date: {{d.resultDeliveryDate}}
-          <button ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
-          <!--HOPE YOU CAN FIX THIS DESIGN; MY BUTTON IS HERE FOR THE SAKE OF TESTING IF ITEMS ARE CORRECTLY DELETED-->
-          <button ion-button color="danger" (click)="deleteTestConfirmation(d.testKey, d.testType)">Delete Test</button>
-        </div>
-      </div>
-    </ion-item>
+   <ion-item-sliding (click)="toggleDetails(d)">
 
-    </div>
+    <!-- <div *ngFor="let d of data"> -->
+      <ion-item  class="list-style" >
+      <!-- <ion-icon color="nhs" item-left [name]="d.icon"></ion-icon> -->
+      <b>{{d.testType}}</b>
+      <br>
+      Taken on: <b> {{d.testDate}} </b>
+      <br><br>
+      Result available:
+
+      <!-- once 100%, option to call becomes available - unlikely to implement, cool nevertheless
+      <ion-icon item-right name="call"></ion-icon> -->
+
+      <!-- <div class="accordion" *ngIf="d.showDetails"> -->
+      <progress-bar [progress]="d.progress"></progress-bar>
+
+        <!-- <div> -->
+        <!-- <button item-left ion-button color="nhs" (click)="goToInfoPage()">
+          <ion-icon name="information-circle"></ion-icon>
+        </button>
+        <button item-right ion-button color="danger" (click)="deleteTest()">
+          <ion-icon name="trash"></ion-icon>
+        </button> -->
+        <!-- </div> -->
+      
+<!--       if we want to add result date     -->
+<!--       Expected delivery date: {{d.resultDeliveryDate}} -->
+      </ion-item>
+      <!-- </div> -->
+    <!-- </ion-item> -->
+    <!-- </div> THIS IS FOR ngFor-->
+
+    <ion-item-options side="right">
+      <button ion-button color="nhs" (click)="goToInfoPage()">
+        <ion-icon name="information-circle"></ion-icon>
+        Info</button>
+      <button ion-button color="danger" (click)="deleteTestConfirmation(d.testKey, d.testType)">
+        <ion-icon name="trash"></ion-icon>
+        Del</button>
+    </ion-item-options>
+
+    <!-- </div> -->
+  </ion-item-sliding>
+
  </ion-list>
-
+ </ion-card>
 
 </ion-content>

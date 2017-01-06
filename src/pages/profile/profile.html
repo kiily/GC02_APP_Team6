@@ -8,7 +8,6 @@
   <ion-navbar hideBackButton="true">
     <button ion-button color="light" menuToggle (click)="backButton()">
       <ion-icon name="arrow-back"></ion-icon>
-      Prev
     </button>
     <ion-buttons end>
       <button ion-button color="light" (click)="toogleEdit()">Edit</button>
@@ -21,10 +20,12 @@
 </ion-header>
 
 
-<ion-content>
 
+<ion-content class="background">
+<ion-card class="card-style">
 
 <form [formGroup]="profileForm">
+
   <ion-list inset>
 
       <ion-row height-25>
@@ -65,8 +66,9 @@
     <!-- Appears when a change occurs. Button will save to the database -->
     <button ion-button full color="nhs" (click)="saveChanges()" [disabled]="!profileForm.valid">Save Changes</button>
 
-
     </ion-list>
-</form>
+
+  </form>
+  </ion-card>
 
 </ion-content>

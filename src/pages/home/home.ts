@@ -47,11 +47,10 @@ tests: FirebaseListObservable<any[]>;
     //to render buttons
     this.tests = this.af.database.list("bloodTests");
 
-    this.userPhoto =  "assets/images/default-user-grey.png";
+    this.userPhoto =  "assets/images/kevin.jpg";
     console.log(this.userPhoto);
-      
-   }
 
+   }
 
 
 signOutBtn(){
@@ -158,7 +157,7 @@ confirmBtnTouched(){
 
 
 presentTestAddedAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -170,13 +169,13 @@ presentTestAddedAlert(){
           //checking if it works
           handler: data => {
             console.log('OK clicked');
-           
+
           }
         }
       ]
     });
     alert.present();
-  
+
 
 
 }
@@ -378,5 +377,3 @@ console.log('scheduling notification for this date: '+deliveryDate);
 
 
 }
-
-

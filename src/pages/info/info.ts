@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
 import { EmailComposer } from 'ionic-native';
 import { AuthProvider} from '../../providers/auth-provider';
 import { FirebaseProvider} from '../../providers/firebase-provider';
+
 /*
   Generated class for the Info page.
 
@@ -65,6 +67,9 @@ ionViewDidLoad(){
 
 }
 
+backButton() {
+    this.navCtrl.pop(HomePage);
+}
 
 sendEmail(){
 

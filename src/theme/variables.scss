@@ -12,15 +12,19 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
+.content-stable{
+  background-color: #000;
+}
+
 .background-photo{
     background-image:
-    linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
+    // linear-gradient(
+    //   rgba(0, 0, 0, 0.6),
+    //   rgba(0, 0, 0, 0.6)
+    // ),
     url('../assets/images/doc-background.jpg');
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
 }
 
 .toolbar-background {
@@ -39,30 +43,23 @@ $font-path: "../assets/fonts";
   background-repeat: no-repeat;
   background-size:cover;
 
-  .swiper-pagination-bullet
-  {
-    border: 2px solid white;
-  }
 }
 
 .title-colour-test{
   color: #FFFFFF;
+  font-size: 16px;
+  font-weight: lighter;
 }
 
 .signup-page {
   background-image:
-  linear-gradient(
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)
-  ),
+  // linear-gradient(
+  //   rgba(0, 0, 0, 0.5),
+  //   rgba(0, 0, 0, 0.5)
+  // ),
   url('../assets/images/doc-background.jpg');
   background-repeat: no-repeat;
   background-size:cover;
-
-  .swiper-pagination-bullet
-  {
-    border: 2px solid white;
-  }
 
   .slide-zoom {
     height: 100%;
@@ -91,7 +88,7 @@ $control-height: 0px;
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%;
+    padding-bottom: 60%;
     padding-top: 30px; height: 0; overflow: hidden;
 }
 
@@ -120,6 +117,7 @@ $colors: (
   dark:       #222,
   nhs:        #0099FF,
   grey:       #999999,
+  darkgrey:   #A9A9A9,
 );
 
 

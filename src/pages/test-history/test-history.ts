@@ -33,11 +33,10 @@ export class TestHistoryPage {
 
   isDataEmpty;
   
- 
-  
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController,
   public loadingCtrl : LoadingController, public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
   
+
   }
 
   backButton() {
@@ -49,6 +48,7 @@ export class TestHistoryPage {
 
     this.displayTests();
     
+    // try put into display test method
 
     //COME BACK TO THIS IDEA
     // if(this.data.length =0 ){
@@ -101,8 +101,7 @@ displayTests(){
 
 }
 
-
-   
+ 
    toggleDetails(data) {
        
 
@@ -123,7 +122,7 @@ displayTests(){
     this.navCtrl.push(InfoPage, {
       testType: this.testType
     });
-  
+
 }
 
 calculatePercentage(test) :number{
@@ -168,7 +167,7 @@ deleteTest(testKeyToDelete, confirmDelete){
   this.data =[];
 
   this.displayTests();
-  //this.presentLoadingDefault();
+  this.presentLoadingDefault();
   }
 
 }
@@ -187,6 +186,7 @@ deleteTest(testKeyToDelete, confirmDelete){
   setTimeout(() => {
     loading.dismiss();
   }, 200);
+    
 }
 
 deleteTestConfirmation(testKeyToDelete, testType){
@@ -223,8 +223,3 @@ deleteTestConfirmation(testKeyToDelete, testType){
 
 
 }
-
-
-
-
-

@@ -1,3 +1,59 @@
 page-home {
 
+  .button{
+    background-color: #0099FF;
+    font-size: 14px;
+    color: #FFF;
+    line-height: 50px;
+  }
+
+  $list-border-color: red;
+
+  .item-divider-color{
+    list-border-color: #FFF;
+  }
+
+  .edit-profile{
+    font-size: 20px;
+  }
+
+  .card{
+    background-color: transparent;
+  }
+
+  .toolbar-background {
+    background-color: #0099FF;
+  }
+
+  .test{
+    background-color: #f4f4f4;
+  }
+
+  .test2{
+    background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url('../assets/images/doc-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
+.test3{
+  font-size: 14px;
+}
+.user-name{
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .position{
+    background-color: transparent;
+    position:absolute;
+    top:0;
+    right:0;
+  }
+
 }

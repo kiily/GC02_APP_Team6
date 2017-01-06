@@ -25,7 +25,7 @@ users: FirebaseListObservable<any []>;
   signUpForm;
   mySlideOptions;
 
-  gender: string = "f";
+  gender: string;
   test: string = "hello";
 
 @ViewChild('swipes') slider: Slides;
@@ -52,7 +52,7 @@ users: FirebaseListObservable<any []>;
 
       });
 
-    
+
 
   }
 
@@ -87,7 +87,6 @@ users: FirebaseListObservable<any []>;
       .then(authState => {
       //send email verification
       authState.auth.sendEmailVerification();
-      
 
       let uid = authState.uid;
       this.authProvider.addUserToDatabase(uid, email, firstname, lastname, gender, dob, numberGP);
@@ -112,7 +111,7 @@ users: FirebaseListObservable<any []>;
 
 
 presentSignUpAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -129,13 +128,13 @@ presentSignUpAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }
 
 presentPasswordAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -152,7 +151,7 @@ presentPasswordAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }

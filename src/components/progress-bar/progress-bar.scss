@@ -1,25 +1,24 @@
 
 
 	.progress-outer {
-		width: 96%;
+		width: 95%;
 		margin: 10px 2%;
 		padding: 3px;
-		text-align: center;
+		text-align: right;
 		background-color: #f4f4f4;
 		border: 1px solid #dcdcdc;
 		color: #fff;
 		border-radius: 20px;
-        height: 25px
+        height: 22px
 	}
 
 	.progress-inner {
 		min-width: 15%;
 		white-space: nowrap;
 		overflow: hidden;
-		padding: 5px;
+		padding: 1px;
 		border-radius: 20px;
-        height: 17px;
-		background-color: map-get($colors, secondary);
-        font-size: 11px
+        height: 14px;
+		background-color: map-get($colors, nhs);
+        font-size: 10px
 	}
-

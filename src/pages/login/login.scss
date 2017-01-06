@@ -1,3 +1,42 @@
 page-login {
 
+  .loginPos {
+    position: fixed;
+    top: 40%;
+    right: 5%;
+    left: 5%;
+  }
+
+  .signUpPos{
+    position: fixed;
+    right: 5%;
+    left: 5%;
+    bottom: 3%;
+  }
+
+  .title{
+    font-size: 50px;
+    color: #fff;
+    text-shadow: 0 0.5px 0 black;
+
+  }
+
+  .test2{
+    color: #000;
+    font-size: 14px;
+    background-color: white;
+    opacity: 0.95;
+  }
+
+  .button{
+    font-size: 14px;
+  }
+  .signupSpecial{
+    font-size: 12px;
+  }
+
+  .lock-size{
+    font-size: 16px;
+  }
+
 }

@@ -4,14 +4,27 @@ page-signup {
     font-size: 40px;
     font-weight: lighter;
     color: #000;
+    background-color: white;
+    opacity: 0.95;
   }
 
   .item{
     color: #000;
-    font-size: 12px;
+    font-size: 14px;
     //font-weight: lighter;
     background-color: white;
     opacity: 0.95;
   }
+
+// tried to move to the top but affected forms
+  .swiper-pagination-bullet
+  {
+    border: 2px solid white;
+  }
+
+.list-custom{
+  position: absolute;
+  top: 40px;
+}
 
 }

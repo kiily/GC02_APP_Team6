@@ -23,30 +23,51 @@
 
 <ion-content class="background">
   <ion-card>
+    <ion-list-header text-center>
+      Please slide for options
+    </ion-list-header>
  <ion-list *ngFor="let d of data">
-   <ion-item-sliding>
+
+   <ion-item-sliding (click)="toggleDetails(d)">
 
     <!-- <div *ngFor="let d of data"> -->
-      <ion-item class="list-style" (click)="toggleDetails(d)">
+      <ion-item  class="list-style" >
       <!-- <ion-icon color="nhs" item-left [name]="d.icon"></ion-icon> -->
-      {{d.testType}} <br> {{d.date}}
-      <!-- <div class="accordion" *ngIf="d.showDetails"> -->
-        <progress-bar [progress]="loadProgress" color="danger"></progress-bar>
+      <b>{{d.testType}}</b>
+      <br>
+      Taken on: <b> {{d.date}} </b>
+      <br><br>
+      Result available:
 
-        <!-- <div>
-          <button full ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
-          <button full ion-button color="danger" (click)="deleteTest()">Delete Test</button>
-        </div> -->
+      <!-- once 100%, option to call becomes available - unlikely to implement, cool nevertheless
+      <ion-icon item-right name="call"></ion-icon> -->
+
+      <!-- <div class="accordion" *ngIf="d.showDetails"> -->
+      <progress-bar [progress]="loadProgress"></progress-bar>
+
+        <!-- <div> -->
+        <!-- <button item-left ion-button color="nhs" (click)="goToInfoPage()">
+          <ion-icon name="information-circle"></ion-icon>
+        </button>
+        <button item-right ion-button color="danger" (click)="deleteTest()">
+          <ion-icon name="trash"></ion-icon>
+        </button> -->
+        <!-- </div> -->
+
+      </ion-item>
       <!-- </div> -->
-    </ion-item>
+    <!-- </ion-item> -->
     <!-- </div> THIS IS FOR ngFor-->
 
     <ion-item-options side="right">
-      <button ion-button color="danger">
-        <ion-icon name="text"></ion-icon>
-        Delete
-      </button>
+      <button ion-button color="nhs" (click)="goToInfoPage()">
+        <ion-icon name="information-circle"></ion-icon>
+        Info</button>
+      <button ion-button color="danger" (click)="deleteTest()">
+        <ion-icon name="trash"></ion-icon>
+        Del</button>
     </ion-item-options>
+
     <!-- </div> -->
   </ion-item-sliding>
  </ion-list>

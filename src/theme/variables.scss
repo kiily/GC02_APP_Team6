@@ -15,7 +15,6 @@ $font-path: "../assets/fonts";
 .content-stable{
   background-color: #000;
 }
-$background-color: #FFF;
 
 .background-photo{
     background-image:
@@ -44,16 +43,12 @@ $background-color: #FFF;
   background-repeat: no-repeat;
   background-size:cover;
 
-  .swiper-pagination-bullet
-  {
-    border: 2px solid white;
-  }
 }
 
 .title-colour-test{
   color: #FFFFFF;
-  font-size: 12px;
-  //font-weight: lighter;
+  font-size: 16px;
+  font-weight: lighter;
 }
 
 .signup-page {

@@ -31,13 +31,13 @@ export class TestHistoryPage {
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
 
-  
-  
+
+
   testKeyToDelete;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public af : AngularFire,
   public loadingCtrl : LoadingController) {
-  
+
   }
 
   backButton() {
@@ -47,7 +47,7 @@ export class TestHistoryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TestHistoryPage');
     this.displayTests();
-        
+
   }
 
 displayTests(){
@@ -63,7 +63,7 @@ displayTests(){
       this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory')
     .map(tests =>{
        console.log("AFTER MAP", tests);
-       
+
        for(let test of tests){
 
         this.data.push({
@@ -83,12 +83,12 @@ displayTests(){
 
 
 }
-   
+
    toggleDetails(data) {
      this.testType = data.testType;
      //this.testDateToDelete = data.date;
      this.testKeyToDelete = data.testKey;
-      
+
 
      console.log("toggle",this.testType);
 
@@ -118,7 +118,7 @@ displayTests(){
     this.navCtrl.push(InfoPage, {
       testType: this.testType
     });
-  
+
 }
 
 calculatePercentage(){
@@ -147,6 +147,7 @@ deleteTest(){
     this.displayTests();
     this.presentLoadingDefault();
 
+
   //}
   })
   .catch(error => console.log("ERROR", error));
@@ -166,11 +167,8 @@ deleteTest(){
 
   setTimeout(() => {
     loading.dismiss();
-  }, 500);
+  }, 800);
 }
 
 
 }
-
-
-

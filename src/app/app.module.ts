@@ -5,10 +5,13 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { InfoPage } from '../pages/info/info';
 import { ProfilePage } from '../pages/profile/profile';
-import { ResultsPage } from '../pages/results/results';
 import { SignupPage } from '../pages/signup/signup';
 import { TestHistoryPage } from '../pages/test-history/test-history';
+
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { SafePipe } from '../pipes/safe'
+import { AuthProvider } from '../providers/auth-provider';
+import { FirebaseProvider } from '../providers/firebase-provider';
 
 //import AF2 module
 import {AngularFireModule} from 'angularfire2';
@@ -32,10 +35,10 @@ export const firebaseConfig = {
     LoginPage,
     InfoPage,
     ProfilePage,
-    ResultsPage,
     SignupPage,
     TestHistoryPage,
-    ProgressBarComponent
+    ProgressBarComponent,
+    SafePipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -49,10 +52,9 @@ export const firebaseConfig = {
     LoginPage,
     InfoPage,
     ProfilePage,
-    ResultsPage,
     SignupPage,
     TestHistoryPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},AuthProvider, FirebaseProvider ]
 })
 export class AppModule {}

@@ -52,6 +52,7 @@
        edit profile &#160; <ion-icon name="brush"></ion-icon>
     </button>
   </ion-item>
+
 <!-- </ion-card> -->
 
 <!-- <div>
@@ -67,7 +68,8 @@
     <!-- <ion-list-header class="test3">
       Please choose your recent blood test
     </ion-list-header> -->
-    <button text-left block class="button" detail-none ion-item *ngFor="let test of tests | async" (click)="registerTest(test)">
+    <button text-left block class="button" detail-none ion-item *ngFor="let test of tests | async" (click)="datePrompt(test)">
+
 
    <!-- <button ion-item color="nhs" *ngFor="let item of items" (click)="showPrompt();">-->
       <ion-icon color="light" name="flask"></ion-icon>

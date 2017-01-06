@@ -35,7 +35,7 @@
       <!-- <ion-icon color="nhs" item-left [name]="d.icon"></ion-icon> -->
       <b>{{d.testType}}</b>
       <br>
-      Taken on: <b> {{d.date}} </b>
+      Taken on: <b> {{d.testDate}} </b>
       <br><br>
       Result available:
 
@@ -43,7 +43,7 @@
       <ion-icon item-right name="call"></ion-icon> -->
 
       <!-- <div class="accordion" *ngIf="d.showDetails"> -->
-      <progress-bar [progress]="loadProgress"></progress-bar>
+      <progress-bar [progress]="d.progress"></progress-bar>
 
         <!-- <div> -->
         <!-- <button item-left ion-button color="nhs" (click)="goToInfoPage()">
@@ -53,7 +53,9 @@
           <ion-icon name="trash"></ion-icon>
         </button> -->
         <!-- </div> -->
-
+      
+<!--       if we want to add result date     -->
+<!--       Expected delivery date: {{d.resultDeliveryDate}} -->
       </ion-item>
       <!-- </div> -->
     <!-- </ion-item> -->
@@ -63,15 +65,15 @@
       <button ion-button color="nhs" (click)="goToInfoPage()">
         <ion-icon name="information-circle"></ion-icon>
         Info</button>
-      <button ion-button color="danger" (click)="deleteTest()">
+      <button ion-button color="danger" (click)="deleteTestConfirmation(d.testKey, d.testType)">
         <ion-icon name="trash"></ion-icon>
         Del</button>
     </ion-item-options>
 
     <!-- </div> -->
   </ion-item-sliding>
+
  </ion-list>
  </ion-card>
-
 
 </ion-content>

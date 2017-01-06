@@ -5,6 +5,7 @@ import { ViewChild } from '@angular/core';
 import { LoginPage } from '../login/login';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AuthProvider} from '../../providers/auth-provider';
 /*
   Generated class for the Signup page.
 
@@ -27,8 +28,11 @@ users: FirebaseListObservable<any []>;
   gender: string;
   test: string = "hello";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public formBuilder:FormBuilder, public af:AngularFire, public alertCtrl:AlertController) {
+@ViewChild('swipes') slider: Slides;
+
+
+  constructor(public navCtrl: NavController, public formBuilder:FormBuilder, 
+   public alertCtrl:AlertController,  public authProvider : AuthProvider) {
 
     this.mySlideOptions = {
     initialSlide: 0,
@@ -58,79 +62,52 @@ users: FirebaseListObservable<any []>;
 
 
 
-@ViewChild('swipes') slider: Slides;
-
   cancelNewUser(){
     this.navCtrl.pop(LoginPage);
   }
 
-  registerNewUser(){
-    console.log("user registered");
 
+  registerNewUserNew(){
+     console.log("user registered");
+    
+    //data from slide 1
+    let firstname = this.signUpForm.controls.firstname.value;
+    let lastname = this.signUpForm.controls.lastname.value;
+    let gender = this.signUpForm.controls.gender.value;
+    let dob = this.signUpForm.controls.dob.value;
+    let numberGP = this.signUpForm.controls.numberGP.value;
+    
+    //data from slide 2
     let email = this.signUpForm.controls.email.value;
     let password = this.signUpForm.controls.password.value;
     let passwordRepeat = this.signUpForm.controls.passwordRepeat.value;
 
     if(password === passwordRepeat){
-    this.af.auth.createUser({
-      email: email,
-      password: password
-
-      //resolve promise and catch errors in registration, if any
-    }).then(authState => {
+      this.authProvider.registerNewUser(email,password)
+      .then(authState => {
       //send email verification
       authState.auth.sendEmailVerification();
-      this.presentSignUpAlert();
+
       let uid = authState.uid;
-
-
-      //this seems a bit clumsy inside the auth state part
-      //consider moving it outside and creating a class variables
-      //for current uid
-      console.log(uid);
-
-      this.users = this.af.database.list('/users/'+uid);
-
-      let firstname = this.signUpForm.controls.firstname.value;
-      let lastname = this.signUpForm.controls.lastname.value;
-      let gender = this.signUpForm.controls.gender.value;
-      let dob = this.signUpForm.controls.dob.value;
-      let numberGP = this.signUpForm.controls.numberGP.value;
-
-      console.log(firstname);
-      console.log(email);
-
-      this.af.database.object('/users/'+uid).update({
-
-      firstname: firstname,
-      lastname: lastname,
-      gender: gender,
-      dob: dob,
-      email: email,
-      numberGP: numberGP,
-      //for email preferences
-      preferences: false
-
-
-      });
-
-
+      this.authProvider.addUserToDatabase(uid, email, firstname, lastname, gender, dob, numberGP);
+      this.presentSignUpAlert();
+      
       this.navCtrl.setRoot(LoginPage);
 
-    })
-    .catch(error => {
-
-
-   console.log("REGISTER ERROR", error);
+      })
+      .catch(error => {
+       console.log("REGISTER ERROR", error);
+       this.presentEmailAlreadyExistsAlert();
     });
 
-
-  }else{
-    this.presentPasswordAlert();
+    }else{
+      this.presentPasswordAlert();
+    }
   }
 
 
-  }
+
+  
 
 
 presentSignUpAlert(){
@@ -177,6 +154,26 @@ presentPasswordAlert(){
 
 
 
+}
+
+
+presentEmailAlreadyExistsAlert(){
+  //separate alert into new method
+    let alert = this.alertCtrl.create({
+
+      title: "Email already in use",
+      subTitle: "The email address is already in use by another account",
+      buttons: [
+        {
+          text: "OK",
+          //checking if it works
+          handler: data => {
+            console.log('OK clicked')
+          }
+        }
+      ]
+    });
+    alert.present();
 }
 
 

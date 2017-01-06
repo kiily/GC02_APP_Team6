@@ -5,7 +5,10 @@ import { InfoPage } from '../info/info';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { LoginPage } from '../login/login';
 import { ProfilePage } from '../profile/profile';
-
+import { LocalNotifications } from 'ionic-native';
+import { AuthProvider} from '../../providers/auth-provider';
+import { FirebaseProvider} from '../../providers/firebase-provider';
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-home',
@@ -13,31 +16,26 @@ import { ProfilePage } from '../profile/profile';
 })
 export class HomePage {
 
-  items = [
-  'TSH',
-  'HgA1C',
-  'Haemoglobin',
-  'Cholesterol',
-  'LFTs (albumin)'
-];
 
 
- // use this to give the url of the profile picture from firebase
+ // use this to give the uri of the profile picture from firebase
 userPhoto: string;
 
 // used with checkbox alert
 testCheckboxOpen: boolean;
 testCheckboxResult;
-currentUID;
+
 
 tests: FirebaseListObservable<any[]>;
 
-testToAdd: FirebaseListObservable<any[]>;
+
+
 
 
   constructor(public navCtrl: NavController, public af:AngularFire, public alertCtrl:AlertController,
-  public actionsheetCtrl: ActionSheetController, public platform: Platform) {
-
+  public actionsheetCtrl: ActionSheetController, public platform: Platform, public authProvider : AuthProvider
+  ,public firebaseProvider : FirebaseProvider ) {
+    
   }
 
 
@@ -45,6 +43,8 @@ testToAdd: FirebaseListObservable<any[]>;
 //helps avoid memory leakage
    ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+   
+    //to render buttons
     this.tests = this.af.database.list("bloodTests");
 
     this.userPhoto =  "assets/images/kevin.jpg";
@@ -52,47 +52,6 @@ testToAdd: FirebaseListObservable<any[]>;
 
    }
 
-
-//method registers a test under a given user
- registerTest(test){
-    this.af.auth.subscribe(authState => {
-      this.currentUID = authState.uid;
-      console.log('currentUID: '+this.currentUID);
-        //this.tests = this.af.database.object('/users/'+uid+'/testHistory');
-      });
-
-
-
-    this.testToAdd = this.af.database.list('/users/'+this.currentUID+'/testHistory');
-    console.log("adding the test");
-    let date = '03/01/2017';
-    console.log(date);
-    this.testToAdd.push({
-      type: test.$key,
-      date: date ,
-      deliveryTime: test.deliveryTime
-
-    });
-    console.log("TEST ADDED");
-    //TODO: un comment
-    //this.presentTestAddedAlert();
-
-    //alternative is to put this in the alert method
-    //and pass the test parameter
-     this.navCtrl.push(InfoPage, {
-       testType: test.$key
-
-    });
-    }
-
-
-
-//method is now deprecated
-  testSelected(test) {
-    console.log("Selected test", test);
-    console.log(test.$key);
-    console.log(test.deliveryTime);
-  }
 
 signOutBtn(){
     this.navCtrl.popToRoot();
@@ -107,64 +66,16 @@ goToProfile(){
   this.navCtrl.push(ProfilePage);
 }
 
-// date prompt alertCtrl
-// TODO: next button should save the date to firebase? and maybe have exception
-// handlers
 
-showPrompt() {
-    let prompt = this.alertCtrl.create({
-      title: 'Date Finder',
-      message: "Please enter the date of your recent blood test",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'dd/mm/yyyy'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Next',
-          handler: data => {
-            console.log('Next clicked');
 
-            let navTransition = prompt.dismiss();
-
-                  // start some async method
-                  this.createTimeout(300).then(() => {
-                    // once the async operation has completed
-                    // then run the next nav transition after the
-                    // first transition has finished animating out
-
-                    navTransition.then(() => {
-                      // here comes your navigation action (push, pop, setRoot)
-                      this.showCheckbox();
-                    });
-                  });
-                  return false;
-
-            // this.showCheckbox();
-          }
-        }
-      ]
-    });
-    prompt.present();
-
-  }
-
-  // delay betweem alerts
-  createTimeout(timeout) {
+// delay between alerts
+createTimeout(timeout) {
         return new Promise((resolve, reject) => {
             setTimeout(() => resolve(null),timeout)
         })
     }
 
-// checkbox alert
+// checkbox alert; disabled for now
 showCheckbox() {
     let alert = this.alertCtrl.create();
     alert.setTitle('Information...');
@@ -268,4 +179,201 @@ presentTestAddedAlert(){
 
 
 }
+
+
+//method triggered from clicking one of the texts
+//cheks for date and its validity
+datePrompt(test){
+
+let uid = this.authProvider.getCurrentUID();
+
+let alert = this.alertCtrl.create({
+    title: 'Date Finder',
+    subTitle: "Please enter the date of your recent blood test in the following format:\rdd/mm/yyyy",
+    inputs: [
+      {
+        name: 'date',
+        placeholder: 'XX/XX/XXXX'
+      }
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Next',
+        handler: data => {
+
+         let isValidDate = this.dateValidator(data.date);
+
+          var dateArray = data.date.split('/');
+
+          let day = parseInt(dateArray[0]);
+          let month = parseInt(dateArray[1]);
+          let year = parseInt(dateArray[2]);
+
+          let testDate : Date = new Date(month+'/'+day+'/'+year);
+          console.log(testDate);
+          let testDateStr : string  = moment(testDate).format('DD/MM/YYYY');
+          console.log(testDateStr);
+
+         if(isValidDate == true){
+            
+            let resultDeliveryDate = this.calculateFinalDate(testDate, test.deliveryTime);
+            let resultDeliveryDateStr : string = moment(resultDeliveryDate).format('DD/MM/YYYY');
+            this.scheduleLocalNotification(test, resultDeliveryDate);
+
+
+            this.firebaseProvider.registerNewTest(uid, test, testDateStr, resultDeliveryDateStr);
+
+            this.scheduleLocalNotification(test, resultDeliveryDate);
+            this.presentTestAddedAlert();
+    
+            //alternative is to put this in the alert method
+            //and pass the test parameter
+            this.navCtrl.push(InfoPage, {
+            testType: test.$key
+       
+    });
+
+         }else{
+           this.invalidDateAlert(test);
+           
+         }
+
+        
+         
+          }
+        }
+      
+    ]
+  });
+  alert.present();
+
+}
+
+
+
+//http://www.w3resource.com/javascript/form/javascript-date-validation.php
+
+//changes this.initialDateFormat
+dateValidator(date : string) : boolean {
+
+var dateFormat = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+var isValid :boolean;
+
+if(date.match(dateFormat)){
+  console.log("regex matched");
+  var dateArray = date.split('/');
+
+  let day = parseInt(dateArray[0]);
+  let month = parseInt(dateArray[1]);
+  let year = parseInt(dateArray[2]);
+  console.log("parsed date:"+day+' month:'+month+' year:'+year);
+ // Create list of days of a month [assume there is no leap year by default]  
+  var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];  
+
+  if (month > 12)  
+  {  
+    isValid = false;
+  }
+  //if over 31
+  else if (day>ListofDays[month-1])  
+  {  
+  
+  isValid = false;
+  }  
+   
+  //if February
+  else if (month==2)  
+  {  
+    //account for leap year
+  var lyear = false;  
+  if ( (!(year % 4) && year % 100) || !(year % 400))   
+  {  
+  lyear = true;  
+  }  
+  if ((lyear==false) && (day>=29))  
+  {  
+  isValid  = false;
+  }  
+  if ((lyear==true) && (day>29))  
+  {  
+   isValid  = false;
+  }  
+  
+  }else
+ 
+  isValid =true;
+  
+  
+  
+
+
+}else{
+ isValid =false;
+}
+
+console.log(isValid);
+
+return isValid;
+}
+
+
+invalidDateAlert(test){
+
+   //separate alert into new method
+    let alert = this.alertCtrl.create({
+
+      title: "Entered an invalid date",
+      subTitle: "Please enter a date with this format: dd/mm/yyyy",
+      buttons: [
+        {
+          text: "OK",
+          //checking if it works
+          handler: data => {
+            console.log('OK clicked')
+            this.datePrompt(test);
+          }
+        }
+      ]
+    });
+    alert.present();
+
+}
+
+calculateFinalDate(testDate : Date, deliveryTime) : Date {
+
+//conversion to ms
+  let deliveryTimeMs = deliveryTime *24*3600*1000;
+  var testDateMs = testDate.getTime();
+
+  let resultDeliveryDate : Date  = new Date(testDateMs + deliveryTimeMs);
+  
+  
+  return resultDeliveryDate;
+}
+
+scheduleLocalNotification(test, deliveryDate : Date ){
+
+console.log('scheduling notification for this date: '+deliveryDate);
+//by default notifications arrive at midnight (added 10h to be safe; added in ms)
+//ensures that most people will be awake and GPs open 
+  LocalNotifications.schedule({
+    title:' Blood Test App - '+test.$key+' Results Available',
+    text:'Phone your GP to find out',
+    at: (deliveryDate.getTime() + 10*3600*1000)
+   
+  })
+
+
+
+}
+
+
 }

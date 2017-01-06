@@ -34,8 +34,8 @@
              <img [src]="photoUploaded" style="width : 100% ; height : 100%" (click)="test()">
        </ion-col>
        <ion-col width-67>
-         <ion-item>
-           <ion-input formControlName="profileFirstname"  type="text" [value]="firstName" [disabled]="editToggle"  clearInput></ion-input>
+         <ion-item><!--ADD ngModel instead of forms ?? wait for redesign-->
+           <ion-input formControlName="profileFirstname"  type="text" [value]="firstName" [disabled]="editToggle" [(ngModel)]="firstName" clearInput></ion-input>
          </ion-item>
 
          <ion-item>

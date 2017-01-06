@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
-import {AngularFire,FirebaseListObservable} from 'angularfire2';
-import { Observable } from 'rxjs/Observable';
-import "rxjs/add/operator/map";
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { AuthProvider} from '../../providers/auth-provider';
+import { FirebaseProvider} from '../../providers/firebase-provider';
 import { InfoPage } from '../info/info';
 import { HomePage } from '../home/home';
+import { Observable } from 'rxjs/Observable';
+import "rxjs/add/operator/map";
 import * as moment from 'moment';
 
 /*
@@ -19,22 +20,23 @@ import * as moment from 'moment';
 })
 export class TestHistoryPage {
 
-  currentUID;
+  
 
 
   testType;
 // this array helps us build the accordion
-  data: Array<{testType: string, testKey: string, initialDate :string,finalDate : string, progress :number,  icon: string, showDetails: boolean}> = [];
+  data: Array<{testType: string, testKey: string, testDate :string,
+  resultDeliveryDate : string, progress :number, icon: string, showDetails: boolean}> = [];
 
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
 
+  isDataEmpty;
   
+ 
   
-  testKeyToDelete;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af : AngularFire,
-  public loadingCtrl : LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController,
+  public loadingCtrl : LoadingController, public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
   
   }
 
@@ -44,24 +46,28 @@ export class TestHistoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TestHistoryPage');
+
     this.displayTests();
+    
+
+    //COME BACK TO THIS IDEA
+    // if(this.data.length =0 ){
+    //   this.isDataEmpty = true;
+    // }else{
+    //   this.isDataEmpty = false;
+    // }
         
   }
 
+
 displayTests(){
-  //getting the currently logged in user
-    this.af.auth.subscribe(authState => {
-      this.currentUID = authState.uid;
-      console.log('currentUID: '+this.currentUID);
-        //this.tests = this.af.database.object('/users/'+uid+'/testHistory');
-      });
 
-  console.log('currentUID: '+this.currentUID);
+  let uid = this.authProvider.getCurrentUID();
 
+  this.tests = this.firebaseProvider.getUserTests(uid)
+  .map(tests => {
 
-      this.tests = this.af.database.list('/users/'+this.currentUID+'/testHistory')
-    .map(tests =>{
-       console.log("AFTER MAP", tests);
+     console.log("AFTER MAP", tests);
        
        for(let test of tests){
 
@@ -70,8 +76,8 @@ displayTests(){
         this.data.push({
           testType: test.type,
           testKey: test.$key,
-          initialDate: test.initialDate,
-          finalDate: test.finalDate,
+          testDate: test.testDate,
+          resultDeliveryDate: test.resultDeliveryDate,
           progress : progress,
           icon: "add",
           showDetails: false
@@ -92,13 +98,13 @@ displayTests(){
       });
 
 
+
 }
+
+
    
    toggleDetails(data) {
-     this.testType = data.testType;
-     //this.testDateToDelete = data.date;
-     this.testKeyToDelete = data.testKey;
-      
+       
 
      console.log("toggle",this.testType);
 
@@ -109,10 +115,6 @@ displayTests(){
         data.showDetails = true;
         data.icon = 'remove';
     }
-
-
-   
-
 
   }
 
@@ -126,71 +128,55 @@ displayTests(){
 
 calculatePercentage(test) :number{
   
-  console.log(test.initialDate);
-  console.log(test.finalDate);
 
-   let initial = moment(test.initialDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
-   console.log(initial);
-   let final = moment(test.finalDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
-   console.log(final);
+   let initial = moment(test.testDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
+   //console.log(initial);
+   let final = moment(test.resultDeliveryDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
+   //console.log(final);
 
-   let initialDate = new Date(initial)
-   let initialDateMs = initialDate.getTime();
-   console.log("initial:"+initialDate+' in ms:'+initialDateMs)
-   let finalDate = new Date(final);
-   let finalDateMs = new Date(final).getTime();
-   console.log("final:"+finalDate+' in ms:'+finalDateMs)
-   let currentDate = new Date();
-   console.log(currentDate);
+   let testDate : Date = new Date(initial)
+   let testDateMs = testDate.getTime();
+   //console.log("initial:"+initialDate+' in ms:'+initialDateMs)
+   let resultDeliveryDate : Date = new Date(final);
+   let resultDeliveryDateMs = new Date(final).getTime();
+   //console.log("final:"+finalDate+' in ms:'+finalDateMs)
+   let currentDate : Date = new Date();
+   //console.log(currentDate);
    let currentDateMs = new Date().getTime();
-   console.log(currentDateMs);
+  // console.log(currentDateMs);
 
-   let timeElapsedMs = (currentDateMs - initialDateMs);
+   let timeElapsedMs = (currentDateMs - testDateMs);
    console.log(timeElapsedMs);
    //let deliveryTimeMs = data.deliveryTime *24*3600*1000;
    
    //(timeElapsed/deliveryTime)*100
-   let progress = (timeElapsedMs/(finalDateMs-initialDateMs) * 100);
+   let progress = (timeElapsedMs/(resultDeliveryDateMs-testDateMs) * 100);
    console.log(progress);
    return Math.round(progress);
     //  allows to make the progress bar
     
 }
 
+//no longer depends on toggleDetails
+deleteTest(testKeyToDelete, confirmDelete){
 
 
-//deletes the object from both the database and the data array
-//currently depends on the toogle details method
-deleteTest(){
-  console.log(this.testKeyToDelete);
+  if(confirmDelete == true){
+  let uid = this.authProvider.getCurrentUID();
 
-  this.af.database.object('/users/'+this.currentUID+'/testHistory/'+this.testKeyToDelete).remove()
-  .then(x => {
-    console.log("Test was removed");
+  this.firebaseProvider.deleteTest(uid, testKeyToDelete);
+  this.data =[];
 
-    this.data = [];
-
-    // for(let d of this.data){
-
-    // if(d.testKey === this.testKeyToDelete){
-    //   let index = this.data.indexOf(d);
-    //   this.data.splice(index,1);
-    // }
-
-    this.displayTests();
-    this.presentLoadingDefault();
-
-  //}
-  })
-  .catch(error => console.log("ERROR", error));
- //when item is removed could display a toast notification or an alert
-
-
+  this.displayTests();
+  //this.presentLoadingDefault();
   }
-  
+
+}
+
 
 
   // loading animation
+  //might not be needed
   presentLoadingDefault() {
   let loading = this.loadingCtrl.create({
     content: 'Deleting test...'
@@ -200,33 +186,45 @@ deleteTest(){
 
   setTimeout(() => {
     loading.dismiss();
-  }, 500);
+  }, 200);
 }
 
-displayProgress(loadProgressArray : Array<number>){
-  
+deleteTestConfirmation(testKeyToDelete, testType){
 
-// for (let progressInterval of progressIntervalArray){
-// for(let i= 0; i<loadProgressArray.length ; i++){
+  let confirmDelete = false;
 
-//  setInterval(() => {
-//        if(loadProgressArray[i] <100){
-//          loadProgressArray[i]++;
-         
-//        }
+  let confirm = this.alertCtrl.create({
+      title: 'Delete this '+testType+' test?',
+      message: 'Are you sure that you want to delete this test?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Agree clicked');
+            confirmDelete = true;
+            this.deleteTest(testKeyToDelete, confirmDelete);
+            
+          }
+        }
+      ]
+    });
+    confirm.present();
+    
+  }
 
 
-//      }, progressInterval);
 
-//    }
 
-//    }
 
 }
 
 
-
-}
 
 
 

@@ -28,14 +28,15 @@
 
     <ion-item padding>
       <ion-icon color="nhs" item-left [name]="d.icon" (click)="toggleDetails(d)"></ion-icon>
-      {{d.testType}} Date:{{d.initialDate}}
+      <!--<h3 *ngIf="isDataEmpty">You currently have no tests stored in the app</h3>-->
+      {{d.testType}} - Date: {{d.testDate}}
       <div class="accordion" *ngIf="d.showDetails">
         <progress-bar [progress]="d.progress"></progress-bar>
         <div>
-          Expected delivery date: {{d.finalDate}}
+          Expected delivery date: {{d.resultDeliveryDate}}
           <button ion-button color="nhs" (click)="goToInfoPage()">Show Info</button>
           <!--HOPE YOU CAN FIX THIS DESIGN; MY BUTTON IS HERE FOR THE SAKE OF TESTING IF ITEMS ARE CORRECTLY DELETED-->
-          <button ion-button color="danger" (click)="deleteTest()">Delete Test</button>
+          <button ion-button color="danger" (click)="deleteTestConfirmation(d.testKey, d.testType)">Delete Test</button>
         </div>
       </div>
     </ion-item>

@@ -20,7 +20,6 @@
 </ion-header>
 
 
-
 <ion-content class="background">
 <ion-card class="card-style">
 
@@ -32,7 +31,7 @@
        <ion-col width-33>
          <button class = "title-colour-test" (click)="openGallery()">edit
            </button>
-             <img [src]="photoUploaded" style="width : 100% ; height : 100%" (click)="test()">
+             <img [src]="photoUploaded" style="width : 100% ; height : 100%">
        </ion-col>
        <ion-col width-67>
          <ion-item><!--ADD ngModel instead of forms ?? wait for redesign-->
@@ -55,20 +54,20 @@
       <ion-input formControlName="profileGPNumber"  type="tel" [value]="numberGP" [disabled]="editToggle"  clearInput></ion-input>
     </ion-item>
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-input formControlName="profileNewPassword" type="password" placeholder="New Password" value=""></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input formControlName="profileNewPasswordRepeat" type="password" placeholder="Repeat New Password" value=""></ion-input>
-    </ion-item>
+    </ion-item> -->
 
     <!-- Appears when a change occurs. Button will save to the database -->
-    <button ion-button full color="nhs" (click)="saveChanges()" [disabled]="!profileForm.valid">Save Changes</button>
-
     </ion-list>
 
   </form>
   </ion-card>
+  <button ion-button full color="nhs" (click)="saveChanges()" [disabled]="!profileForm.valid">Save Changes</button>
+
 
 </ion-content>

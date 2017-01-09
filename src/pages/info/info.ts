@@ -28,7 +28,7 @@ email: string;
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  
+  constructor(public navCtrl: NavController, public navParams: NavParams,
   public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider) {
 
 
@@ -38,12 +38,12 @@ email: string;
 
 
 ionViewDidLoad(){
- 
+
  let uid = this.authProvider.getCurrentUID();
 
  let videoURL = this.firebaseProvider.getVideoURL(this.testType);
  videoURL.subscribe(videoURLDB => {
-   
+
    //this is the URL passed to the DOM
     this.videoURL = videoURLDB.$value;
  });
@@ -63,7 +63,7 @@ ionViewDidLoad(){
  email.subscribe(emailDB => {
    this.email= emailDB.$value;
  });
- 
+
 
 }
 
@@ -83,7 +83,7 @@ sendEmail(){
 let emailToSend ={
   to: this.email,
   subject: 'Blood Test App - '+this.testType+' Information',
-  body: '<p>Dear '+this.firstName+',</p>'+'<p>'+this.description+'</p><p>Follow this link to watch the video: '+this.videoURL+'<p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p><p>Sincerely,</p><p>Blood Test App Team</p>',
+  body: '<p>Dear '+this.firstName+',</p>'+'<p>'+this.description+'</p><p>Follow this link to watch the video: '+this.videoURL+'<p>Video password: TSH</p><p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p><p>Sincerely,</p><p>Blood Test App Team</p>',
   isHtml: true
 };
 
@@ -91,7 +91,7 @@ EmailComposer.open(emailToSend);
 
 
 }
-     
+
 
 
 }

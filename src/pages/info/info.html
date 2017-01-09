@@ -32,9 +32,6 @@
       Hi, Mr. Bryson
       </ion-card-title>
     <p>
-      The most popular industrial group ever, and largely
-      responsible for bringing the music to a mass audience.
-
       {{description}}
     </p>
 
@@ -45,12 +42,15 @@
             <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0"></iframe>
         </div>
     </ion-item>
+    <p text-center><b>Video password: TSH</b></p>
+    <br>
     <p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p>
-    <p padding-top>Sincerely,</p>
-    <p text-right>Team 6</p>
-
+    <br>
+    <p>Further Information:</p>
+     <!-- Miguel modify link code here! -->
+    <p>"fetched links from firebase"</p>
   </ion-card-content>
 </ion-card>
 
-<button ion-button (click)="sendEmail()">Send this to my email</button>
+<button ion-button full (click)="sendEmail()">Send this to my email</button>
 </ion-content>

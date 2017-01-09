@@ -27,7 +27,7 @@ export class ProfilePage {
   lastName;
   email;
   numberGP;
-  
+
 
   profileForm;
   isEditable;
@@ -51,7 +51,7 @@ export class ProfilePage {
 
       });
 
-     
+
   }
 
   ionViewDidLoad() {
@@ -62,14 +62,14 @@ export class ProfilePage {
 if(this.photoUploaded == null){
     this.photoUploaded = "assets/images/dobby.jpg";
 }
-    
+
   }
 
   backButton() {
   this.navCtrl.pop(HomePage);
   }
 
-  
+
 //IDEA: create a photoURI field in the database ?? could mess up if in another device.
   // http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
   private openGallery (): void {
@@ -84,7 +84,7 @@ if(this.photoUploaded == null){
     encodingType: Camera.EncodingType.JPEG,
     correctOrientation: true
   }
-  
+
   Camera.getPicture(cameraOptions)
     .then(file_uri => this.photoUploaded = file_uri,
     err => console.log(err));
@@ -108,10 +108,10 @@ saveChanges(){
    if(newPassword === newPasswordRepeat){
      this.authProvider.updateUserProfile(uid,firstName,lastName,email,numberGP);
    }
-     
+
 
       this.presentChangesAlert();
-  
+
 }
 
 toogleEdit(){
@@ -129,22 +129,22 @@ getCurrentUserInfo(){
 
   let firstName = this.authProvider.getUserFirstName(uid);
   firstName.subscribe(firstNameDB => {
-    this.firstName = firstNameDB.x.$value
+    this.firstName = firstNameDB.$value
   });
 
   let lastName = this.authProvider.getUserLastName(uid);
   lastName.subscribe(lastNameDB => {
-    this.lastName = lastNameDB.x.$value
+    this.lastName = lastNameDB.$value
   });
 
    let email = this.authProvider.getUserEmail(uid);
   email.subscribe(emailDB => {
-    this.email = emailDB.x.$value
+    this.email = emailDB.$value
   });
 
      let numberGP = this.authProvider.getUserGPNumber(uid);
   numberGP.subscribe(numberGPDB => {
-    this.numberGP = numberGPDB.x.$value
+    this.numberGP = numberGPDB.$value
   });
 
 }
@@ -152,7 +152,7 @@ getCurrentUserInfo(){
 
 //to notify that new password does not match
 presentPasswordAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -169,14 +169,14 @@ presentPasswordAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }
 
 
 presentChangesAlert(){
-  
+
     //separate alert into new method
     let alert = this.alertCtrl.create({
 
@@ -193,7 +193,7 @@ presentChangesAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }

@@ -20,7 +20,7 @@ import * as moment from 'moment';
 })
 export class TestHistoryPage {
 
-  
+
 
 
   testType;
@@ -31,11 +31,12 @@ export class TestHistoryPage {
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
 
-  isDataEmpty;
-  
+  isDataEmpty: boolean;
+  isDataEmptyString;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController,
   public loadingCtrl : LoadingController, public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
-  
+
 
   }
 
@@ -47,16 +48,19 @@ export class TestHistoryPage {
     console.log('ionViewDidLoad TestHistoryPage');
 
     this.displayTests();
-    
+
     // try put into display test method
 
     //COME BACK TO THIS IDEA
-    // if(this.data.length =0 ){
-    //   this.isDataEmpty = true;
-    // }else{
-    //   this.isDataEmpty = false;
-    // }
-        
+    if(this.data.length == 0 ){
+      this.isDataEmpty = true;
+      this.isDataEmptyString = "No Blood";
+    }
+    else{
+      this.isDataEmpty = false;
+      this.isDataEmptyString = "";
+    }
+
   }
 
 
@@ -68,7 +72,7 @@ displayTests(){
   .map(tests => {
 
      console.log("AFTER MAP", tests);
-       
+
        for(let test of tests){
 
          let progress = this.calculatePercentage(test);
@@ -82,18 +86,18 @@ displayTests(){
           icon: "add",
           showDetails: false
         });
-         
+
         console.log(this.data);
-      
+
        }
 
        //temporarily for tests to display by date
        this.data.reverse();
-      
-       
+
+
 
        //need to change the position of this//progress needs to be lcoal and specific
-       
+
       return tests;
       });
 
@@ -101,9 +105,9 @@ displayTests(){
 
 }
 
- 
+
    toggleDetails(data) {
-       
+
 
      console.log("toggle",this.testType);
 
@@ -118,15 +122,15 @@ displayTests(){
   }
 
 
-  goToInfoPage(){
+  goToInfoPage(testType){
     this.navCtrl.push(InfoPage, {
-      testType: this.testType
+      testType: testType
     });
 
 }
 
 calculatePercentage(test) :number{
-  
+
 
    let initial = moment(test.testDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
    //console.log(initial);
@@ -147,13 +151,13 @@ calculatePercentage(test) :number{
    let timeElapsedMs = (currentDateMs - testDateMs);
    console.log(timeElapsedMs);
    //let deliveryTimeMs = data.deliveryTime *24*3600*1000;
-   
+
    //(timeElapsed/deliveryTime)*100
    let progress = (timeElapsedMs/(resultDeliveryDateMs-testDateMs) * 100);
    console.log(progress);
    return Math.round(progress);
     //  allows to make the progress bar
-    
+
 }
 
 //no longer depends on toggleDetails
@@ -167,7 +171,6 @@ deleteTest(testKeyToDelete, confirmDelete){
   this.data =[];
 
   this.displayTests();
-  this.presentLoadingDefault();
   }
 
 }
@@ -185,8 +188,8 @@ deleteTest(testKeyToDelete, confirmDelete){
 
   setTimeout(() => {
     loading.dismiss();
-  }, 200);
-    
+  }, 1200);
+
 }
 
 deleteTestConfirmation(testKeyToDelete, testType){
@@ -207,16 +210,28 @@ deleteTestConfirmation(testKeyToDelete, testType){
           text: 'Yes',
           handler: () => {
             console.log('Agree clicked');
+
+            this.presentLoadingDefault();
+
+            this.createTimeout(800).then(() => {
             confirmDelete = true;
             this.deleteTest(testKeyToDelete, confirmDelete);
-            
+
           }
+        )}
         }
       ]
     });
     confirm.present();
-    
+
   }
+
+  // delay between alerts
+  createTimeout(timeout) {
+          return new Promise((resolve, reject) => {
+              setTimeout(() => resolve(null),timeout)
+          })
+      }
 
 
 

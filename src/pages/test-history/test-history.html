@@ -22,12 +22,14 @@
 <p *ngFor="let test of tests | async"></p>
 
 <ion-content class="background">
+
   <ion-card>
-    <ion-list-header text-center>
+    <ion-list-header text-center *ngIf="data.length!=0">
       Please slide for options
     </ion-list-header>
- <ion-list *ngFor="let d of data">
 
+ <ion-list *ngFor="let d of data">
+   <!-- <ion-item text-center *ngIf="data.length == 0">No tests</ion-item> -->
    <ion-item-sliding (click)="toggleDetails(d)">
 
     <!-- <div *ngFor="let d of data"> -->
@@ -53,7 +55,7 @@
           <ion-icon name="trash"></ion-icon>
         </button> -->
         <!-- </div> -->
-      
+
 <!--       if we want to add result date     -->
 <!--       Expected delivery date: {{d.resultDeliveryDate}} -->
       </ion-item>
@@ -62,7 +64,7 @@
     <!-- </div> THIS IS FOR ngFor-->
 
     <ion-item-options side="right">
-      <button ion-button color="nhs" (click)="goToInfoPage()">
+      <button ion-button color="nhs" (click)="goToInfoPage(d.testType)">
         <ion-icon name="information-circle"></ion-icon>
         Info</button>
       <button ion-button color="danger" (click)="deleteTestConfirmation(d.testKey, d.testType)">
@@ -72,8 +74,9 @@
 
     <!-- </div> -->
   </ion-item-sliding>
-
  </ion-list>
  </ion-card>
+ <p text-center color="darkgrey" *ngIf="data.length == 0">You currently have no blood tests to display.</p>
+ <!-- <p text-center color="darkgrey" *ngIf="isDataEmpty == true">{{isDataEmptyString}}</p> -->
 
 </ion-content>

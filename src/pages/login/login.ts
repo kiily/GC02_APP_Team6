@@ -37,36 +37,41 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    
+
   }
 
 
 
 //pressing the login button
 login(){
-   
+
+// loading sign needs to be present first.
+this.presentLoadingDefault();
 
    let email = this.loginForm.controls.email.value;
    let password = this.loginForm.controls.password.value;
 
+// allow smooother transition into homepage if credentials are correct
+this.createTimeout(300).then(() => {
+
    //login method from provider returns a promise
    this.authProvider.login(email, password)
    .then(authState =>  {
-    
+
     console.log("LOGIN-SUCCESS", authState);
     this.loginForm.reset();
-    
+
+    //this.presentLoadingDefault();
     this.navCtrl.push(HomePage);
-    this.presentLoadingDefault();
-    
 
   })
+})
     .catch(error => {
     console.log("LOGIN-ERROR", error);
     this.invalidCredentialsAlert();
   });
-  
- 
+  return false;
+
 
 }
 
@@ -76,7 +81,12 @@ login(){
     this.navCtrl.push(SignupPage);
   }
 
-
+  // delay between alerts
+  createTimeout(timeout) {
+          return new Promise((resolve, reject) => {
+              setTimeout(() => resolve(null),timeout)
+          })
+      }
 
 // loading animation
 presentLoadingDefault() {
@@ -88,7 +98,7 @@ presentLoadingDefault() {
 
   setTimeout(() => {
     loading.dismiss();
-  }, 800);
+  }, 1200);
 }
 
 
@@ -96,7 +106,7 @@ presentLoadingDefault() {
 
 //triggered in case of invalid credentials
 invalidCredentialsAlert(){
-  
+
     let alert = this.alertCtrl.create({
 
       title: "Invalid credentials...",

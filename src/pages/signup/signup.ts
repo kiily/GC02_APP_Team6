@@ -6,6 +6,7 @@ import { LoginPage } from '../login/login';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthProvider} from '../../providers/auth-provider';
+import { Camera } from 'ionic-native';
 /*
   Generated class for the Signup page.
 
@@ -30,8 +31,9 @@ users: FirebaseListObservable<any []>;
 
 @ViewChild('swipes') slider: Slides;
 
+private photoUploaded: string;
 
-  constructor(public navCtrl: NavController, public formBuilder:FormBuilder, 
+  constructor(public navCtrl: NavController, public formBuilder:FormBuilder,
    public alertCtrl:AlertController,  public authProvider : AuthProvider) {
 
     this.mySlideOptions = {
@@ -69,14 +71,14 @@ users: FirebaseListObservable<any []>;
 
   registerNewUserNew(){
      console.log("user registered");
-    
+
     //data from slide 1
     let firstname = this.signUpForm.controls.firstname.value;
     let lastname = this.signUpForm.controls.lastname.value;
     let gender = this.signUpForm.controls.gender.value;
     let dob = this.signUpForm.controls.dob.value;
     let numberGP = this.signUpForm.controls.numberGP.value;
-    
+
     //data from slide 2
     let email = this.signUpForm.controls.email.value;
     let password = this.signUpForm.controls.password.value;
@@ -91,7 +93,7 @@ users: FirebaseListObservable<any []>;
       let uid = authState.uid;
       this.authProvider.addUserToDatabase(uid, email, firstname, lastname, gender, dob, numberGP);
       this.presentSignUpAlert();
-      
+
       this.navCtrl.setRoot(LoginPage);
 
       })
@@ -107,7 +109,7 @@ users: FirebaseListObservable<any []>;
 
 
 
-  
+
 
 
 presentSignUpAlert(){
@@ -175,6 +177,29 @@ presentEmailAlreadyExistsAlert(){
     });
     alert.present();
 }
+
+//IDEA: create a photoURI field in the database ?? could mess up if in another device.
+  // http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
+  private openGallery (): void {
+
+  let cameraOptions = {
+    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: Camera.DestinationType.FILE_URI,
+    quality: 100,
+    targetWidth: 1000,
+    targetHeight: 1000,
+    encodingType: Camera.EncodingType.JPEG,
+    correctOrientation: true
+  }
+
+  Camera.getPicture(cameraOptions)
+    .then(file_uri => this.photoUploaded = file_uri,
+    err => console.log(err));
+
+    console.log(Camera.EncodingType.JPEG);
+}
+
+
 
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFire, AuthMethods, AuthProviders, FirebaseObjectObservable} from 'angularfire2';
 
+
 /*
   Generated class for the AuthProvider provider.
 
@@ -104,6 +105,11 @@ getUserGPNumber(uid) : FirebaseObjectObservable<any>{
   return numberGP;
 }
 
+// resetPassword(email){
+//   return firebase.auth().sendPasswordResetEmail(email);
+// }
+
+//temporary method to see if the image URI is working
 
 
 

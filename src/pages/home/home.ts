@@ -28,8 +28,9 @@ testCheckboxResult;
 
 tests: FirebaseListObservable<any[]>;
 
-
-
+//to display in the home page
+firstName;
+lastName;
 
 
   constructor(public navCtrl: NavController, public af:AngularFire, public alertCtrl:AlertController,
@@ -43,12 +44,26 @@ tests: FirebaseListObservable<any[]>;
 //helps avoid memory leakage
    ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-   
+    let uid = this.authProvider.getCurrentUID()
     //to render buttons
-    this.tests = this.af.database.list("bloodTests");
+    this.tests = this.firebaseProvider.getBloodTests();
 
     this.userPhoto =  "assets/images/kevin.jpg";
     console.log(this.userPhoto);
+
+    
+  let firstName = this.authProvider.getUserFirstName(uid);
+  firstName.subscribe(firstNameDB => {
+    this.firstName = firstNameDB.$value
+  });
+
+  let lastName = this.authProvider.getUserLastName(uid);
+  lastName.subscribe(lastNameDB => {
+    this.lastName = lastNameDB.$value
+  });
+
+  
+  
 
    }
 

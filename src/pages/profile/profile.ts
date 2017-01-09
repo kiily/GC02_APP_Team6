@@ -86,7 +86,9 @@ if(this.photoUploaded == null){
   }
   
   Camera.getPicture(cameraOptions)
-    .then(file_uri => this.photoUploaded = file_uri,
+    .then(file_uri => {this.photoUploaded = file_uri;
+      console.log(file_uri);
+    },
     err => console.log(err));
 }
 

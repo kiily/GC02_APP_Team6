@@ -153,16 +153,7 @@ passwordRecoveryPrompt(){
             console.log('Confirm clicked');
             console.log("prompt method: "+recoveryEmail);
 
-
-           //did not manage to do this
-          //   var auth = firebase.auth();
-          //   auth.sendPasswordResetEmail(this.recoveryEmail).then(() => {
-          // console.log("recovery email sent");
-
-          // }).catch(() => {
-          //     console.log("an error happened")
-          // });
-
+           // this.authProvider.resetPassword(recoveryEmail);
 
           }
         }

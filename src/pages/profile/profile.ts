@@ -27,30 +27,31 @@ export class ProfilePage {
   lastName;
   email;
   numberGP;
-  
+  newPassword;
+  newPasswordRepeat;
 
   profileForm;
-  isEditable;
+  isEditable =true;
 
   private photoUploaded: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider : AuthProvider,
   public firebaseProvider : FirebaseProvider, public formBuilder:FormBuilder, public af:AngularFire, public alertCtrl :AlertController) {
     //need to set this variable here so it can be used below
-    this.isEditable =true;
+ 
      console.log(this.isEditable);
 
 
-//tried switching this code below
-     this.profileForm = this.formBuilder.group({
-      profileFirstname: [""],
-      profileLastname: [""],
-      profileGPNumber:[""],
-      profileEmail: [""],
-      profileNewPassword: [""],
-      profileNewPasswordRepeat: [""]
 
-      });
+    //  this.profileForm = this.formBuilder.group({
+    //   profileFirstname: ["", Validators.required],
+    //   profileLastname: ["", Validators.required],
+    //   profileGPNumber:["",Validators.required],
+    //   profileEmail: ["",Validators.required],
+    //   profileNewPassword: [""],
+    //   profileNewPasswordRepeat: [""]
+
+    //   });
 
      
   }
@@ -64,15 +65,7 @@ export class ProfilePage {
     console.log("firstname: "+this.firstName)
     
   
-      //  this.profileForm = this.formBuilder.group({
-      // profileFirstname: [""],
-      // profileLastname: [""],
-      // profileGPNumber:[""],
-      // profileEmail: [""],
-      // profileNewPassword: [""],
-      // profileNewPasswordRepeat: [""]
-
-      // });
+  
 
 if(this.photoUploaded == null){
     this.photoUploaded = "assets/images/dobby.jpg";
@@ -115,18 +108,19 @@ if(this.photoUploaded == null){
 saveChanges(){
 
   let uid = this.authProvider.getCurrentUID();
+  
+  // let firstName = this.profileForm.profileFirstname
+  // let lastName = this.profileForm.controls.profileLastName.value;
+  // let email = this.profileForm.controls.profileEmail.value;
+  // let numberGP = this.profileForm.controls.profileGPNumber.value;
 
-  let firstName = this.profileForm.controls.profileFirstName.value;
-  let lastName = this.profileForm.controls.profileLastName.value;
-  let email = this.profileForm.controls.profileEmail.value;
-  let numberGP = this.profileForm.controls.profileGPNumber.value;
-
-  let newPassword = this.profileForm.controls.profileNewPassword.value;
-  let newPasswordRepeat = this.profileForm.controls.profileNewPasswordRepeat.value;
+  // let newPassword = this.profileForm.controls.profileNewPassword.value;
+  // let newPasswordRepeat = this.profileForm.controls.profileNewPasswordRepeat.value;
 
 //we are getting rid of the new password part on this
-   if(newPassword === newPasswordRepeat){
-     this.authProvider.updateUserProfile(uid,firstName,lastName,email,numberGP);
+   if(this.newPassword === this.newPasswordRepeat){
+     this.authProvider.updateUserProfile(uid,this.firstName,this.lastName,this.email,this.numberGP);
+     console.log("user updated");
    }
      
 
@@ -140,6 +134,7 @@ toogleEdit(){
     console.log("changed to", this.isEditable);
   }else{
     this.isEditable = true;
+    console.log("changed to", this.isEditable);
   }
 
 }

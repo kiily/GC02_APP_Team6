@@ -153,7 +153,7 @@ passwordRecoveryPrompt(){
             console.log('Confirm clicked');
             console.log("prompt method: "+recoveryEmail);
 
-           // this.authProvider.resetPassword(recoveryEmail);
+          // this.authProvider.resetPassword(recoveryEmail);
 
           }
         }

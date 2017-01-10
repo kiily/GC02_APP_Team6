@@ -41,6 +41,7 @@ export class ProfilePage {
      console.log(this.isEditable);
 
 
+//tried switching this code below
      this.profileForm = this.formBuilder.group({
       profileFirstname: [""],
       profileLastname: [""],
@@ -59,6 +60,20 @@ export class ProfilePage {
     //call getCurrentUserInfo
     this.getCurrentUserInfo();
 
+    console.log("current photo uri: "+this.photoUploaded);
+    console.log("firstname: "+this.firstName)
+    
+  
+      //  this.profileForm = this.formBuilder.group({
+      // profileFirstname: [""],
+      // profileLastname: [""],
+      // profileGPNumber:[""],
+      // profileEmail: [""],
+      // profileNewPassword: [""],
+      // profileNewPasswordRepeat: [""]
+
+      // });
+
 if(this.photoUploaded == null){
     this.photoUploaded = "assets/images/dobby.jpg";
 }
@@ -75,6 +90,8 @@ if(this.photoUploaded == null){
   private openGallery (): void {
     console.log('reached method');
 
+  let uid = this.authProvider.getCurrentUID();
+
   let cameraOptions = {
     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: Camera.DestinationType.FILE_URI,
@@ -87,7 +104,8 @@ if(this.photoUploaded == null){
   
   Camera.getPicture(cameraOptions)
     .then(file_uri => {this.photoUploaded = file_uri;
-      console.log(file_uri);
+      console.log("this is the photo uri"+file_uri);
+      this.authProvider.updatePhotoUri(uid, file_uri);
     },
     err => console.log(err));
 }
@@ -106,7 +124,7 @@ saveChanges(){
   let newPassword = this.profileForm.controls.profileNewPassword.value;
   let newPasswordRepeat = this.profileForm.controls.profileNewPasswordRepeat.value;
 
-
+//we are getting rid of the new password part on this
    if(newPassword === newPasswordRepeat){
      this.authProvider.updateUserProfile(uid,firstName,lastName,email,numberGP);
    }
@@ -149,6 +167,12 @@ getCurrentUserInfo(){
     this.numberGP = numberGPDB.$value
   });
 
+   
+  let photoUri = this.authProvider.getPhotoUri(uid);
+  photoUri.subscribe(photoUriDB =>  {
+    this.photoUploaded = photoUriDB.$value;
+    console.log(photoUriDB.$value);
+  });
 }
 
 

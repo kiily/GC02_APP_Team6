@@ -39,7 +39,7 @@ registerNewUser(email, password){
       email: email,
       password: password
     });
-
+  
     return registerNewUserPromise;
 }
 

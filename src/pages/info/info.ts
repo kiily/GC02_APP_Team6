@@ -25,6 +25,9 @@ videoURL :string;
 description: string;
 firstName: string;
 email: string;
+infoLink1 : string;
+infoLink2 : string;
+
 
 
 
@@ -64,6 +67,17 @@ ionViewDidLoad(){
    this.email= emailDB.$value;
  });
  
+ let videoLink1 = this.firebaseProvider.getInfoLink1(this.testType);
+ videoLink1.subscribe(infoLink1DB => {
+   this.infoLink1 = infoLink1DB.$value;
+   //console.log(this.description);
+ });
+
+  let videoLink2 = this.firebaseProvider.getInfoLink2(this.testType);
+ videoLink1.subscribe(infoLink2DB => {
+   this.infoLink1 = infoLink2DB.$value;
+   //console.log(this.description);
+ });
 
 }
 

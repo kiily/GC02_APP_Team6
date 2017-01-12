@@ -73,6 +73,7 @@ displayTests(){
 
          let progress = this.calculatePercentage(test);
 
+     
         this.data.push({
           testType: test.type,
           testKey: test.$key,
@@ -89,8 +90,9 @@ displayTests(){
 
        //temporarily for tests to display by date
        this.data.reverse();
-      
+     
        
+    
 
        //need to change the position of this//progress needs to be lcoal and specific
        
@@ -142,13 +144,27 @@ calculatePercentage(test) :number{
    //console.log(currentDate);
    let currentDateMs = currentDate.getTime();
   // console.log(currentDateMs);
-
+  
    let timeElapsedMs = (currentDateMs - testDateMs);
    console.log(timeElapsedMs);
    //let deliveryTimeMs = data.deliveryTime *24*3600*1000;
    
-   //(timeElapsed/deliveryTime)*100
-   let progress = (timeElapsedMs/(resultDeliveryDateMs-testDateMs) * 100);
+
+    let progress;
+    //any test that has finished
+    if(resultDeliveryDateMs < currentDateMs){
+      progress = 100;
+
+    }else{
+
+    progress = (timeElapsedMs/(resultDeliveryDateMs-testDateMs) * 100);
+    }
+
+    //floppy implementation
+    // if(progress > 100){
+    //     progress= 100;
+    //   }
+
    console.log(progress);
    return Math.round(progress);
     //  allows to make the progress bar

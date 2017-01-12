@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { AngularFire, AuthMethods, AuthProviders, FirebaseObjectObservable} from 'angularfire2';
+import { AngularFire, AuthMethods, AuthProviders, FirebaseObjectObservable, AngularFireAuth} from 'angularfire2';
+
+import firebase from 'firebase';
 
 /*
   Generated class for the AuthProvider provider.
@@ -11,8 +13,10 @@ import { AngularFire, AuthMethods, AuthProviders, FirebaseObjectObservable} from
 @Injectable()
 export class AuthProvider {
 
+firebaseAuth: AngularFireAuth;
+
   constructor(public af : AngularFire) {
-    
+    this.firebaseAuth = af.auth;
   }
 
 login(email, password){
@@ -36,7 +40,7 @@ registerNewUser(email, password){
       email: email,
       password: password
     });
-
+  
     return registerNewUserPromise;
 }
 
@@ -104,7 +108,26 @@ getUserGPNumber(uid) : FirebaseObjectObservable<any>{
   return numberGP;
 }
 
+resetPassword(email : string){
+  return firebase.auth().sendPasswordResetEmail(email);
+}
 
+//temporary method to see if the image URI is working
+updatePhotoUri(uid, photoUri){
+   this.af.database.object('/users/'+uid).update({
+        
+      photoUri: photoUri
+     
+     
+      });
+}
+
+
+getPhotoUri(uid) : FirebaseObjectObservable<any>{
+  let photoUri = this.af.database.object("/users/"+uid+'/photoUri');
+
+  return photoUri;
+}
 
 
 }

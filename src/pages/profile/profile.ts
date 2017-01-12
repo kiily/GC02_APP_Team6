@@ -27,29 +27,31 @@ export class ProfilePage {
   lastName;
   email;
   numberGP;
-  
+  newPassword;
+  newPasswordRepeat;
 
   profileForm;
-  isEditable;
+  isEditable =true;
 
   private photoUploaded: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider : AuthProvider,
   public firebaseProvider : FirebaseProvider, public formBuilder:FormBuilder, public af:AngularFire, public alertCtrl :AlertController) {
     //need to set this variable here so it can be used below
-    this.isEditable =true;
+ 
      console.log(this.isEditable);
 
 
-     this.profileForm = this.formBuilder.group({
-      profileFirstname: [""],
-      profileLastname: [""],
-      profileGPNumber:[""],
-      profileEmail: [""],
-      profileNewPassword: [""],
-      profileNewPasswordRepeat: [""]
 
-      });
+    //  this.profileForm = this.formBuilder.group({
+    //   profileFirstname: ["", Validators.required],
+    //   profileLastname: ["", Validators.required],
+    //   profileGPNumber:["",Validators.required],
+    //   profileEmail: ["",Validators.required],
+    //   profileNewPassword: [""],
+    //   profileNewPasswordRepeat: [""]
+
+    //   });
 
      
   }
@@ -58,6 +60,12 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
     //call getCurrentUserInfo
     this.getCurrentUserInfo();
+
+    console.log("current photo uri: "+this.photoUploaded);
+    console.log("firstname: "+this.firstName)
+    
+  
+  
 
 if(this.photoUploaded == null){
     this.photoUploaded = "assets/images/dobby.jpg";
@@ -75,6 +83,8 @@ if(this.photoUploaded == null){
   private openGallery (): void {
     console.log('reached method');
 
+  let uid = this.authProvider.getCurrentUID();
+
   let cameraOptions = {
     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: Camera.DestinationType.FILE_URI,
@@ -86,7 +96,10 @@ if(this.photoUploaded == null){
   }
   
   Camera.getPicture(cameraOptions)
-    .then(file_uri => this.photoUploaded = file_uri,
+    .then(file_uri => {this.photoUploaded = file_uri;
+      console.log("this is the photo uri"+file_uri);
+      this.authProvider.updatePhotoUri(uid, file_uri);
+    },
     err => console.log(err));
 }
 
@@ -95,18 +108,19 @@ if(this.photoUploaded == null){
 saveChanges(){
 
   let uid = this.authProvider.getCurrentUID();
+  
+  // let firstName = this.profileForm.profileFirstname
+  // let lastName = this.profileForm.controls.profileLastName.value;
+  // let email = this.profileForm.controls.profileEmail.value;
+  // let numberGP = this.profileForm.controls.profileGPNumber.value;
 
-  let firstName = this.profileForm.controls.profileFirstName.value;
-  let lastName = this.profileForm.controls.profileLastName.value;
-  let email = this.profileForm.controls.profileEmail.value;
-  let numberGP = this.profileForm.controls.profileGPNumber.value;
+  // let newPassword = this.profileForm.controls.profileNewPassword.value;
+  // let newPasswordRepeat = this.profileForm.controls.profileNewPasswordRepeat.value;
 
-  let newPassword = this.profileForm.controls.profileNewPassword.value;
-  let newPasswordRepeat = this.profileForm.controls.profileNewPasswordRepeat.value;
-
-
-   if(newPassword === newPasswordRepeat){
-     this.authProvider.updateUserProfile(uid,firstName,lastName,email,numberGP);
+//we are getting rid of the new password part on this
+   if(this.newPassword === this.newPasswordRepeat){
+     this.authProvider.updateUserProfile(uid,this.firstName,this.lastName,this.email,this.numberGP);
+     console.log("user updated");
    }
      
 
@@ -120,6 +134,7 @@ toogleEdit(){
     console.log("changed to", this.isEditable);
   }else{
     this.isEditable = true;
+    console.log("changed to", this.isEditable);
   }
 
 }
@@ -129,24 +144,30 @@ getCurrentUserInfo(){
 
   let firstName = this.authProvider.getUserFirstName(uid);
   firstName.subscribe(firstNameDB => {
-    this.firstName = firstNameDB.x.$value
+    this.firstName = firstNameDB.$value
   });
 
   let lastName = this.authProvider.getUserLastName(uid);
   lastName.subscribe(lastNameDB => {
-    this.lastName = lastNameDB.x.$value
+    this.lastName = lastNameDB.$value
   });
 
    let email = this.authProvider.getUserEmail(uid);
   email.subscribe(emailDB => {
-    this.email = emailDB.x.$value
+    this.email = emailDB.$value
   });
 
      let numberGP = this.authProvider.getUserGPNumber(uid);
   numberGP.subscribe(numberGPDB => {
-    this.numberGP = numberGPDB.x.$value
+    this.numberGP = numberGPDB.$value
   });
 
+   
+  let photoUri = this.authProvider.getPhotoUri(uid);
+  photoUri.subscribe(photoUriDB =>  {
+    this.photoUploaded = photoUriDB.$value;
+    console.log(photoUriDB.$value);
+  });
 }
 
 

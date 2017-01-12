@@ -60,6 +60,24 @@ deleteTest(uid, testKeyToDelete){
   
 }
 
+getBloodTests() : FirebaseListObservable<any>{
+
+  let tests = this.af.database.list("bloodTests");
+  return tests;
+
+}
+
+getInfoLink1(testType): FirebaseObjectObservable<any>{
+
+  let infoLink1 = this.af.database.object("/bloodTests/"+testType+'/infoLink1');
+  return infoLink1;
+}
+
+getInfoLink2(testType): FirebaseObjectObservable<any>{
+
+  let infoLink2 = this.af.database.object("/bloodTests/"+testType+'/infoLink2');
+  return infoLink2;
+}
 
 
 }

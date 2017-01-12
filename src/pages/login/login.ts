@@ -153,11 +153,7 @@ passwordRecoveryPrompt(){
             console.log('Confirm clicked');
             console.log("prompt method: "+recoveryEmail);
 
-          this.authProvider.resetPassword(recoveryEmail).catch(error => {
-          
-          this.emailDoesNotExistAlert();
-        
-      });
+          // this.authProvider.resetPassword(recoveryEmail);
 
           }
         }
@@ -169,26 +165,6 @@ passwordRecoveryPrompt(){
 }
 
 
-emailDoesNotExistAlert(){
 
-  let alert = this.alertCtrl.create({
-
-      title: "User does not exist.",
-      subTitle: "There is no user record corresponding to this email identifier.\rPlease try again.",
-      buttons: [
-        {
-          text: "OK",
-          //checking if it works
-          handler: data => {
-            console.log('OK clicked');
-            this.passwordRecoveryPrompt();
-          }
-        }
-        
-      ]
-    });
-    alert.present();
-
-}
 
 }

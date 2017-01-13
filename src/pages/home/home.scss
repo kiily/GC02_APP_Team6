@@ -1,5 +1,6 @@
 page-home {
 
+// customises the size of the user avatar.
   .avatar-size-center  {
       width: 100% !important;
       height : 100% !important;
@@ -11,6 +12,7 @@ page-home {
       display: block;
   }
 
+// button custom style
   .button{
     background-color: #0099FF;
     font-size: 14px;
@@ -18,29 +20,21 @@ page-home {
     line-height: 50px;
   }
 
-  $list-border-color: red;
-
-  .item-divider-color{
-    list-border-color: #FFF;
-  }
-
+// edit profile button size
   .edit-profile{
     font-size: 20px;
-  }
-
-  .card{
-    background-color: transparent;
   }
 
   .toolbar-background {
     background-color: #0099FF;
   }
 
-  .test{
+// customisable ion-card background style
+  .content-custom{
     background-color: #f4f4f4;
   }
 
-  .test2{
+  .card-custom{
     background-image:
     linear-gradient(
       rgba(0, 0, 0, 0.4),
@@ -51,16 +45,15 @@ page-home {
     background-size: cover;
 
   }
-.test3{
-  font-size: 14px;
-}
+
+// defines the size, colour and position of the username
 .user-name{
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
   }
 
-  .position{
+.position{
     background-color: transparent;
     position:absolute;
     top:0;

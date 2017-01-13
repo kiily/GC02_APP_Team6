@@ -20,12 +20,12 @@ import { SignupPage } from '../signup/signup';
 })
 
 /**
- * This is the class that renders the login page of the app. From here they can submit 
+ * This is the class that renders the login page of the app. From here they can submit
  * their login credentials and attempt to login to the app. This page includes password
  * recovery functions and allows the user to navigate to the sign up page.
  * This class contains the variables and methods necessary to render a fully functional
  * HTML template.
- * 
+ *
  * References:
  * - https://ionicframework.com/docs/
  * - https://docs.angularjs.org/guide/unit-testing
@@ -64,8 +64,8 @@ export class LoginPage {
 
 /**
  * This method is triggered when the user presses the login button. It extracts the supplied
- * email and password from the form builder and passes it this data to the login method of the 
- * angular fire auth provider. If the credentials are invalid, an alert is displayed. If they are valid 
+ * email and password from the form builder and passes it this data to the login method of the
+ * angular fire auth provider. If the credentials are invalid, an alert is displayed. If they are valid
  * , the form builder is reset and while a delay is presented the view changes to the Home page.
  */
 login(){
@@ -77,7 +77,7 @@ this.presentLoadingDefault();
    let password = this.loginForm.controls.password.value;
 
 // allow smooother transition into homepage if credentials are correct
-this.createTimeout(300).then(() => {
+this.createTimeout(100).then(() => {
 
    //login method from provider returns a promise
    this.authProvider.login(email, password)
@@ -179,7 +179,7 @@ invalidCredentialsAlert(){
 /**
  * This method presents an alert when the user presses the forgot password button. This prompts the
  * user for a recovery email. If the email does not exist in the database, an alert is displayed.
- * If the email is in the database, the auth provider is used to send a password reset email. If the 
+ * If the email is in the database, the auth provider is used to send a password reset email. If the
  * operation is successful an alert confirmation appears on the screen.
  */
 passwordRecoveryPrompt(){
@@ -211,15 +211,15 @@ passwordRecoveryPrompt(){
 
             this.emailSentAlert();
           })
-          
-          
+
+
           .catch(error => {
-          
+
           this.emailDoesNotExistAlert();
-        
+
       });
 
-      
+
           }
         }
       ]
@@ -248,7 +248,7 @@ emailDoesNotExistAlert(){
             this.passwordRecoveryPrompt();
           }
         }
-        
+
       ]
     });
     alert.present();
@@ -256,11 +256,11 @@ emailDoesNotExistAlert(){
 }
 
 /**
- * This method presents an alert to notify the user when the password recovery email is successfully 
+ * This method presents an alert to notify the user when the password recovery email is successfully
  * sent from Firebase.
  */
 emailSentAlert(){
-  
+
   let alert = this.alertCtrl.create({
 
       title: "Email Sent",
@@ -271,10 +271,10 @@ emailSentAlert(){
           //checking if it works
           handler: data => {
             console.log('OK clicked');
-            
+
           }
         }
-        
+
       ]
     });
     alert.present();

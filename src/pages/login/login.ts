@@ -18,6 +18,23 @@ import { SignupPage } from '../signup/signup';
   selector: 'page-login',
   templateUrl: 'login.html'
 })
+
+/**
+ * This is the class that renders the login page of the app. From here they can submit 
+ * their login credentials and attempt to login to the app. This page includes password
+ * recovery functions and allows the user to navigate to the sign up page.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ * 
+ * References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ */
 export class LoginPage {
 
   loginForm;

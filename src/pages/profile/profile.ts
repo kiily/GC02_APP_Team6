@@ -20,10 +20,19 @@ import { Camera } from 'ionic-native';
 })
 
 /**
- * This is the class that renders the profile page of the app. From here the user edit its,
+ * This is the class that renders the profile page of the app. From here the user can edit
  * profile and navigate back to the home screen. 
  * This class contains the variables and methods necessary to render a fully functional
  * HTML template.
+ * 
+ * References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
  */
 export class ProfilePage {
 

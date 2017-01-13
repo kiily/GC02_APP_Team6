@@ -16,6 +16,24 @@ import { AuthProvider} from '../../providers/auth-provider';
   selector: 'page-signup',
   templateUrl: 'signup.html'
 })
+
+/**
+ * This is the class that renders the sign up page of the app. From here the user can sign up to the app.
+ * Once a user signs up, the relevant information is registered in the database.
+ * If any errors occur during the process, alerts are displayed to notify the user.
+ * Pressing the cancel button navigates to the login page.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ * 
+ * References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ */
 export class SignupPage {
 
 //observable which contains the list of all users in the database

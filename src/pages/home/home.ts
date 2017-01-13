@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {TestHistoryPage} from "../test-history/test-history";
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController,ToastController } from 'ionic-angular';
 import { InfoPage } from '../info/info';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { ProfilePage } from '../profile/profile';
@@ -46,7 +46,7 @@ tests: FirebaseListObservable<any[]>;
 
 
   constructor(public navCtrl: NavController, public af:AngularFire, public alertCtrl:AlertController,
-   public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
+  public toastCtrl : ToastController, public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
     
   }
 
@@ -187,7 +187,7 @@ let alert = this.alertCtrl.create({
             this.firebaseProvider.registerNewTest(uid, test, testDateStr, resultDeliveryDateStr);
 
             this.scheduleLocalNotification(test, resultDeliveryDate);
-            this.presentTestAddedAlert();
+            this.presentTestAddedToast();
     
             //alternative is to put this in the alert method
             //and pass the test parameter
@@ -314,30 +314,17 @@ invalidDateAlert(test){
 }
 
 /**
- * This method presents an alert to notify the user that a test was successfully added to 
+ * This method presents a toast to notify the user that a test was successfully added to 
  * the firebase database.
  */
-presentTestAddedAlert(){
+presentTestAddedToast(){
 
-    //separate alert into new method
-    let alert = this.alertCtrl.create({
 
-      title: "Test Added",
-      subTitle: "Your test was added to the database. It is now also available in your test history",
-      buttons: [
-        {
-          text: "OK",
-          //checking if it works
-          handler: data => {
-            console.log('OK clicked');
-
-          }
-        }
-      ]
+    let toast = this.toastCtrl.create({
+      message: "Your test was added to the database. It is now also available in your test history",
+      duration: 6500,
     });
-    alert.present();
-
-
+    toast.present();
 
 }
 

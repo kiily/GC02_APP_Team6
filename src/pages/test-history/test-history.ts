@@ -18,15 +18,23 @@ import * as moment from 'moment';
   selector: 'page-test-history',
   templateUrl: 'test-history.html'
 })
+
+/**
+ * This is the class that renders the test history page of the app. From here the user can access
+ * its test history. He can delete tests and check the information for a specific test.
+ * Pressing a back button navigates to the home page.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ */
 export class TestHistoryPage {
 
   
 
 
   
-// this array helps us build the accordion
+// array to help render the different elements in the DOM
   data: Array<{testType: string, testKey: string, testDate :string,
-  resultDeliveryDate : string, progress :number, icon: string, showDetails: boolean}> = [];
+  resultDeliveryDate : string, progress :number}> = [];
 
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
@@ -39,27 +47,36 @@ export class TestHistoryPage {
 
   }
 
-  backButton() {
-  this.navCtrl.pop(HomePage);
-  }
-
+  /**
+ * This method is triggered as soon as the test history Page is loaded and it calls the displayTests()
+ * method which renders all the tests in a specific user's history to the HTML template.
+ *  */
   ionViewDidLoad() {
     console.log('ionViewDidLoad TestHistoryPage');
 
     this.displayTests();
-    
-    // try put into display test method
-
-    //COME BACK TO THIS IDEA
-    // if(this.data.length =0 ){
-    //   this.isDataEmpty = true;
-    // }else{
-    //   this.isDataEmpty = false;
-    // }
+ 
         
   }
 
+  /**
+   * Method triggered when the user presses the back arrow/button. The view changes to the 
+   * home page.
+   */
+  backButton() {
+  this.navCtrl.pop(HomePage);
+  }
 
+
+
+/**
+ * This method takes the uid of the currently connected user and uses it to get the user's
+ * test history data from the database. Every test is then pushed to the data array alongside its
+ * progress. Progress is calculated with a utility method (calculatePercentage(test)) and corresponds
+ * to the percentage of the delivery time which has elapsed since the test date supplied by the
+ * user (this also controls how full the progress bar is). The data array simply facilitates the rendering
+ * of the different elements related to the test history.
+ */
 displayTests(){
 
   let uid = this.authProvider.getCurrentUID();
@@ -79,9 +96,7 @@ displayTests(){
           testKey: test.$key,
           testDate: test.testDate,
           resultDeliveryDate: test.resultDeliveryDate,
-          progress : progress,
-          icon: "add",
-          showDetails: false
+          progress : progress
         });
          
         console.log(this.data);
@@ -92,9 +107,7 @@ displayTests(){
        this.data.reverse();
      
        
-    
-
-       //need to change the position of this//progress needs to be lcoal and specific
+  
        
       return tests;
       });
@@ -104,21 +117,13 @@ displayTests(){
 }
 
  
-   toggleDetails(data) {
-       
+  
 
-
-    if (data.showDetails) {
-        data.showDetails = false;
-        data.icon = 'add';
-    } else {
-        data.showDetails = true;
-        data.icon = 'remove';
-    }
-
-  }
-
-
+/**
+ * This method is triggered when the user presses the info button. The view is changed to the
+ * info page and a test type parameter is passed to the NavController so that it can be retrieved
+ * and used by the InfoPage class (info.ts)
+. */
   goToInfoPage(testType){
     this.navCtrl.push(InfoPage, {
       testType: testType
@@ -126,29 +131,31 @@ displayTests(){
 
 }
 
+/**
+ * This method takes a test object and extracts the test and the result delivery date as well as 
+ * the estimated delivery time in order to calculate the percentage of the delivery time elapse since
+ * the date specified by the user when adding the test.
+ */
 calculatePercentage(test) :number{
   
 
    let initial = moment(test.testDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
-   //console.log(initial);
    let final = moment(test.resultDeliveryDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
-   //console.log(final);
-
+   
+   //all dates converted to ms
    let testDate : Date = new Date(initial)
    let testDateMs = testDate.getTime();
-   //console.log("initial:"+initialDate+' in ms:'+initialDateMs)
+  
    let resultDeliveryDate : Date = new Date(final);
    let resultDeliveryDateMs = resultDeliveryDate.getTime();
-   //console.log("final:"+finalDate+' in ms:'+finalDateMs)
+ 
    let currentDate : Date = new Date();
-   //console.log(currentDate);
    let currentDateMs = currentDate.getTime();
-  // console.log(currentDateMs);
+  
   
    let timeElapsedMs = (currentDateMs - testDateMs);
-   console.log(timeElapsedMs);
-   //let deliveryTimeMs = data.deliveryTime *24*3600*1000;
-   
+   //console.log(timeElapsedMs);
+  
 
     let progress;
     //any test that has finished
@@ -160,18 +167,18 @@ calculatePercentage(test) :number{
     progress = (timeElapsedMs/(resultDeliveryDateMs-testDateMs) * 100);
     }
 
-    //floppy implementation
-    // if(progress > 100){
-    //     progress= 100;
-    //   }
-
+  
    console.log(progress);
    return Math.round(progress);
-    //  allows to make the progress bar
-    
+      
 }
 
-//no longer depends on toggleDetails
+/**
+ * This method takes a boolean that holds information about whethera user confirmed that they wanted to delete
+ * a test from their history. It also takes the key of the test to delete and if confirmDelete : boolean 
+ * is true, the firebase provider is called to delete the specified test for the currently connected
+ * user.
+ */
 deleteTest(testKeyToDelete, confirmDelete){
 
 
@@ -189,8 +196,10 @@ deleteTest(testKeyToDelete, confirmDelete){
 
 
 
-  // loading animation
-  //might not be needed
+  /**
+   * Utility method which presents a small loading delay while a test is being deleted.
+   * Might be deprecated now.
+   */
   presentLoadingDefault() {
   let loading = this.loadingCtrl.create({
     content: 'Deleting test...'
@@ -204,6 +213,12 @@ deleteTest(testKeyToDelete, confirmDelete){
     
 }
 
+
+/**
+ * This method is triggered by pressing the delete test button and asks confirmation
+ * from the user in order to proceed with the deletion operation. The relevant information, including
+ * the test key to delete is passed to the deleteTest(testKeyToDelete, confirmDelete) method.
+ */
 deleteTestConfirmation(testKeyToDelete, testType){
 
   let confirmDelete = false;

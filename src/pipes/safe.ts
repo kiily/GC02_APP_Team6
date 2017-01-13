@@ -11,8 +11,11 @@ import { DomSanitizer} from '@angular/platform-browser';
   name: 'safe'
 })
 
-//pipe to sanitize URLs
+
 @Injectable()
+/**
+ * This pipe is used to sanitize the URL for the video, after it is extracted from the firebase database.
+ */
 export class SafePipe {
 
 constructor(public sanitizer : DomSanitizer) {

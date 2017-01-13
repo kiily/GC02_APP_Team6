@@ -35,6 +35,9 @@ export class LoginPage {
 
   }
 
+  /**
+   * This method is triggered as soon as the Login Page is loaded
+   */
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     
@@ -42,7 +45,12 @@ export class LoginPage {
 
 
 
-//pressing the login button
+/**
+ * This method is triggered when the user presses the login button. It extracts the supplied
+ * email and password from the form builder and passes it this data to the login method of the 
+ * angular fire auth provider. If the credentials are invalid, an alert is displayed. If they are valid 
+ * , the form builder is reset and while a delay is presented the view changes to the Home page.
+ */
 login(){
    
 
@@ -70,15 +78,19 @@ login(){
 
 }
 
-
-//change to sign-up page
+/**
+ * This method is triggered when the user presses the sign up button. The view changes
+ * to the sign up page.
+ */
   register() {
     this.navCtrl.push(SignupPage);
   }
 
 
-
-// loading animation
+/**
+ * This utility method presents a signing in loading window to simulate
+ * the logging in effect
+ */
 presentLoadingDefault() {
   let loading = this.loadingCtrl.create({
     content: 'Signing in...'
@@ -92,9 +104,12 @@ presentLoadingDefault() {
 }
 
 
-//alerts and prompts
+//ALERTS AND PROMPTS
 
-//triggered in case of invalid credentials
+/**
+ * This method presents an alert to notify the users that invalid credentials were entered during
+ * login. It enables the user to access password recovery functions.
+ */
 invalidCredentialsAlert(){
   
     let alert = this.alertCtrl.create({
@@ -127,7 +142,12 @@ invalidCredentialsAlert(){
 
 }
 
-//called inside invalidCredentialsAlert() in case the user presses 'Forgot Password'
+/**
+ * This method presents an alert when the user presses the forgot password button. This prompts the
+ * user for a recovery email. If the email does not exist in the database, an alert is displayed.
+ * If the email is in the database, the auth provider is used to send a password reset email. If the 
+ * operation is successful an alert confirmation appears on the screen.
+ */
 passwordRecoveryPrompt(){
 
    let prompt = this.alertCtrl.create({
@@ -153,12 +173,19 @@ passwordRecoveryPrompt(){
             console.log('Confirm clicked');
             console.log("prompt method: "+recoveryEmail);
 
-          this.authProvider.resetPassword(recoveryEmail).catch(error => {
+          this.authProvider.resetPassword(recoveryEmail).then( onResolve => {
+
+            this.emailSentAlert();
+          })
+          
+          
+          .catch(error => {
           
           this.emailDoesNotExistAlert();
         
       });
 
+      
           }
         }
       ]
@@ -168,7 +195,10 @@ passwordRecoveryPrompt(){
 
 }
 
-
+/**
+ * This method presents an alert to notify the user that the recovery email entered to receive
+ * the password reset link does not exist in the database.
+ */
 emailDoesNotExistAlert(){
 
   let alert = this.alertCtrl.create({
@@ -189,6 +219,31 @@ emailDoesNotExistAlert(){
     });
     alert.present();
 
+}
+
+/**
+ * This method presents an alert to notify the user when the password recovery email is successfully 
+ * sent from Firebase.
+ */
+emailSentAlert(){
+  
+  let alert = this.alertCtrl.create({
+
+      title: "Email Sent",
+      subTitle: "A recovery link was sent to your email.",
+      buttons: [
+        {
+          text: "OK",
+          //checking if it works
+          handler: data => {
+            console.log('OK clicked');
+            
+          }
+        }
+        
+      ]
+    });
+    alert.present();
 }
 
 }

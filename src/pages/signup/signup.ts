@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { LoginPage } from '../login/login';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2';
 import { AuthProvider} from '../../providers/auth-provider';
 /*
   Generated class for the Signup page.
@@ -18,7 +18,7 @@ import { AuthProvider} from '../../providers/auth-provider';
 })
 export class SignupPage {
 
-
+//observable which contains the list of all users in the database
 users: FirebaseListObservable<any []>;
 
 //form and slide variables
@@ -56,17 +56,31 @@ users: FirebaseListObservable<any []>;
 
   }
 
+/**
+ * This method is triggered as soon as the signup Page is loaded
+ */
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
 
 
-
+/**
+ * This method is triggered by pressing the cancel button and sends the user back to the
+ * login screen. Cancels the signup operation.
+ */
   cancelNewUser(){
     this.navCtrl.pop(LoginPage);
   }
 
 
+/**
+ * This method is triggered by pressing the sign up button. It takes all the data from the
+ * signUpForm form builder and checks whether the two passwords supplied match. If they do,
+ * the user and its information are stored in the firebase database. If successful and alert 
+ * notifies the user that the operation was successful. If the user supplies an already existing
+ * email he is also notified by an alert. Lastly, if the passwords don't match, the user is not registered
+ * and receives an alert displaying that the passwords do not match.
+ */
   registerNewUserNew(){
      console.log("user registered");
     
@@ -110,9 +124,13 @@ users: FirebaseListObservable<any []>;
   
 
 
+/**
+ * This method presents an alert when the user sign up is successful.
+ *
+ */
 presentSignUpAlert(){
 
-    //separate alert into new method
+  
     let alert = this.alertCtrl.create({
 
       title: "Registration successful",
@@ -120,7 +138,7 @@ presentSignUpAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
+         
           handler: data => {
             console.log('OK clicked')
           }
@@ -133,9 +151,13 @@ presentSignUpAlert(){
 
 }
 
+/**
+ * This method presents an alert when the password and the password repeat supplied during
+ * sign up do not match.
+ */
 presentPasswordAlert(){
 
-    //separate alert into new method
+ 
     let alert = this.alertCtrl.create({
 
       title: "Passwords did not match!",
@@ -143,7 +165,6 @@ presentPasswordAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
           handler: data => {
             console.log('OK clicked')
           }
@@ -156,9 +177,12 @@ presentPasswordAlert(){
 
 }
 
-
+/**
+ * This method presents an alert if the user tries to sign up with an email which already
+ * exists in the database.
+ */
 presentEmailAlreadyExistsAlert(){
-  //separate alert into new method
+ 
     let alert = this.alertCtrl.create({
 
       title: "Email already in use",
@@ -166,7 +190,7 @@ presentEmailAlreadyExistsAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
+          
           handler: data => {
             console.log('OK clicked')
           }

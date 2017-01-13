@@ -15,16 +15,28 @@ import { FirebaseProvider} from '../../providers/firebase-provider';
   selector: 'page-info',
   templateUrl: 'info.html'
 })
+
+/**
+ * This is the class that renders the info page of the app. In this page the user receives Information
+ * about the selected test as well as a video of a doctor explaining the test and some of the underlying
+ * biology. From this page the user can send this information to their email and navigate back to the
+ * home page.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ */
 export class InfoPage {
 
 
 testType;
 
-//link from database
+//user and test data to render
 videoURL :string;
 description: string;
 firstName: string;
 email: string;
+infoLink1 : string;
+infoLink2 : string;
+
 
 
 
@@ -37,6 +49,13 @@ email: string;
   }
 
 
+
+/**
+ * This method is triggered as soon as the info Page is loaded and it stores the
+ * current user's uid in order to be able to retrieve his first and last names .  Additionally the method retrieves a specific
+ * test type's desciption and video URL as well as 2 additional information links to be displayed on the home page. Note that subscribe methods are included here instead of 
+ * being inside the constructor because this prevents memory leakage.
+ *  */
 ionViewDidLoad(){
  
  let uid = this.authProvider.getCurrentUID();
@@ -64,13 +83,33 @@ ionViewDidLoad(){
    this.email= emailDB.$value;
  });
  
+ let videoLink1 = this.firebaseProvider.getInfoLink1(this.testType);
+ videoLink1.subscribe(infoLink1DB => {
+   this.infoLink1 = infoLink1DB.$value;
+   //console.log(this.description);
+ });
+
+  let videoLink2 = this.firebaseProvider.getInfoLink2(this.testType);
+ videoLink2.subscribe(infoLink2DB => {
+   this.infoLink1 = infoLink2DB.$value;
+   //console.log(this.description);
+ });
 
 }
 
+/**
+ * This method is triggered when the user presses the back arrow/button. The view changes to the 
+ * home screen.
+ */
 backButton() {
     this.navCtrl.pop(HomePage);
 }
 
+/**
+ * This method is triggered when the user presses the send to email button. It calls the 
+ * email composer from the respective cordova plugin and it allows the user to compose an email, which
+ * will contain the relevant information and send this to the registered email address.
+ */
 sendEmail(){
 
   EmailComposer.isAvailable().then((available : boolean) => {

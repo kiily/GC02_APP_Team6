@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { FormBuilder, Validators } from '@angular/forms';
 import { AngularFire} from 'angularfire2';
 import { AuthProvider} from '../../providers/auth-provider';
 import { FirebaseProvider} from '../../providers/firebase-provider';
-import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/map";
 // to access photo gallery
 import { Camera } from 'ionic-native';
@@ -20,6 +18,13 @@ import { Camera } from 'ionic-native';
   selector: 'page-profile',
   templateUrl: 'profile.html'
 })
+
+/**
+ * This is the class that renders the profile page of the app. From here the user edit its,
+ * profile and navigate back to the home screen. 
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ */
 export class ProfilePage {
 
 //user variables
@@ -27,37 +32,37 @@ export class ProfilePage {
   lastName;
   email;
   numberGP;
-  
+  newPassword;
+  newPasswordRepeat;
 
-  profileForm;
-  isEditable;
+  //boolean for enabling and disabling ion-input fields
+  isEditable =true;
 
   private photoUploaded: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider : AuthProvider,
-  public firebaseProvider : FirebaseProvider, public formBuilder:FormBuilder, public af:AngularFire, public alertCtrl :AlertController) {
+  public firebaseProvider : FirebaseProvider, public af:AngularFire, public alertCtrl :AlertController) {
     //need to set this variable here so it can be used below
-    this.isEditable =true;
+ 
      console.log(this.isEditable);
-
-
-     this.profileForm = this.formBuilder.group({
-      profileFirstname: [""],
-      profileLastname: [""],
-      profileGPNumber:[""],
-      profileEmail: [""],
-      profileNewPassword: [""],
-      profileNewPasswordRepeat: [""]
-
-      });
 
      
   }
 
+  /**
+ * This method is triggered as soon as the profile Page is loaded and it calls the getCurrentUserInfo()
+ * method which renders all the information belonging to the currenltly connected user,  to the HTML template.
+ *  */
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
-    //call getCurrentUserInfo
+  
     this.getCurrentUserInfo();
+
+    console.log("current photo uri: "+this.photoUploaded);
+    console.log("firstname: "+this.firstName)
+    
+  
+  
 
 if(this.photoUploaded == null){
     this.photoUploaded = "assets/images/dobby.jpg";
@@ -65,15 +70,28 @@ if(this.photoUploaded == null){
     
   }
 
+  /**
+   * Method triggered when the user presses the back arrow/button. The view changes to the 
+   * home page.
+   */
   backButton() {
   this.navCtrl.pop(HomePage);
   }
 
   
-//IDEA: create a photoURI field in the database ?? could mess up if in another device.
-  // http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
+  /**
+   * This method accesses the camera of the device the application is running on via a native cordova
+   * plugin. It then extracts the uri for the picture and saves it to the firebase database as an 
+   * attribute of the specified user. This can then be extracted so that the photo is accessible 
+   * whenever the user logs into the app.
+   * 
+   * References:
+   *  - http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
+   */
   private openGallery (): void {
     console.log('reached method');
+
+  let uid = this.authProvider.getCurrentUID();
 
   let cameraOptions = {
     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
@@ -86,27 +104,31 @@ if(this.photoUploaded == null){
   }
   
   Camera.getPicture(cameraOptions)
-    .then(file_uri => this.photoUploaded = file_uri,
+    .then(file_uri => {this.photoUploaded = file_uri;
+      console.log("this is the photo uri"+file_uri);
+      this.authProvider.updatePhotoUri(uid, file_uri);
+    },
     err => console.log(err));
 }
 
 
-//need to re-think this and test
+//FOR TOMORROW, SHOULD EMAIL EVEN BE HERE ??
+/**
+ * This method is triggered by pressing the save changes button. It takes the information
+ * in the ion-input fields and passes it to the auth provider method updateUserProfile thus
+ * updating the information for the user specified by the user id. This includes the last name,
+ * first name,email and GP number.
+ */
 saveChanges(){
 
   let uid = this.authProvider.getCurrentUID();
+  
+  
 
-  let firstName = this.profileForm.controls.profileFirstName.value;
-  let lastName = this.profileForm.controls.profileLastName.value;
-  let email = this.profileForm.controls.profileEmail.value;
-  let numberGP = this.profileForm.controls.profileGPNumber.value;
-
-  let newPassword = this.profileForm.controls.profileNewPassword.value;
-  let newPasswordRepeat = this.profileForm.controls.profileNewPasswordRepeat.value;
-
-
-   if(newPassword === newPasswordRepeat){
-     this.authProvider.updateUserProfile(uid,firstName,lastName,email,numberGP);
+//we are getting rid of the new password part on this
+   if(this.newPassword === this.newPasswordRepeat){
+     this.authProvider.updateUserProfile(uid,this.firstName,this.lastName,this.email,this.numberGP);
+     console.log("user updated");
    }
      
 
@@ -114,43 +136,62 @@ saveChanges(){
   
 }
 
+/**
+ * This utility method is triggered by pressing the edit button. It changes the value of the
+ * isEditable boolean thus enabling the control over whether the ion-inputs are enabled or 
+ * disabled.
+ */
 toogleEdit(){
   if(this.isEditable == true){
     this.isEditable =false;
     console.log("changed to", this.isEditable);
   }else{
     this.isEditable = true;
+    console.log("changed to", this.isEditable);
   }
 
 }
 
+/**
+ * This method extracts all the relevant information about the currently connected user, based on
+ * its uid in order to provide the data necessary to render this information on the HTML template.
+ * User data extracted from the database includes: uid, first and last names, email, their GP number and
+ * the uri for the photo saved.
+ */
 getCurrentUserInfo(){
   let uid = this.authProvider.getCurrentUID();
 
   let firstName = this.authProvider.getUserFirstName(uid);
   firstName.subscribe(firstNameDB => {
-    this.firstName = firstNameDB.x.$value
+    this.firstName = firstNameDB.$value
   });
 
   let lastName = this.authProvider.getUserLastName(uid);
   lastName.subscribe(lastNameDB => {
-    this.lastName = lastNameDB.x.$value
+    this.lastName = lastNameDB.$value
   });
 
    let email = this.authProvider.getUserEmail(uid);
   email.subscribe(emailDB => {
-    this.email = emailDB.x.$value
+    this.email = emailDB.$value
   });
 
      let numberGP = this.authProvider.getUserGPNumber(uid);
   numberGP.subscribe(numberGPDB => {
-    this.numberGP = numberGPDB.x.$value
+    this.numberGP = numberGPDB.$value
   });
 
+   
+  let photoUri = this.authProvider.getPhotoUri(uid);
+  photoUri.subscribe(photoUriDB =>  {
+    this.photoUploaded = photoUriDB.$value;
+    console.log(photoUriDB.$value);
+  });
 }
 
-
-//to notify that new password does not match
+/**
+ * This method is deprecated
+ */
 presentPasswordAlert(){
   
     //separate alert into new method
@@ -174,10 +215,12 @@ presentPasswordAlert(){
 
 }
 
-
+/**
+ * This method presents an alert to notify the user that the changes to the profile page
+ * where successfully saved to the firebase database.
+ */
 presentChangesAlert(){
   
-    //separate alert into new method
     let alert = this.alertCtrl.create({
 
       title: "Profile updated",
@@ -185,7 +228,6 @@ presentChangesAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
           handler: data => {
             console.log('OK clicked')
           }

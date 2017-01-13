@@ -3,7 +3,6 @@ import {TestHistoryPage} from "../test-history/test-history";
 import { NavController, AlertController, Platform, ActionSheetController } from 'ionic-angular';
 import { InfoPage } from '../info/info';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { LoginPage } from '../login/login';
 import { ProfilePage } from '../profile/profile';
 import { LocalNotifications } from 'ionic-native';
 import { AuthProvider} from '../../providers/auth-provider';
@@ -14,6 +13,13 @@ import * as moment from 'moment';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
+/**
+ * This is the class that renders the home page of the app. From here the user can sign out,
+ * visit the test history, select from a list of available tests and edit their profile.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ */
 export class HomePage {
 
 
@@ -22,14 +28,14 @@ export class HomePage {
 userPhoto: string;
 
 // used with checkbox alert
+//TO BE DELETED NOW? 
 testCheckboxOpen: boolean;
 testCheckboxResult;
 
-
+//to display in the home page
+firstName;
+lastName;
 tests: FirebaseListObservable<any[]>;
-
-
-
 
 
   constructor(public navCtrl: NavController, public af:AngularFire, public alertCtrl:AlertController,
@@ -39,150 +45,177 @@ tests: FirebaseListObservable<any[]>;
   }
 
 
-//this subscription needs to be in this method;
-//helps avoid memory leakage
+
+/**
+ * This method is triggered as soon as the Home Page is loaded and it stores the
+ * current user's uid in order to be able to retrieve  his first and last names and the 
+ * uri for their profile photo from the firebase database.  Additionally the method retrieves the list of available tests
+ * to be displayed on the home page. Note that subscribe methods are included here instead of 
+ * being inside the constructor because this prevents memory leakage.
+ *  */
    ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-   
+    console.log('HomePage Loaded');
+
+
+    let uid = this.authProvider.getCurrentUID()
     //to render buttons
-    this.tests = this.af.database.list("bloodTests");
+    this.tests = this.firebaseProvider.getBloodTests();
 
     this.userPhoto =  "assets/images/kevin.jpg";
     console.log(this.userPhoto);
 
+    
+  let firstName = this.authProvider.getUserFirstName(uid);
+  firstName.subscribe(firstNameDB => {
+    this.firstName = firstNameDB.$value
+  });
+
+  let lastName = this.authProvider.getUserLastName(uid);
+  lastName.subscribe(lastNameDB => {
+    this.lastName = lastNameDB.$value
+  });
+
+  
+  
+
    }
 
 
+/**
+ * This method is triggered when a user confirms that he wants to sign out. The view changes
+ * to the login page.
+ */
 signOutBtn(){
     this.navCtrl.popToRoot();
     //this.af.auth.logout();
 
   }
 
+/**
+ * This method is triggered when the user presses the my tests button.
+ * The view changes to the test history page.
+ */
 goToTestHistory(){
   this.navCtrl.push(TestHistoryPage);
 }
+
+/**
+ * This method is triggered when the user presses the my edit profile button.
+ * The view changes to the profile page.
+ */
 goToProfile(){
   this.navCtrl.push(ProfilePage);
 }
 
 
 
-// delay between alerts
+//CHECK IF WE STILL NEED THIS ONE
+/**
+ * Utility method to create delays between alerts. 
+ * Making the design more fluid
+ */
 createTimeout(timeout) {
         return new Promise((resolve, reject) => {
             setTimeout(() => resolve(null),timeout)
         })
     }
 
-// checkbox alert; disabled for now
-showCheckbox() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Information...');
+// // checkbox alert; disabled for now
+// showCheckbox() {
+//     let alert = this.alertCtrl.create();
+//     alert.setTitle('Information...');
 
-    alert.addInput({
-      type: 'checkbox',
-      label: 'via e-mail',
-      value: 'value1',
-      checked: true
-    });
+//     alert.addInput({
+//       type: 'checkbox',
+//       label: 'via e-mail',
+//       value: 'value1',
+//       checked: true
+//     });
 
-    alert.addInput({
-      type: 'checkbox',
-      label: 'via app',
-      value: 'value2'
-    });
+//     alert.addInput({
+//       type: 'checkbox',
+//       label: 'via app',
+//       value: 'value2'
+//     });
 
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'Confirm',
-      handler: data => {
-        console.log('Checkbox data:', data);
-        this.testCheckboxOpen = false;
-        this.testCheckboxResult = data;
+//     alert.addButton('Cancel');
+//     alert.addButton({
+//       text: 'Confirm',
+//       handler: data => {
+//         console.log('Checkbox data:', data);
+//         this.testCheckboxOpen = false;
+//         this.testCheckboxResult = data;
 
-        this.confirmBtnTouched();
+//         this.confirmBtnTouched();
 
-      }
-    });
-    alert.present();
-  }
+//       }
+//     });
+//     alert.present();
+//   }
 
-  // action sheet
-  openMenu() {
-   let actionSheet = this.actionsheetCtrl.create({
-     title: 'Information',
-     cssClass: 'action-sheets-basic-page',
-     buttons: [
-       {
-         text: 'via Email',
-         icon: !this.platform.is('ios') ? 'share' : null,
-         handler: () => {
-           console.log('Share clicked');
-         }
-       },
-       {
-         text: 'via App',
-         icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
-         handler: () => {
-           console.log('Play clicked');
-         }
-       },
-       {
-         text: 'Both',
-         icon: !this.platform.is('ios') ? 'heart-outline' : null,
-         handler: () => {
-           console.log('Favorite clicked');
-         }
-       },
-       {
-         text: 'Cancel',
-         role: 'cancel', // will always sort to be on the bottom
-         icon: !this.platform.is('ios') ? 'close' : null,
-         handler: () => {
-           console.log('Cancel clicked');
-         }
-       }
-     ]
-   });
-   actionSheet.present();
- }
+//   // action sheet
+//   openMenu() {
+//    let actionSheet = this.actionsheetCtrl.create({
+//      title: 'Information',
+//      cssClass: 'action-sheets-basic-page',
+//      buttons: [
+//        {
+//          text: 'via Email',
+//          icon: !this.platform.is('ios') ? 'share' : null,
+//          handler: () => {
+//            console.log('Share clicked');
+//          }
+//        },
+//        {
+//          text: 'via App',
+//          icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
+//          handler: () => {
+//            console.log('Play clicked');
+//          }
+//        },
+//        {
+//          text: 'Both',
+//          icon: !this.platform.is('ios') ? 'heart-outline' : null,
+//          handler: () => {
+//            console.log('Favorite clicked');
+//          }
+//        },
+//        {
+//          text: 'Cancel',
+//          role: 'cancel', // will always sort to be on the bottom
+//          icon: !this.platform.is('ios') ? 'close' : null,
+//          handler: () => {
+//            console.log('Cancel clicked');
+//          }
+//        }
+//      ]
+//    });
+//    actionSheet.present();
+//  }
 
-confirmBtnTouched(){
-  this.navCtrl.push(InfoPage);
-}
-
-
+// confirmBtnTouched(){
+//   this.navCtrl.push(InfoPage);
+// }
 
 
 
-presentTestAddedAlert(){
-
-    //separate alert into new method
-    let alert = this.alertCtrl.create({
-
-      title: "Test Added",
-      subTitle: "Your test was added to the database. It is now also available in your test history",
-      buttons: [
-        {
-          text: "OK",
-          //checking if it works
-          handler: data => {
-            console.log('OK clicked');
-
-          }
-        }
-      ]
-    });
-    alert.present();
 
 
 
-}
 
 
 //method triggered from clicking one of the texts
 //cheks for date and its validity
+/**
+ * This method is triggered when the user selects one of the tests from the home screen.
+ * A prompt message prompts the user to enter the date of their recent blood test.
+ * A built-in date validator, rejects invalid date formats (i.e. NOT dd/mm/yyyy).
+ * If the date is valid this method calls utility methods to store the test in the database,
+ * calculate and store the estimated date for result delivery and schedule a notification for that
+ * date to remind the user to ring their GP. 
+ * 
+ * Takes the argument test --> object representing the test chosen by the user
+ */
 datePrompt(test){
 
 let uid = this.authProvider.getCurrentUID();
@@ -258,9 +291,15 @@ let alert = this.alertCtrl.create({
 
 
 
-//http://www.w3resource.com/javascript/form/javascript-date-validation.php
 
-//changes this.initialDateFormat
+
+/**
+ * This method takes in a string and checks if it is a valid date of the format:
+ * dd/mm/yyyy.
+ * 
+ * References:
+ * - http://www.w3resource.com/javascript/form/javascript-date-validation.php
+ */
 dateValidator(date : string) : boolean {
 
 var dateFormat = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -324,7 +363,11 @@ console.log(isValid);
 return isValid;
 }
 
-
+/**
+ * This method presents an alert when the date entered in the date prompt is invalid.
+ * It takes a test object as an input so that the date prompt function can be called again
+ * allowing the user to input another date.
+ */
 invalidDateAlert(test){
 
    //separate alert into new method
@@ -347,6 +390,38 @@ invalidDateAlert(test){
 
 }
 
+/**
+ * This method presents an alert to notify the user that a test was successfully added to 
+ * the firebase database.
+ */
+presentTestAddedAlert(){
+
+    //separate alert into new method
+    let alert = this.alertCtrl.create({
+
+      title: "Test Added",
+      subTitle: "Your test was added to the database. It is now also available in your test history",
+      buttons: [
+        {
+          text: "OK",
+          //checking if it works
+          handler: data => {
+            console.log('OK clicked');
+
+          }
+        }
+      ]
+    });
+    alert.present();
+
+
+
+}
+
+/**
+ * This method takes the test date entered by the user and the delivery time retrieved from the
+ * firebase database in order to calculate the estimated result delivery date.
+ */
 calculateFinalDate(testDate : Date, deliveryTime) : Date {
 
 //conversion to ms
@@ -359,11 +434,17 @@ calculateFinalDate(testDate : Date, deliveryTime) : Date {
   return resultDeliveryDate;
 }
 
+
+/**
+ * This method schedules local notifications fofr the estimated result delivery date for 
+ * the test chosen by the user. The method adds 10h (in ms) to avoid the notifications to arrive at 
+ * midnight (default) ensuring that they arrive at 10pm when most users will be awake and GPs open
+ * to recieve calls.
+ */
 scheduleLocalNotification(test, deliveryDate : Date ){
 
 console.log('scheduling notification for this date: '+deliveryDate);
-//by default notifications arrive at midnight (added 10h to be safe; added in ms)
-//ensures that most people will be awake and GPs open 
+
   LocalNotifications.schedule({
     title:' Blood Test App - '+test.$key+' Results Available',
     text:'Phone your GP to find out',

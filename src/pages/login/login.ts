@@ -77,12 +77,13 @@ this.presentLoadingDefault();
    let password = this.loginForm.controls.password.value;
 
 // allow smooother transition into homepage if credentials are correct
-this.createTimeout(300).then(() => {
+
 
    //login method from provider returns a promise
    this.authProvider.login(email, password)
    .then(authState =>  {
 
+this.createTimeout(300).then(() => {
     console.log("LOGIN-SUCCESS", authState);
     this.loginForm.reset();
 

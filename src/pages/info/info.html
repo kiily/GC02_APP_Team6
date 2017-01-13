@@ -29,7 +29,7 @@
 
   <ion-card-content>
     <ion-card-title>
-      Hi, Mr. Bryson
+      Hi, Mr. {{firstName}}
       </ion-card-title>
     <p>
       {{description}}
@@ -39,7 +39,9 @@
         <div class="video-container">
             <!-- <iframe src="YOUTUBE" frameborder="0" width="560" height="315"></iframe> -->
 <!--             <iframe src="//player.vimeo.com/video/193456223" width=width height=height frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
-            <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0" (click)="videoTestClick"></iframe>
+      
+            <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0" allowfullscreen="true"></iframe>
+
         </div>
     </ion-item>
     <p text-center><b>Video password: TSH</b></p>

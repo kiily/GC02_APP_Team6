@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { LoginPage } from '../login/login';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2';
 import { AuthProvider} from '../../providers/auth-provider';
 import { Camera } from 'ionic-native';
 /*
@@ -17,9 +17,27 @@ import { Camera } from 'ionic-native';
   selector: 'page-signup',
   templateUrl: 'signup.html'
 })
+
+/**
+ * This is the class that renders the sign up page of the app. From here the user can sign up to the app.
+ * Once a user signs up, the relevant information is registered in the database.
+ * If any errors occur during the process, alerts are displayed to notify the user.
+ * Pressing the cancel button navigates to the login page.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ * 
+ * References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ */
 export class SignupPage {
 
-
+//observable which contains the list of all users in the database
 users: FirebaseListObservable<any []>;
 
 //form and slide variables
@@ -58,17 +76,31 @@ private photoUploaded: string;
 
   }
 
+/**
+ * This method is triggered as soon as the signup Page is loaded
+ */
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
 
 
-
+/**
+ * This method is triggered by pressing the cancel button and sends the user back to the
+ * login screen. Cancels the signup operation.
+ */
   cancelNewUser(){
     this.navCtrl.pop(LoginPage);
   }
 
 
+/**
+ * This method is triggered by pressing the sign up button. It takes all the data from the
+ * signUpForm form builder and checks whether the two passwords supplied match. If they do,
+ * the user and its information are stored in the firebase database. If successful and alert 
+ * notifies the user that the operation was successful. If the user supplies an already existing
+ * email he is also notified by an alert. Lastly, if the passwords don't match, the user is not registered
+ * and receives an alert displaying that the passwords do not match.
+ */
   registerNewUserNew(){
      console.log("user registered");
 
@@ -112,9 +144,13 @@ private photoUploaded: string;
 
 
 
+/**
+ * This method presents an alert when the user sign up is successful.
+ *
+ */
 presentSignUpAlert(){
 
-    //separate alert into new method
+  
     let alert = this.alertCtrl.create({
 
       title: "Registration successful",
@@ -122,7 +158,7 @@ presentSignUpAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
+         
           handler: data => {
             console.log('OK clicked')
           }
@@ -135,9 +171,13 @@ presentSignUpAlert(){
 
 }
 
+/**
+ * This method presents an alert when the password and the password repeat supplied during
+ * sign up do not match.
+ */
 presentPasswordAlert(){
 
-    //separate alert into new method
+ 
     let alert = this.alertCtrl.create({
 
       title: "Passwords did not match!",
@@ -145,7 +185,6 @@ presentPasswordAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
           handler: data => {
             console.log('OK clicked')
           }
@@ -158,9 +197,12 @@ presentPasswordAlert(){
 
 }
 
-
+/**
+ * This method presents an alert if the user tries to sign up with an email which already
+ * exists in the database.
+ */
 presentEmailAlreadyExistsAlert(){
-  //separate alert into new method
+ 
     let alert = this.alertCtrl.create({
 
       title: "Email already in use",
@@ -168,7 +210,7 @@ presentEmailAlreadyExistsAlert(){
       buttons: [
         {
           text: "OK",
-          //checking if it works
+          
           handler: data => {
             console.log('OK clicked')
           }

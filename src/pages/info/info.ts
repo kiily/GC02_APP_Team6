@@ -15,19 +15,43 @@ import { FirebaseProvider} from '../../providers/firebase-provider';
   selector: 'page-info',
   templateUrl: 'info.html'
 })
+
+/**
+ * This is the class that renders the info page of the app. In this page the user receives Information
+ * about the selected test as well as a video of a doctor explaining the test and some of the underlying
+ * biology. From this page the user can send this information to their email and navigate back to the
+ * home page.
+ * This class contains the variables and methods necessary to render a fully functional
+ * HTML template.
+ * 
+ *  * References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ */
+ 
 export class InfoPage {
 
 
 testType;
 
-//link from database
+//user and test data to render
 videoURL :string;
 description: string;
 firstName: string;
 email: string;
+
 thumbnail: string = "https://my.leadpages.net/template/5165241367789568/raw/img/vimeo-player-screenshot.png?aid=";
 // = "http://www.lenvalleypractice.co.uk/uploads/images/Dr_Kendrew.jpg"
 //"assets/images/dobby.jpg";
+
+infoLink1 : string;
+infoLink2 : string;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider) {
@@ -38,6 +62,13 @@ thumbnail: string = "https://my.leadpages.net/template/5165241367789568/raw/img/
   }
 
 
+
+/**
+ * This method is triggered as soon as the info Page is loaded and it stores the
+ * current user's uid in order to be able to retrieve his first and last names .  Additionally the method retrieves a specific
+ * test type's desciption and video URL as well as 2 additional information links to be displayed on the home page. Note that subscribe methods are included here instead of 
+ * being inside the constructor because this prevents memory leakage.
+ *  */
 ionViewDidLoad(){
 
  let uid = this.authProvider.getCurrentUID();
@@ -47,6 +78,7 @@ ionViewDidLoad(){
 
    //this is the URL passed to the DOM
     this.videoURL = videoURLDB.$value;
+    console.log("URL: "+this.videoURL);
  });
 
  let description = this.firebaseProvider.getTestDescription(this.testType);
@@ -72,10 +104,39 @@ videoTestClick() {
   console.log("iframe exists");
 }
 
+ 
+ let videoLink1 = this.firebaseProvider.getInfoLink1(this.testType);
+ videoLink1.subscribe(infoLink1DB => {
+   this.infoLink1 = infoLink1DB.$value;
+   //console.log(this.description);
+ });
+
+  let videoLink2 = this.firebaseProvider.getInfoLink2(this.testType);
+ videoLink2.subscribe(infoLink2DB => {
+   this.infoLink1 = infoLink2DB.$value;
+   //console.log(this.description);
+ });
+
+}
+
+/**
+ * This method is triggered when the user presses the back arrow/button. The view changes to the 
+ * home screen.
+ */
+
 backButton() {
     this.navCtrl.pop(HomePage);
 }
 
+/**
+ * This method is triggered when the user presses the send to email button. It calls the 
+ * email composer from the respective cordova plugin and it allows the user to compose an email, which
+ * will contain the relevant information and send this to the registered email address.
+ * 
+ * References:
+ * - https://github.com/hypery2k/cordova-email-plugin
+ * - https://ionicframework.com/docs/v2/native/email-composer/
+ */
 sendEmail(){
 
   EmailComposer.isAvailable().then((available : boolean) => {
@@ -84,8 +145,6 @@ sendEmail(){
     }
   });
 
-
-//might need to hardcode the password
 let emailToSend ={
   to: this.email,
   subject: 'Blood Test App - '+this.testType+' Information',

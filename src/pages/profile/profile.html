@@ -23,8 +23,6 @@
 <ion-content class="content-background">
 <ion-card class="card-style">
 
-<form [formGroup]="profileForm">
-
   <ion-list inset>
 
       <ion-row height-25>
@@ -34,38 +32,30 @@
              <img [src]="photoUploaded" style="width : 100% ; height : 100%">
        </ion-col>
        <ion-col width-67>
-         <ion-item><!--ADD ngModel instead of forms ?? wait for redesign-->
-           <ion-input formControlName="profileFirstname"  type="text" [value]="firstName" [disabled]="editToggle" [(ngModel)]="firstName" clearInput></ion-input>
+         <ion-item>
+           <ion-input  type="text" [value]="firstName"  [(ngModel)]="firstName" [disabled]="isEditable" clearInput></ion-input>
          </ion-item>
 
          <ion-item>
-           <!-- <ion-label>Last:</ion-label> -->
-           <ion-input formControlName="profileLastname"  type="text" [value]="lastName" [disabled]="editToggle"   clearInput></ion-input>
+           <ion-input  type="text" [value]="lastName"  [(ngModel)]="lastName" [disabled]="isEditable"   clearInput></ion-input>
          </ion-item>
       </ion-col>
    </ion-row>
 
    <ion-item>
-     <ion-input formControlName="profileEmail"  type="text" [value]="email" [disabled]="editToggle"  clearInput></ion-input>
+     <ion-input   type="text" [value]="email"  [(ngModel)]="email" [disabled]="isEditable"  clearInput></ion-input>
    </ion-item>
 
-<!-- CHANGED PASSWORD TO GP NUMBER-->
    <ion-item>
-      <ion-input formControlName="profileGPNumber"  type="tel" [value]="numberGP" [disabled]="editToggle"  clearInput></ion-input>
+
+      <ion-input  type="tel" [value]="numberGP"  [(ngModel)]="numberGP" [disabled]="isEditable"  clearInput></ion-input>
     </ion-item>
+    
+    <button ion-button full color="nhs" (click)="saveChanges()" >Save Changes</button>
 
-    <!-- <ion-item>
-      <ion-input formControlName="profileNewPassword" type="password" placeholder="New Password" value=""></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input formControlName="profileNewPasswordRepeat" type="password" placeholder="Repeat New Password" value=""></ion-input>
-    </ion-item> -->
-
-    <!-- Appears when a change occurs. Button will save to the database -->
     </ion-list>
 
-  </form>
+ 
   </ion-card>
   <button ion-button full color="nhs" (click)="saveChanges()" [disabled]="!profileForm.valid">Save Changes</button>
 

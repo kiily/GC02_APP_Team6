@@ -26,42 +26,29 @@
   <ion-card>
     <ion-list-header text-center *ngIf="data.length!=0">
       Please slide for options
+      
     </ion-list-header>
-
+    
  <ion-list *ngFor="let d of data">
-   <!-- <ion-item text-center *ngIf="data.length == 0">No tests</ion-item> -->
-   <ion-item-sliding (click)="toggleDetails(d)">
 
-    <!-- <div *ngFor="let d of data"> -->
+   <ion-item-sliding >
+
       <ion-item  class="list-style" >
-      <!-- <ion-icon color="nhs" item-left [name]="d.icon"></ion-icon> -->
       <b>{{d.testType}}</b>
       <br>
       Taken on: <b> {{d.testDate}} </b>
       <br><br>
-      Result available:
+      Delivery time elapsed:
 
       <!-- once 100%, option to call becomes available - unlikely to implement, cool nevertheless
       <ion-icon item-right name="call"></ion-icon> -->
 
-      <!-- <div class="accordion" *ngIf="d.showDetails"> -->
       <progress-bar [progress]="d.progress"></progress-bar>
 
-        <!-- <div> -->
-        <!-- <button item-left ion-button color="nhs" (click)="goToInfoPage()">
-          <ion-icon name="information-circle"></ion-icon>
-        </button>
-        <button item-right ion-button color="danger" (click)="deleteTest()">
-          <ion-icon name="trash"></ion-icon>
-        </button> -->
-        <!-- </div> -->
-
 <!--       if we want to add result date     -->
-<!--       Expected delivery date: {{d.resultDeliveryDate}} -->
+       Result available: {{d.resultDeliveryDate}}
+        
       </ion-item>
-      <!-- </div> -->
-    <!-- </ion-item> -->
-    <!-- </div> THIS IS FOR ngFor-->
 
     <ion-item-options side="right">
       <button ion-button color="nhs" (click)="goToInfoPage(d.testType)">
@@ -72,11 +59,10 @@
         Del</button>
     </ion-item-options>
 
-    <!-- </div> -->
   </ion-item-sliding>
  </ion-list>
  </ion-card>
+  
  <p text-center color="darkgrey" *ngIf="data.length == 0">You currently have no blood tests to display.</p>
- <!-- <p text-center color="darkgrey" *ngIf="isDataEmpty == true">{{isDataEmptyString}}</p> -->
 
 </ion-content>

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
-import { Slides } from 'ionic-angular';
+import { NavController, AlertController, Slides,   Platform } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { LoginPage } from '../login/login';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FirebaseListObservable } from 'angularfire2';
 import { AuthProvider} from '../../providers/auth-provider';
-import { Camera } from 'ionic-native';
+import { Camera, Keyboard } from 'ionic-native';
 /*
   Generated class for the Signup page.
 
@@ -52,8 +51,13 @@ users: FirebaseListObservable<any []>;
 private photoUploaded: string;
 
   constructor(public navCtrl: NavController, public formBuilder:FormBuilder,
-   public alertCtrl:AlertController,  public authProvider : AuthProvider) {
+   public alertCtrl:AlertController,  public authProvider : AuthProvider, public platform :Platform) {
 
+
+      this.platform.ready().then(() => {
+      Keyboard.disableScroll(true);
+    });
+    
     this.mySlideOptions = {
     initialSlide: 0,
     loop: false,
@@ -81,6 +85,7 @@ private photoUploaded: string;
  */
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
+   
   }
 
 

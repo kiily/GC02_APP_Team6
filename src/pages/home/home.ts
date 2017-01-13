@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {TestHistoryPage} from "../test-history/test-history";
-import { NavController, AlertController, Platform, ActionSheetController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { InfoPage } from '../info/info';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { ProfilePage } from '../profile/profile';
@@ -19,6 +19,16 @@ import * as moment from 'moment';
  * visit the test history, select from a list of available tests and edit their profile.
  * This class contains the variables and methods necessary to render a fully functional
  * HTML template.
+ * 
+ *  References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ * - https://devdactic.com/ultimate-ionic-2-cheatsheet/
  */
 export class HomePage {
 
@@ -27,10 +37,7 @@ export class HomePage {
  // use this to give the uri of the profile picture from firebase
 userPhoto: string;
 
-// used with checkbox alert
-//TO BE DELETED NOW? 
-testCheckboxOpen: boolean;
-testCheckboxResult;
+
 
 //to display in the home page
 firstName;
@@ -39,8 +46,7 @@ tests: FirebaseListObservable<any[]>;
 
 
   constructor(public navCtrl: NavController, public af:AngularFire, public alertCtrl:AlertController,
-  public actionsheetCtrl: ActionSheetController, public platform: Platform, public authProvider : AuthProvider
-  ,public firebaseProvider : FirebaseProvider ) {
+   public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
     
   }
 
@@ -112,7 +118,7 @@ goToProfile(){
 //CHECK IF WE STILL NEED THIS ONE
 /**
  * Utility method to create delays between alerts. 
- * Making the design more fluid
+ * Making the design more fluid.
  */
 createTimeout(timeout) {
         return new Promise((resolve, reject) => {
@@ -120,92 +126,7 @@ createTimeout(timeout) {
         })
     }
 
-// // checkbox alert; disabled for now
-// showCheckbox() {
-//     let alert = this.alertCtrl.create();
-//     alert.setTitle('Information...');
 
-//     alert.addInput({
-//       type: 'checkbox',
-//       label: 'via e-mail',
-//       value: 'value1',
-//       checked: true
-//     });
-
-//     alert.addInput({
-//       type: 'checkbox',
-//       label: 'via app',
-//       value: 'value2'
-//     });
-
-//     alert.addButton('Cancel');
-//     alert.addButton({
-//       text: 'Confirm',
-//       handler: data => {
-//         console.log('Checkbox data:', data);
-//         this.testCheckboxOpen = false;
-//         this.testCheckboxResult = data;
-
-//         this.confirmBtnTouched();
-
-//       }
-//     });
-//     alert.present();
-//   }
-
-//   // action sheet
-//   openMenu() {
-//    let actionSheet = this.actionsheetCtrl.create({
-//      title: 'Information',
-//      cssClass: 'action-sheets-basic-page',
-//      buttons: [
-//        {
-//          text: 'via Email',
-//          icon: !this.platform.is('ios') ? 'share' : null,
-//          handler: () => {
-//            console.log('Share clicked');
-//          }
-//        },
-//        {
-//          text: 'via App',
-//          icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
-//          handler: () => {
-//            console.log('Play clicked');
-//          }
-//        },
-//        {
-//          text: 'Both',
-//          icon: !this.platform.is('ios') ? 'heart-outline' : null,
-//          handler: () => {
-//            console.log('Favorite clicked');
-//          }
-//        },
-//        {
-//          text: 'Cancel',
-//          role: 'cancel', // will always sort to be on the bottom
-//          icon: !this.platform.is('ios') ? 'close' : null,
-//          handler: () => {
-//            console.log('Cancel clicked');
-//          }
-//        }
-//      ]
-//    });
-//    actionSheet.present();
-//  }
-
-// confirmBtnTouched(){
-//   this.navCtrl.push(InfoPage);
-// }
-
-
-
-
-
-
-
-
-//method triggered from clicking one of the texts
-//cheks for date and its validity
 /**
  * This method is triggered when the user selects one of the tests from the home screen.
  * A prompt message prompts the user to enter the date of their recent blood test.
@@ -258,7 +179,7 @@ let alert = this.alertCtrl.create({
             
             let resultDeliveryDate = this.calculateFinalDate(testDate, test.deliveryTime);
             let resultDeliveryDateStr : string = moment(resultDeliveryDate).format('DD/MM/YYYY');
-            this.scheduleLocalNotification(test, resultDeliveryDate);
+            //this.scheduleLocalNotification(test, resultDeliveryDate);
 
 
             this.firebaseProvider.registerNewTest(uid, test, testDateStr, resultDeliveryDateStr);

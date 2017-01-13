@@ -54,15 +54,7 @@
    <ion-item>
       <ion-input  type="tel" [value]="numberGP"  [(ngModel)]="numberGP" [disabled]="isEditable"  clearInput></ion-input>
     </ion-item>
-
-    <ion-item>
-      <ion-input  type="password" placeholder="New Password" value=""  [(ngModel)]="newPassword"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input  type="password" placeholder="Repeat New Password" value=""  [(ngModel)]="newPasswordRepeat"></ion-input>
-    </ion-item>
-
+ 
     <!-- Appears when a change occurs. Button will save to the database -->
     <button ion-button full color="nhs" (click)="saveChanges()" >Save Changes</button>
 

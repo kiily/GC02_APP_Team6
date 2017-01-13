@@ -11,6 +11,12 @@ import 'rxjs/add/operator/map';
 
 /**
  * This class provides the methods necessary to manipulate user and test data to/from the database.
+ * References: 
+ *  - https://firebase.google.com/docs/reference/
+ *  - https://angularfire2.com/api/
+ *  - https://github.com/angular/angularfire2
+ *  - https://www.joshmorony.com/building-a-crud-ionic-2-application-with-firebase-angularfire/
+ *  - https://devdactic.com/ionic-2-firebase/
  */
 @Injectable()
 export class FirebaseProvider {

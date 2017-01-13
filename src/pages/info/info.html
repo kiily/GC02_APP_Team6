@@ -12,7 +12,7 @@
 
     </button>
     <ion-title text-center class="toolbar-background">
-      <p class="title-colour-test">Information</p>
+      <p class="title-colour-custom">Information</p>
     </ion-title>
 
   </ion-navbar>
@@ -20,7 +20,7 @@
 </ion-header>
 
 
-<ion-content class="stable">
+<ion-content class="content-background">
 
   <!--note to self: might not need the if if we can change the video from the database
 <div *ngIf="testType === 'TSH'">-->
@@ -39,7 +39,7 @@
         <div class="video-container">
             <!-- <iframe src="YOUTUBE" frameborder="0" width="560" height="315"></iframe> -->
 <!--             <iframe src="//player.vimeo.com/video/193456223" width=width height=height frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
-            <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0"></iframe>
+            <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0" (click)="videoTestClick"></iframe>
         </div>
     </ion-item>
     <p text-center><b>Video password: TSH</b></p>
@@ -52,5 +52,5 @@
   </ion-card-content>
 </ion-card>
 
-<button ion-button full (click)="sendEmail()">Send this to my email</button>
+<button ion-button full color="nhs" (click)="sendEmail()">Send this to my email</button>
 </ion-content>

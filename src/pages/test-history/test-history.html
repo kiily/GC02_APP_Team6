@@ -12,7 +12,7 @@
       <ion-icon name="arrow-back"></ion-icon>
     </button>
     <ion-title class="toolbar-background">
-      <p text-center class="title-colour-test">Test History</p>
+      <p text-center class="title-colour-custom">Test History</p>
       </ion-title>
   </ion-navbar>
 
@@ -21,7 +21,7 @@
 <!--Asynchronous pipe allows the whole page to be rendered-->
 <p *ngFor="let test of tests | async"></p>
 
-<ion-content class="background">
+<ion-content class="content-background">
 
   <ion-card>
     <ion-list-header text-center *ngIf="data.length!=0">

@@ -1,5 +1,16 @@
 page-home {
 
+  .avatar-size-center  {
+      width: 100% !important;
+      height : 100% !important;
+      max-width: 200px !important;  //any size
+      max-height: 200px !important; //any size
+
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+  }
+
   .button{
     background-color: #0099FF;
     font-size: 14px;

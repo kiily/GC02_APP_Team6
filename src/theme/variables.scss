@@ -12,10 +12,7 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-.content-stable{
-  background-color: #000;
-}
-
+// This changes the background to display an image. Change image url for a different image.
 .background-photo{
     background-image:
     // linear-gradient(
@@ -27,77 +24,16 @@ $font-path: "../assets/fonts";
     background-size: cover;
 }
 
+// Global colour for the navigation bar.
 .toolbar-background {
   background-color: #0099FF;
-  .title-colour-test{
-    color: #FFFFFF;
-  }
-}
-.ion-content-test {
-  background-image:
-  linear-gradient(
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)
-  ),
-  url('../assets/images/doc-background.jpg');
-  background-repeat: no-repeat;
-  background-size:cover;
-
 }
 
-.title-colour-test{
+// Global colour for the navigation bar title.
+.title-colour-custom{
   color: #FFFFFF;
   font-size: 16px;
   font-weight: lighter;
-}
-
-.signup-page {
-  background-image:
-  // linear-gradient(
-  //   rgba(0, 0, 0, 0.5),
-  //   rgba(0, 0, 0, 0.5)
-  // ),
-  url('../assets/images/doc-background.jpg');
-  background-repeat: no-repeat;
-  background-size:cover;
-
-  .slide-zoom {
-    height: 100%;
-  }
-
-  .font-size {
-    font-size: 11px;
-  }
-}
-
-.avatar-size-center  {
-    width: 100% !important;
-    height : 100% !important;
-    max-width: 200px !important;  //any size
-    max-height: 200px !important; //any size
-
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-
-$control-height: 0px;
-.padding-top-brian {
-  padding-top: $control-height+150;
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 60%;
-    padding-top: 30px; height: 0; overflow: hidden;
-}
-
-.video-container iframe, .video-container object, .video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 

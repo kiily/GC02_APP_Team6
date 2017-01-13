@@ -4,7 +4,11 @@
 <ion-slides #swipes [options]="mySlideOptions">
     <ion-slide color="nhs">
 
-      <!-- <p class="title">Personal Details</p> -->
+<!-- <p class="title">Personal Details</p> -->
+
+<!-- align cancel to the bottom of the page -->
+<button class="cancel" ion-button block color="darkgrey" clear (click)='cancelNewUser();' ion->
+  <ion-icon name="close"></ion-icon></button>
 
 <ion-list inset>
   <ion-list-header>Details (1/2): Personal</ion-list-header>
@@ -12,11 +16,11 @@
 
         <ion-item class="test2">
 
-        <ion-input formControlName="firstname" type="text" placeholder="First name*" clearInput></ion-input>
+        <ion-input formControlName="firstname" type="text" placeholder="First Name*" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input formControlName ="lastname" type="text" placeholder="Last name*" clearInput></ion-input>
+          <ion-input formControlName ="lastname" type="text" placeholder="Last Name*" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
@@ -40,20 +44,24 @@
       </form>
     </ion-list>
 
-    <!-- align cancel to the bottom of the page -->
-    <button class="cancel" ion-button clear color="light" (click)='cancelNewUser();' ion->Cancel</button>
-
-
     </ion-slide>
     <ion-slide>
+    <button class="cancel" ion-button block color="darkgrey" clear (click)='cancelNewUser();' ion->
+        <ion-icon name="close"></ion-icon></button>
 
-<form [formGroup]="signUpForm">
+      <form [formGroup]="signUpForm">
       <!-- <p class="title">Login Details</p> -->
 
       <ion-list inset>
         <ion-list-header>Details (2/2): Login</ion-list-header>
-        <ion-item>
 
+        <ion-item>
+          <button ion-button color="nhs" (click)="openGallery()">upload photo
+            </button>
+              <img [src]="photoUploaded" style="width : 25% ; height : 25%">
+        </ion-item>
+
+        <ion-item>
           <ion-input formControlName="email" type="text" placeholder="Email:" clearInput></ion-input>
         </ion-item>
 

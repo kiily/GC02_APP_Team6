@@ -41,21 +41,16 @@ export class ProfilePage {
   lastName;
   email;
   numberGP;
-  newPassword;
-  newPasswordRepeat;
-
+  private photoUploaded: string;
+  
   //boolean for enabling and disabling ion-input fields
   isEditable =true;
-
-  private photoUploaded: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider : AuthProvider,
   public firebaseProvider : FirebaseProvider, public af:AngularFire, public alertCtrl :AlertController) {
     //need to set this variable here so it can be used below
  
      console.log(this.isEditable);
-
-     
   }
 
   /**
@@ -76,7 +71,7 @@ export class ProfilePage {
 if(this.photoUploaded == null){
     this.photoUploaded = "assets/images/dobby.jpg";
 }
-    
+
   }
 
   /**
@@ -87,7 +82,7 @@ if(this.photoUploaded == null){
   this.navCtrl.pop(HomePage);
   }
 
-  
+
   /**
    * This method accesses the camera of the device the application is running on via a native cordova
    * plugin. It then extracts the uri for the picture and saves it to the firebase database as an 
@@ -111,7 +106,7 @@ if(this.photoUploaded == null){
     encodingType: Camera.EncodingType.JPEG,
     correctOrientation: true
   }
-  
+
   Camera.getPicture(cameraOptions)
     .then(file_uri => {this.photoUploaded = file_uri;
       console.log("this is the photo uri"+file_uri);
@@ -132,17 +127,10 @@ saveChanges(){
 
   let uid = this.authProvider.getCurrentUID();
   
-  
-
-//we are getting rid of the new password part on this
-   if(this.newPassword === this.newPasswordRepeat){
      this.authProvider.updateUserProfile(uid,this.firstName,this.lastName,this.email,this.numberGP);
      console.log("user updated");
-   }
-     
-
+   
       this.presentChangesAlert();
-  
 }
 
 /**
@@ -199,37 +187,10 @@ getCurrentUserInfo(){
 }
 
 /**
- * This method is deprecated
- */
-presentPasswordAlert(){
-  
-    //separate alert into new method
-    let alert = this.alertCtrl.create({
-
-      title: "Passwords did not match!",
-      subTitle: "Make sure that the password fields match. Try again",
-      buttons: [
-        {
-          text: "OK",
-          //checking if it works
-          handler: data => {
-            console.log('OK clicked')
-          }
-        }
-      ]
-    });
-    alert.present();
-  
-
-
-}
-
-/**
  * This method presents an alert to notify the user that the changes to the profile page
  * where successfully saved to the firebase database.
  */
 presentChangesAlert(){
-  
     let alert = this.alertCtrl.create({
 
       title: "Profile updated",
@@ -244,7 +205,7 @@ presentChangesAlert(){
       ]
     });
     alert.present();
-  
+
 
 
 }

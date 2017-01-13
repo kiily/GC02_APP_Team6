@@ -28,7 +28,7 @@ import * as moment from 'moment';
  */
 export class TestHistoryPage {
 
-  
+
 
 
   
@@ -39,11 +39,12 @@ export class TestHistoryPage {
   //tests : FirebaseListObservable<any[]>;
   tests: Observable<any[]>;
 
-  isDataEmpty;
-  
+  isDataEmpty: boolean;
+  isDataEmptyString;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController,
   public loadingCtrl : LoadingController, public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider ) {
-  
+
 
   }
 
@@ -55,8 +56,7 @@ export class TestHistoryPage {
     console.log('ionViewDidLoad TestHistoryPage');
 
     this.displayTests();
- 
-        
+    
   }
 
   /**
@@ -85,7 +85,7 @@ displayTests(){
   .map(tests => {
 
      console.log("AFTER MAP", tests);
-       
+
        for(let test of tests){
 
          let progress = this.calculatePercentage(test);
@@ -98,17 +98,13 @@ displayTests(){
           resultDeliveryDate: test.resultDeliveryDate,
           progress : progress
         });
-         
+
         console.log(this.data);
-      
+
        }
 
        //temporarily for tests to display by date
        this.data.reverse();
-     
-       
-  
-       
       return tests;
       });
 
@@ -116,14 +112,12 @@ displayTests(){
 
 }
 
- 
-  
-
 /**
  * This method is triggered when the user presses the info button. The view is changed to the
  * info page and a test type parameter is passed to the NavController so that it can be retrieved
  * and used by the InfoPage class (info.ts)
 . */
+
   goToInfoPage(testType){
     this.navCtrl.push(InfoPage, {
       testType: testType
@@ -137,7 +131,7 @@ displayTests(){
  * the date specified by the user when adding the test.
  */
 calculatePercentage(test) :number{
-  
+
 
    let initial = moment(test.testDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
    let final = moment(test.resultDeliveryDate, 'DD/MM/YYYY').format('MM/DD/YYYY');
@@ -154,9 +148,7 @@ calculatePercentage(test) :number{
   
   
    let timeElapsedMs = (currentDateMs - testDateMs);
-   //console.log(timeElapsedMs);
   
-
     let progress;
     //any test that has finished
     if(resultDeliveryDateMs < currentDateMs){
@@ -189,7 +181,6 @@ deleteTest(testKeyToDelete, confirmDelete){
   this.data =[];
 
   this.displayTests();
-  this.presentLoadingDefault();
   }
 
 }
@@ -198,7 +189,6 @@ deleteTest(testKeyToDelete, confirmDelete){
 
   /**
    * Utility method which presents a small loading delay while a test is being deleted.
-   * Might be deprecated now.
    */
   presentLoadingDefault() {
   let loading = this.loadingCtrl.create({
@@ -209,8 +199,8 @@ deleteTest(testKeyToDelete, confirmDelete){
 
   setTimeout(() => {
     loading.dismiss();
-  }, 200);
-    
+  }, 1200);
+
 }
 
 
@@ -237,19 +227,29 @@ deleteTestConfirmation(testKeyToDelete, testType){
           text: 'Yes',
           handler: () => {
             console.log('Agree clicked');
+
+            this.presentLoadingDefault();
+
+            this.createTimeout(800).then(() => {
             confirmDelete = true;
             this.deleteTest(testKeyToDelete, confirmDelete);
-            
+
           }
+        )}
         }
       ]
     });
     confirm.present();
-    
+
   }
 
-
-
-
+ /**
+ * This utility method creates a delay of custom time to allow a smoother transition between deleting a test and refreshing the test history page.
+ */
+  createTimeout(timeout) {
+          return new Promise((resolve, reject) => {
+              setTimeout(() => resolve(null),timeout)
+          })
+      }
 
 }

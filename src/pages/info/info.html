@@ -12,7 +12,7 @@
 
     </button>
     <ion-title text-center class="toolbar-background">
-      <p class="title-colour-test">Information</p>
+      <p class="title-colour-custom">Information</p>
     </ion-title>
 
   </ion-navbar>
@@ -20,7 +20,7 @@
 </ion-header>
 
 
-<ion-content class="stable">
+<ion-content class="content-background">
 
   <!--note to self: might not need the if if we can change the video from the database
 <div *ngIf="testType === 'TSH'">-->
@@ -32,9 +32,6 @@
       Hi, Mr. {{firstName}}
       </ion-card-title>
     <p>
-      The most popular industrial group ever, and largely
-      responsible for bringing the music to a mass audience.
-
       {{description}}
     </p>
 
@@ -43,16 +40,19 @@
             <!-- <iframe src="YOUTUBE" frameborder="0" width="560" height="315"></iframe> -->
 <!--             <iframe src="//player.vimeo.com/video/193456223" width=width height=height frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
       
-           
             <iframe [src]= "videoURL|safe"   width="WIDTH" height="HEIGHT" frameborder="0" allowfullscreen="true"></iframe>
+
         </div>
     </ion-item>
+    <p text-center><b>Video password: TSH</b></p>
+    <br>
     <p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p>
-    <p padding-top>Sincerely,</p>
-    <p text-right>Team 6</p>
-
+    <br>
+    <p>Further Information:</p>
+     <!-- Miguel modify link code here! -->
+    <p>"fetched links from firebase"</p>
   </ion-card-content>
 </ion-card>
 
-<button ion-button (click)="sendEmail()">Send this to my email</button>
+<button ion-button full color="nhs" (click)="sendEmail()">Send this to my email</button>
 </ion-content>

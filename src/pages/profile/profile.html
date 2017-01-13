@@ -13,18 +13,15 @@
       <button ion-button color="light" (click)="toogleEdit()">Edit</button>
     </ion-buttons>
     <ion-title text-center class="toolbar-background">
-      <p class="title-colour-test">My Profile</p>
+      <p class="title-colour-custom">My Profile</p>
     </ion-title>
 
   </ion-navbar>
 </ion-header>
 
 
-
-<ion-content class="background">
+<ion-content class="content-background">
 <ion-card class="card-style">
-
-
 
   <ion-list inset>
 
@@ -35,12 +32,11 @@
              <img [src]="photoUploaded" style="width : 100% ; height : 100%">
        </ion-col>
        <ion-col width-67>
-         <ion-item><!--ADD ngModel instead of forms ?? wait for redesign-->
+         <ion-item>
            <ion-input  type="text" [value]="firstName"  [(ngModel)]="firstName" [disabled]="isEditable" clearInput></ion-input>
          </ion-item>
 
          <ion-item>
-           <!-- <ion-label>Last:</ion-label> -->
            <ion-input  type="text" [value]="lastName"  [(ngModel)]="lastName" [disabled]="isEditable"   clearInput></ion-input>
          </ion-item>
       </ion-col>
@@ -50,17 +46,18 @@
      <ion-input   type="text" [value]="email"  [(ngModel)]="email" [disabled]="isEditable"  clearInput></ion-input>
    </ion-item>
 
-<!-- CHANGED PASSWORD TO GP NUMBER-->
    <ion-item>
+
       <ion-input  type="tel" [value]="numberGP"  [(ngModel)]="numberGP" [disabled]="isEditable"  clearInput></ion-input>
     </ion-item>
- 
-    <!-- Appears when a change occurs. Button will save to the database -->
+    
     <button ion-button full color="nhs" (click)="saveChanges()" >Save Changes</button>
 
     </ion-list>
 
  
   </ion-card>
+  <button ion-button full color="nhs" (click)="saveChanges()" [disabled]="!profileForm.valid">Save Changes</button>
+
 
 </ion-content>

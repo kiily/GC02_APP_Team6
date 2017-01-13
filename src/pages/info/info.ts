@@ -44,13 +44,16 @@ videoURL :string;
 description: string;
 firstName: string;
 email: string;
+
+thumbnail: string = "https://my.leadpages.net/template/5165241367789568/raw/img/vimeo-player-screenshot.png?aid=";
+// = "http://www.lenvalleypractice.co.uk/uploads/images/Dr_Kendrew.jpg"
+//"assets/images/dobby.jpg";
+
 infoLink1 : string;
 infoLink2 : string;
 
 
-
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,  
+  constructor(public navCtrl: NavController, public navParams: NavParams,
   public authProvider : AuthProvider, public firebaseProvider : FirebaseProvider) {
 
 
@@ -67,12 +70,12 @@ infoLink2 : string;
  * being inside the constructor because this prevents memory leakage.
  *  */
 ionViewDidLoad(){
- 
+
  let uid = this.authProvider.getCurrentUID();
 
  let videoURL = this.firebaseProvider.getVideoURL(this.testType);
  videoURL.subscribe(videoURLDB => {
-   
+
    //this is the URL passed to the DOM
     this.videoURL = videoURLDB.$value;
     console.log("URL: "+this.videoURL);
@@ -93,6 +96,14 @@ ionViewDidLoad(){
  email.subscribe(emailDB => {
    this.email= emailDB.$value;
  });
+
+
+}
+
+videoTestClick() {
+  console.log("iframe exists");
+}
+
  
  let videoLink1 = this.firebaseProvider.getInfoLink1(this.testType);
  videoLink1.subscribe(infoLink1DB => {
@@ -112,6 +123,7 @@ ionViewDidLoad(){
  * This method is triggered when the user presses the back arrow/button. The view changes to the 
  * home screen.
  */
+
 backButton() {
     this.navCtrl.pop(HomePage);
 }
@@ -133,11 +145,10 @@ sendEmail(){
     }
   });
 
-//might need to hardcode the password
 let emailToSend ={
   to: this.email,
   subject: 'Blood Test App - '+this.testType+' Information',
-  body: '<p>Dear '+this.firstName+',</p>'+'<p>'+this.description+'</p><p>Follow this link to watch the video: '+this.videoURL+'<p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p><p>Sincerely,</p><p>Blood Test App Team</p>',
+  body: '<p>Dear '+this.firstName+',</p>'+'<p>'+this.description+'</p><p>Follow this link to watch the video: </p><p><a href="'+this.videoURL+'"><img src='+this.thumbnail+' alt="click me" style="width:130px; height:90px; border:1;"></a></p> <p>'+this.videoURL+'</p><p>Video password: TSH</p><p>As always, please contact the medical professional who ordered this test for you if you need to discuss further. We will update you shortly when your results are available.</p><p>Sincerely,</p><p>Blood Test App Team</p>',
   isHtml: true
 };
 
@@ -145,7 +156,7 @@ EmailComposer.open(emailToSend);
 
 
 }
-     
+
 
 
 }

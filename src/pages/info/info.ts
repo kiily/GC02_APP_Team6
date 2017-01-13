@@ -65,6 +65,7 @@ ionViewDidLoad(){
    
    //this is the URL passed to the DOM
     this.videoURL = videoURLDB.$value;
+    console.log("URL: "+this.videoURL);
  });
 
  let description = this.firebaseProvider.getTestDescription(this.testType);

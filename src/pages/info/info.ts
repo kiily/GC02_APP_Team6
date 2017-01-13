@@ -23,7 +23,7 @@ import { FirebaseProvider} from '../../providers/firebase-provider';
  * home page.
  * This class contains the variables and methods necessary to render a fully functional
  * HTML template.
- * 
+ *
  *  * References:
  * - https://ionicframework.com/docs/
  * - https://docs.angularjs.org/guide/unit-testing
@@ -33,7 +33,7 @@ import { FirebaseProvider} from '../../providers/firebase-provider';
  * - http://www.typescriptlang.org/docs/tutorial.html
  * https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
  */
- 
+
 export class InfoPage {
 
 
@@ -66,7 +66,7 @@ infoLink2 : string;
 /**
  * This method is triggered as soon as the info Page is loaded and it stores the
  * current user's uid in order to be able to retrieve his first and last names .  Additionally the method retrieves a specific
- * test type's desciption and video URL as well as 2 additional information links to be displayed on the home page. Note that subscribe methods are included here instead of 
+ * test type's desciption and video URL as well as 2 additional information links to be displayed on the home page. Note that subscribe methods are included here instead of
  * being inside the constructor because this prevents memory leakage.
  *  */
 ionViewDidLoad(){
@@ -98,7 +98,7 @@ ionViewDidLoad(){
  });
 
 
- 
+
  let videoLink1 = this.firebaseProvider.getInfoLink1(this.testType);
  videoLink1.subscribe(infoLink1DB => {
    this.infoLink1 = infoLink1DB.$value;
@@ -113,12 +113,8 @@ ionViewDidLoad(){
 
 }
 
-videoTestClick() {
-  console.log("iframe exists");
-}
-
 /**
- * This method is triggered when the user presses the back arrow/button. The view changes to the 
+ * This method is triggered when the user presses the back arrow/button. The view changes to the
  * home screen.
  */
 
@@ -127,10 +123,10 @@ backButton() {
 }
 
 /**
- * This method is triggered when the user presses the send to email button. It calls the 
+ * This method is triggered when the user presses the send to email button. It calls the
  * email composer from the respective cordova plugin and it allows the user to compose an email, which
  * will contain the relevant information and send this to the registered email address.
- * 
+ *
  * References:
  * - https://github.com/hypery2k/cordova-email-plugin
  * - https://ionicframework.com/docs/v2/native/email-composer/

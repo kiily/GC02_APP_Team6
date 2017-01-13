@@ -98,12 +98,6 @@ ionViewDidLoad(){
  });
 
 
-}
-
-videoTestClick() {
-  console.log("iframe exists");
-}
-
  
  let videoLink1 = this.firebaseProvider.getInfoLink1(this.testType);
  videoLink1.subscribe(infoLink1DB => {
@@ -113,10 +107,14 @@ videoTestClick() {
 
   let videoLink2 = this.firebaseProvider.getInfoLink2(this.testType);
  videoLink2.subscribe(infoLink2DB => {
-   this.infoLink1 = infoLink2DB.$value;
+   this.infoLink2 = infoLink2DB.$value;
    //console.log(this.description);
  });
 
+}
+
+videoTestClick() {
+  console.log("iframe exists");
 }
 
 /**

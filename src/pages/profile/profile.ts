@@ -116,7 +116,7 @@ if(this.photoUploaded == null){
 }
 
 
-//FOR TOMORROW, SHOULD EMAIL EVEN BE HERE ??
+
 /**
  * This method is triggered by pressing the save changes button. It takes the information
  * in the ion-input fields and passes it to the auth provider method updateUserProfile thus
@@ -184,6 +184,7 @@ getCurrentUserInfo(){
     this.photoUploaded = photoUriDB.$value;
     console.log(photoUriDB.$value);
   });
+
 }
 
 /**

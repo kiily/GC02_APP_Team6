@@ -67,10 +67,7 @@ tests: FirebaseListObservable<any[]>;
     //to render buttons
     this.tests = this.firebaseProvider.getBloodTests();
 
-    this.userPhoto =  "assets/images/kevin.jpg";
-    console.log(this.userPhoto);
-
-    
+     
   let firstName = this.authProvider.getUserFirstName(uid);
   firstName.subscribe(firstNameDB => {
     this.firstName = firstNameDB.$value
@@ -81,7 +78,12 @@ tests: FirebaseListObservable<any[]>;
     this.lastName = lastNameDB.$value
   });
 
-  
+     
+  let photoUri = this.authProvider.getPhotoUri(uid);
+  photoUri.subscribe(photoUriDB =>  {
+    this.userPhoto = photoUriDB.$value;
+    console.log(photoUriDB.$value);
+  });
   
 
    }
@@ -377,5 +379,32 @@ console.log('scheduling notification for this date: '+deliveryDate);
 
 }
 
+signOutMethod(){
+
+     let confirm = this.alertCtrl.create({
+      title: 'Sign out?',
+      message: 'Are you sure that you want to sign out?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Agree clicked');
+
+            this.signOutBtn();
+
+          }
+        }
+        
+      ]
+    });
+    confirm.present();
+
+}
 
 }

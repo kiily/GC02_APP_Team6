@@ -29,7 +29,7 @@
 
   <ion-card-content>
     <ion-card-title>
-      Hi, Mr. {{firstName}}
+      Hi, {{firstName}}
       </ion-card-title>
     <p>
       {{description}}
@@ -50,8 +50,10 @@
     <br>
     <p>Further Information:</p>
      <!-- Miguel modify link code here! -->
-    <p>"fetched links from firebase"</p>
-  </ion-card-content>
+     Info link #1: <a [href]="infoLink1">{{infoLink1}}</a>
+     <br>
+     Info link #2: <a [href]="infoLink2">{{infoLink2}}</a>
+    </ion-card-content>
 </ion-card>
 
 <button ion-button full color="nhs" (click)="sendEmail()">Send this to my email</button>

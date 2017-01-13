@@ -124,6 +124,11 @@ private photoUploaded: string;
 
       let uid = authState.uid;
       this.authProvider.addUserToDatabase(uid, email, firstname, lastname, gender, dob, numberGP);
+      
+      if(this.photoUploaded != null){
+      this.authProvider.updatePhotoUri(uid, this.photoUploaded);
+      }
+
       this.presentSignUpAlert();
 
       this.navCtrl.setRoot(LoginPage);
@@ -220,9 +225,19 @@ presentEmailAlreadyExistsAlert(){
     alert.present();
 }
 
-//IDEA: create a photoURI field in the database ?? could mess up if in another device.
-  // http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
-  private openGallery (): void {
+
+  /**
+   * This method accesses the camera of the device the application is running on via a native cordova
+   * plugin. It then extracts the uri for the picture and saves it to the firebase database as an 
+   * attribute of the specified user. This can then be extracted so that the photo is accessible 
+   * whenever the user logs into the app.
+   * 
+   * References:
+   *  - http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
+   */
+  openGallery() : void {
+    console.log('reached method');
+
 
   let cameraOptions = {
     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
@@ -235,12 +250,12 @@ presentEmailAlreadyExistsAlert(){
   }
 
   Camera.getPicture(cameraOptions)
-    .then(file_uri => this.photoUploaded = file_uri,
+    .then(file_uri => {this.photoUploaded = file_uri;
+      console.log("this is the photo uri"+file_uri);
+      
+    },
     err => console.log(err));
-
-    console.log(Camera.EncodingType.JPEG);
 }
-
 
 
 

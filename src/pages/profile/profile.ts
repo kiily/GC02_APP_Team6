@@ -97,7 +97,7 @@ if(this.photoUploaded == null){
    * References:
    *  - http://blog.ionic.io/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
    */
-  private openGallery (): void {
+  openGallery() : void {
     console.log('reached method');
 
   let uid = this.authProvider.getCurrentUID();

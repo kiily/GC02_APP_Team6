@@ -25,6 +25,16 @@ import * as moment from 'moment';
  * Pressing a back button navigates to the home page.
  * This class contains the variables and methods necessary to render a fully functional
  * HTML template.
+ * 
+ * References:
+ * - https://ionicframework.com/docs/
+ * - https://docs.angularjs.org/guide/unit-testing
+ * - http://www.angular2.com/
+ * - https://angular.io/docs/ts/latest/guide/
+ * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
+ * - http://www.typescriptlang.org/docs/tutorial.html
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ * - http://www.angulartypescript.com/angular-2-tutorial/
  */
 export class TestHistoryPage {
 

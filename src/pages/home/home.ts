@@ -29,6 +29,7 @@ import * as moment from 'moment';
  * - http://www.typescriptlang.org/docs/tutorial.html
  * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
  * - https://devdactic.com/ultimate-ionic-2-cheatsheet/
+ * - http://www.angulartypescript.com/angular-2-tutorial/
  */
 export class HomePage {
 

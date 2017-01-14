@@ -33,7 +33,8 @@ import { SignupPage } from '../signup/signup';
  * - https://angular.io/docs/ts/latest/guide/
  * - https://cordova.apache.org/docs/en/latest/guide/overview/#web-app
  * - http://www.typescriptlang.org/docs/tutorial.html
- * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/
+ * - https://www.joshmorony.com/building-mobile-apps-with-ionic-2/ 
+ * - http://www.angulartypescript.com/angular-2-tutorial/
  */
 export class LoginPage {
 

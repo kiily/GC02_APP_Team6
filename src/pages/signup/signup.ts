@@ -263,6 +263,29 @@ presentEmailAlreadyExistsAlert(){
     err => console.log(err));
 }
 
+/**
+ * This method presents an alert notifying the user that the photo is only used to be 
+ * displayed inside the app.
+ */
+presentPhotoInfoAlert(){
+ 
+    let alert = this.alertCtrl.create({
+
+      title: "Photo Upload",
+      subTitle: "This app only uses the photo for displaying a profile picture inside the app.",
+      buttons: [
+        {
+          text: "OK",
+          
+          handler: data => {
+            console.log('OK clicked')
+            this.openGallery();
+          }
+        }
+      ]
+    });
+    alert.present();
+}
 
 
 }
